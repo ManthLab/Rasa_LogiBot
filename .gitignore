@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+env/
+venv/
+rasa_env/
+node_modules/
+models/
+.rasa/
+*.tar.gz
+.DS_Store
+.idea/
+.vscode/

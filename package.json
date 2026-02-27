@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@rasahq/chat-widget-ui": "^0.1.12"
+  }
+}
