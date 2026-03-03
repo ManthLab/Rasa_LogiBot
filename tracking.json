@@ -1,0 +1,12 @@
+{
+  "XYZ12345": {
+    "status": "In Transit",
+    "location": "Mumbai Hub",
+    "eta": "5 March 2026"
+  },
+  "ABC3567": {
+    "status": "Delivered",
+    "location": "Delhi",
+    "eta": "1 March 2026"
+  }
+}

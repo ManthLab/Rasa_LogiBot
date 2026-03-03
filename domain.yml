@@ -5,35 +5,156 @@ intents:
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
-  - weather
-  - temperature
+  - track_shipment
+  - book_shipment
+  - cancel_shipment
+
+
+entities:
+  - tracking_id
+
+slots:
+  tracking_id:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: tracking_id
+
+  sender_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: sender_name
+
+  sender_contact_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: sender_contact_number
+
+  sender_email:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: sender_email
+
+  receiver_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: receiver_name
+
+  receiver_contact_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: receiver_contact_number
+
+  delivery_location:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: delivery_location
+        
+forms:
+  tracking_form:
+    required_slots:
+      - tracking_id
+      
+  booking_form:
+    required_slots:
+      - sender_name
+      - sender_contact_number
+      - sender_email
+      - receiver_name
+      - receiver_contact_number
+      - delivery_location
 
 responses:
-  utter_greet:
-  - text: "Hey! How are you?"
+  utter_greet_bot:
+    - text: |
+        Hello 👋 I am LogiBot – Your Logistics Assistant.
 
-  utter_weather:                                
-  - text: "The weather is good today."
+        How can I help you today?
+      buttons:
+        - title: "📦Track Shipment"
+          payload: "/track_shipment"
+        - title: "🚚Book New Shipment"
+          payload: "/book_shipment"
+        - title: "❌Cancel Shipment"
+          payload: "/cancel_shipment"
 
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+  utter_ask_tracking_id:
+   - text: "Please provide your tracking id."
+
+  utter_ask_sender_name:
+   - text: "Enter senders name."
+
+  utter_ask_sender_contact_number:
+   - text: "Enter senders contact number."
+
+  utter_ask_sender_email:
+   - text: "Enter senders email."
+
+  utter_ask_receiver_name:
+   - text: "Enter receivers name." 
+
+  utter_ask_receiver_contact_number:
+   - text: "Enter receivers contact number." 
+
+  utter_ask_delivery_location:
+   - text: "Enter delivery location."
+
+  utter_ask_confirm_booking:
+    - text: |
+        Please review your details:
+
+        Sender: {sender_name}
+        Sender_Contact: {sender_contact_number}
+        Email: {sender_email}
+        
+        Receiver: {receiver_name}
+        Receiver_Contact: {receiver_contact_number}
+        Address: {delivery_location}
+        
+        Confirm booking?
+      buttons:
+        - title: "Yes"
+          payload: "/affirm"
+        - title: "No"
+          payload: "/deny"          
 
   utter_did_that_help:
-  - text: "Did that help you?"
+    - text: "Did that help you?"
 
   utter_happy:
-  - text: "Great, carry on!"
+    - text: "Great, carry on!"
 
   utter_goodbye:
-  - text: "Bye"
+    - text: "Bye"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
 
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
+actions:
+  - action_track_shipment
+  - action_book_shipment
+  - validate_booking_form
+  - action_cancel_booking

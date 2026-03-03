@@ -11,3 +11,54 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Greet user
+  steps:
+    - intent: greet
+    - action: utter_greet_bot
+
+# -------- TRACKING --------
+
+- rule: Start tracking form
+  steps:
+    - intent: track_shipment
+    - action: tracking_form
+    - active_loop: tracking_form
+
+- rule: Submit tracking form
+  condition:
+    - active_loop: tracking_form
+  steps:
+    - action: tracking_form
+    - active_loop: null
+    - action: action_track_shipment
+
+
+# -------- BOOKING --------
+
+- rule: Start booking form
+  steps:
+    - intent: book_shipment
+    - action: booking_form
+    - active_loop: booking_form
+
+- rule: Submit booking form
+  condition:
+  - active_loop: booking_form
+  steps:
+  - action: booking_form
+  - active_loop: null
+  - action: utter_ask_confirm_booking
+
+- rule: Confirm booking
+  steps:
+    - intent: affirm
+    - action: action_book_shipment
+
+- rule: Cancel booking after confirmation
+  steps:
+    - intent: deny
+    - action: action_cancel_booking
+    
+
+

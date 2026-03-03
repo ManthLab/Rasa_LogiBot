@@ -17,26 +17,37 @@ nlu:
     - goodevening
     - good afternoon
 
-- intent: weather
-  examples: |
-    - What about the weather today
-    - How is todays weather
-    - weather
-    - How is the weather today ?
-    - Todays Weather 
 
-- intent: goodbye
+- intent: track_shipment
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+    - Track Shipment
+    - Track my order
+    - Track my shipment
+    - I want to track a parcel
+    - Where is my order?
+    - Track Shipment
+    - Track my order [XYZ12345](tracking_id)
+    - It's [XYZ2150](tracking_id)
+    - [ABC3567](tracking_id)
+    - [MNO0637](tracking_id)
+    - Where is [123456](tracking_id)
+    - Check status of [AWB67890](tracking_id)
+
+- intent: book_shipment
+  examples: |
+    - Book a shipment
+    - Want to book a new shipment
+    - Shipment booking
+    - Booking shipment
+    - Send parcel
+    - Create shipment
+    - I want to book a shipment
+
+- intent: cancel_shipment
+  examples: |
+    - cancel my shipment
+    - I want to cancel
+    - Cancel
 
 - intent: affirm
   examples: |
@@ -56,40 +67,9 @@ nlu:
     - don't like that
     - no way
     - not really
-
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - cancel
+    - not now 
+    - cancel booking
 
 - intent: bot_challenge
   examples: |
