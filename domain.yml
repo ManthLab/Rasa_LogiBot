@@ -9,10 +9,13 @@ intents:
   - track_shipment
   - book_shipment
   - cancel_shipment
+  - get_shipping_rates
 
 
 entities:
   - tracking_id
+  - from_location
+  - to_location
 
 slots:
   tracking_id:
@@ -68,6 +71,22 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: delivery_location
+
+  from_location:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: from_location
+
+  to_location:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: to_location
         
 forms:
   tracking_form:
@@ -83,6 +102,11 @@ forms:
       - receiver_contact_number
       - delivery_location
 
+  rates_form:
+    required_slots:
+      - from_location
+      - to_location
+
 responses:
   utter_greet_bot:
     - text: |
@@ -96,6 +120,8 @@ responses:
           payload: "/book_shipment"
         - title: "❌Cancel Shipment"
           payload: "/cancel_shipment"
+        - title: "📦Get Shipping Rates"
+          payload: "/get_shipping_rates"
 
   utter_ask_tracking_id:
    - text: "Please provide your tracking id."
@@ -117,6 +143,12 @@ responses:
 
   utter_ask_delivery_location:
    - text: "Enter delivery location."
+
+  utter_ask_from_location:
+   - text: "Please enter pickup location." 
+
+  utter_ask_to_location:
+  - text: "Please enter delivery location." 
 
   utter_ask_confirm_booking:
     - text: |
@@ -158,3 +190,4 @@ actions:
   - action_book_shipment
   - validate_booking_form
   - action_cancel_booking
+  - action_get_shipping_rates

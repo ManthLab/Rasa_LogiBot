@@ -21,6 +21,7 @@ nlu:
 - intent: track_shipment
   examples: |
     - Track Shipment
+    - Want to track my shipment
     - Track my order
     - Track my shipment
     - I want to track a parcel
@@ -48,6 +49,20 @@ nlu:
     - cancel my shipment
     - I want to cancel
     - Cancel
+    - i want to cancel my shipment
+
+- intent: get_shipping_rates
+  examples: |
+    - I want to know the shipping rates
+    - What are your shipping charges?
+    - How much does shipping cost?
+    - Tell me the shipping price
+    - What is the cost to send a parcel?
+    - How much will it cost to ship from [Mumbai](from_location) to [Delhi](to_location)?
+    - Cost to send parcel from [Bangalore](from_location) to [Ahmedabad](to_location)
+    - Shipping price from [Chennai](from_location) to [Hyderabad](to_location)
+    - How much will it cost to send shipment to [Ahmedabad](to_location)?
+    - Cost to send from [Kolkata](from_location)
 
 - intent: affirm
   examples: |

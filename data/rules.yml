@@ -59,6 +59,23 @@ rules:
   steps:
     - intent: deny
     - action: action_cancel_booking
+
+
+# -------- SHIPPING RATES --------
+
+- rule: Start rates form
+  steps:
+    - intent: get_shipping_rates
+    - action: rates_form
+    - active_loop: rates_form
+
+- rule: Submit rates form
+  condition:
+    - active_loop: rates_form
+  steps:
+    - action: rates_form
+    - active_loop: null
+    - action: action_get_shipping_rates
     
 
 

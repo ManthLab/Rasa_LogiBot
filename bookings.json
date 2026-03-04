@@ -5,6 +5,19 @@
         "receiver": "Aviraj Pawar",
         "location": "Chiplun",
         "cost": 150
+    },
+    {
+        "booking_id": "BK5216",
+        "sender": "Vikrant Pawar",
+        "receiver": "Rudra Sawant",
+        "location": "Mumbai",
+        "cost": 150
+    },
+    {
+        "booking_id": "BKI6131",
+        "sender": "John Doe",
+        "receiver": "Jason David",
+        "location": "Berlin",
+        "cost": 150
     }
-   
 ]

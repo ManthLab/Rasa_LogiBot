@@ -54,7 +54,7 @@ class ValidateBookingForm(FormValidationAction):
         self, value, dispatcher, tracker, domain
     ):
         if not re.fullmatch(r"\d{10}", value):
-            dispatcher.utter_message(text="❌ Mobile number must be 10 digits.")
+            dispatcher.utter_message(text="Mobile number must be 10 digits.")
             return {"sender_contact_number": None}
 
         return {"sender_contact_number": value}
@@ -64,7 +64,7 @@ class ValidateBookingForm(FormValidationAction):
         self, value, dispatcher, tracker, domain
     ):
         if not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", value):
-            dispatcher.utter_message(text="❌ Invalid email format.")
+            dispatcher.utter_message(text="Invalid email format.")
             return {"sender_email": None}
 
         return {"sender_email": value}
@@ -88,7 +88,7 @@ class ActionBookShipment(Action):
         receiver = tracker.get_slot("receiver_name")
         location = tracker.get_slot("delivery_location")
 
-        booking_id = "BK" + str(random.randint(1000, 9999))
+        booking_id = "BKI" + str(random.randint(1000, 9999))
 
         # Simple cost logic
         base_cost = 100
@@ -136,7 +136,40 @@ Thank you for choosing LogiBot!
             SlotSet("delivery_location", None),
         ]
     
-#-------------- Cancel Booking ---------------
+#-------------- Get Shipping rates -------------
+
+class ActionGetShippingRates(Action):
+    def name(self):
+        return "action_get_shipping_rates"
+    
+    def run(self, dispatcher, tracker, domain):
+
+        from_location = tracker.get_slot("from_location")
+        to_location = tracker.get_slot("to_location")
+
+        base_price = 100
+
+        if from_location.lower() == to_location.lower():
+            distance_charge = 50
+        else:
+            distance_charge = 100
+
+            total_cost = base_price + distance_charge
+
+            dispatcher.utter_message(
+                text=f""" 
+📦 Shipping Rates:
+ From: {from_location}
+ TO: {to_location}
+ Estimated Rate: ₹{total_cost}
+            """
+            )
+            return [
+                SlotSet("from_location",None),
+                SlotSet("to_location",None),
+            ]   
+    
+#-------------- Cancel Booking -----------------
 class ActionCancelBooking(Action):
 
     def name(self):
@@ -144,7 +177,7 @@ class ActionCancelBooking(Action):
 
     def run(self, dispatcher, tracker, domain):
 
-        dispatcher.utter_message(text="❌ Booking cancelled successfully.")
+        dispatcher.utter_message(text="Booking cancelled successfully.")
 
         return [
             SlotSet("sender_name", None),
