@@ -61,7 +61,7 @@ rules:
     - action: action_cancel_booking
 
 
-# -------- SHIPPING RATES --------
+# ---------- SHIPPING RATES -------------
 
 - rule: Start rates form
   steps:
@@ -76,6 +76,22 @@ rules:
     - action: rates_form
     - active_loop: null
     - action: action_get_shipping_rates
+
+#------------ Nearest Branch --------------
+
+- rule: Start nearest branch form
+  steps:
+    - intent: nearest_branch
+    - action: branch_form
+    - active_loop: branch_form
+
+- rule: Submit branch form
+  condition:
+    - active_loop: branch_form
+  steps:
+    - action: branch_form
+    - active_loop: null
+    - action: action_get_nearest_branch
     
 
 

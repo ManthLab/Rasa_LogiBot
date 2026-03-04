@@ -187,3 +187,68 @@ class ActionCancelBooking(Action):
             SlotSet("receiver_contact_number", None),
             SlotSet("delivery_location", None),
         ]    
+    
+#-------------------- Nearest Branch -----------------
+
+class ActionNearestForm(Action):
+
+    def name(self):
+        return "action_get_nearest_branch"
+    
+    def run(self, dispatcher, tracker, domain):
+
+        city = tracker.get_slot("nearest_branch")
+
+        if not city:
+            dispatcher.utter_message(text="Please provide a city name.")
+            return []
+        
+         # Normalize input
+        city_key = city.strip().lower()
+
+        # Alias mapping
+        city_aliases = {
+            "banglore": "bangalore",
+            "bengaluru": "bangalore",
+            "bombay": "mumbai",
+            "delhi ncr": "delhi"
+        }
+
+        if city_key in city_aliases:
+            city_key = city_aliases[city_key]
+        
+        # Load branch data
+        try:
+            with open("branch.json") as f:
+                data = json.load(f)
+        except:
+            dispatcher.utter_message(text="Branch data not available.")
+            return []
+        
+        city = city.strip().title()
+
+        # Check if city exists
+        if city_key in data:
+            branch = data[city_key]
+
+            dispatcher.utter_message(
+                text=f"""
+🏢 Nearest Branch Details
+
+City: {city}
+Address: {branch['address']}
+Phone: {branch['phone']}
+Email: {branch['email']}
+Working Hours: {branch['working_hours']}
+                """
+            )
+        else:
+            dispatcher.utter_message(
+                text="Sorry, no branch found in this city."
+            )
+
+        return [
+            SlotSet("nearest_branch", None)
+        ]
+
+

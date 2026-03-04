@@ -64,6 +64,22 @@ nlu:
     - How much will it cost to send shipment to [Ahmedabad](to_location)?
     - Cost to send from [Kolkata](from_location)
 
+- intent: nearest_branch
+  examples: |
+    - nearest branch
+    - What is your nearest branch
+    - The nearest branch for shipment
+    - what would be the nearest branch 
+    - Any branch near me
+    - A nearest branch to ship my parcel
+    - What is the nearest branch for me
+    - I live in [Mumbai](nearest_branch)
+    - What would the nearest branch for [Banglore](nearest_branch)
+    - Nearest branch in [Delhi](nearest_branch)
+    - What is the nearest branch for shipment in [Hyderabad](nearest_branch)
+    - [Banglore](nearest_branch)
+    - Nearest Branch in [Ahemdabad](nearest_branch)
+
 - intent: affirm
   examples: |
     - yes

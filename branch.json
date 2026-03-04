@@ -1,0 +1,26 @@
+{
+    "mumbai": {
+        "address": "LogiExpress Logistics Pvt. Ltd., 3rd Floor, Skyline Business Park, Andheri-Kurla Road, Andheri East, Mumbai, Maharashtra - 400069",
+        "phone": "+91 9876543210",
+        "email": "mumbai.branch@logiexpress.com",
+        "working_hours": "Mon-Sat: 9:00 AM - 7:00 PM"
+    },
+    "delhi": {
+        "address": "LogiExpress Logistics Pvt. Ltd., Unit 12, Connaught Place Business Centre, Inner Circle, New Delhi, Delhi - 110001",
+        "phone": "+91 9123456780",
+        "email": "delhi.branch@logiexpress.com",
+        "working_hours": "Mon-Sat: 9:00 AM - 7:00 PM"
+    },
+    "bangalore": {
+        "address": "LogiExpress Logistics Pvt. Ltd., 5th Floor, Prestige Meridian Tower, MG Road, Bengaluru, Karnataka - 560001",
+        "phone": "+91 9988776655",
+        "email": "bangalore.branch@logiexpress.com",
+        "working_hours": "Mon-Sat: 9:00 AM - 7:00 PM"
+    },
+    "ahemdabad": {
+        "address": "LogiExpress Logistics Pvt. Ltd., 2nd Floor, Shivalik Plaza, Navrangpura, Ahmedabad, Gujarat - 380009",
+        "phone": "+91 9012345678",
+        "email": "ahmedabad.branch@logiexpress.com",
+        "working_hours": "Mon-Sat: 9:00 AM - 7:00 PM"
+    }
+}

@@ -10,12 +10,14 @@ intents:
   - book_shipment
   - cancel_shipment
   - get_shipping_rates
+  - nearest_branch
 
 
 entities:
   - tracking_id
   - from_location
   - to_location
+  - nearest_branch
 
 slots:
   tracking_id:
@@ -87,6 +89,16 @@ slots:
         conditions:
           - active_loop: rates_form
             requested_slot: to_location
+
+  nearest_branch:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: nearest_branch
+      - type: from_text
+        conditions:
+          - active_loop: branch_form
+            requested_slot: nearest_branch
         
 forms:
   tracking_form:
@@ -107,6 +119,10 @@ forms:
       - from_location
       - to_location
 
+  branch_form:
+    required_slots:
+      - nearest_branch
+
 responses:
   utter_greet_bot:
     - text: |
@@ -120,12 +136,16 @@ responses:
           payload: "/book_shipment"
         - title: "❌Cancel Shipment"
           payload: "/cancel_shipment"
-        - title: "📦Get Shipping Rates"
+        - title: "💰Get Shipping Rates"
           payload: "/get_shipping_rates"
+        - title: "📍Find nearest branch"
+          payload: "/nearest_branch"
 
+#-------------- Track Shipment ------------
   utter_ask_tracking_id:
    - text: "Please provide your tracking id."
 
+#-------------- Book Shipment -------------
   utter_ask_sender_name:
    - text: "Enter senders name."
 
@@ -144,12 +164,14 @@ responses:
   utter_ask_delivery_location:
    - text: "Enter delivery location."
 
+#------------- Get Rates -----------------
   utter_ask_from_location:
    - text: "Please enter pickup location." 
 
   utter_ask_to_location:
   - text: "Please enter delivery location." 
 
+#-------------- Confirm Booking ----------------
   utter_ask_confirm_booking:
     - text: |
         Please review your details:
@@ -167,7 +189,11 @@ responses:
         - title: "Yes"
           payload: "/affirm"
         - title: "No"
-          payload: "/deny"          
+          payload: "/deny"   
+
+#-------------- Nearest Branch ---------------
+  utter_ask_nearest_branch:
+    - text: "Please provide the name of the city from where you are planning to send your shipment:"       
 
   utter_did_that_help:
     - text: "Did that help you?"
@@ -191,3 +217,4 @@ actions:
   - validate_booking_form
   - action_cancel_booking
   - action_get_shipping_rates
+  - action_get_nearest_branch
