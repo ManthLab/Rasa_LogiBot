@@ -74,6 +74,13 @@ slots:
           - active_loop: booking_form
             requested_slot: delivery_location
 
+  booking_confirmation_pending:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+    mappings:
+      - type: custom
+
   from_location:
     type: text
     mappings:

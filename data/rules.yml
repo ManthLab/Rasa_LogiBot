@@ -19,20 +19,10 @@ rules:
 
 # -------- TRACKING --------
 
-- rule: Start tracking form
+- rule: Track shipment
   steps:
     - intent: track_shipment
-    - action: tracking_form
-    - active_loop: tracking_form
-
-- rule: Submit tracking form
-  condition:
-    - active_loop: tracking_form
-  steps:
-    - action: tracking_form
-    - active_loop: null
     - action: action_track_shipment
-
 
 # -------- BOOKING --------
 

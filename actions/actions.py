@@ -3,7 +3,7 @@ import json
 import random
 from rasa_sdk import Action, Tracker                 # --> Provides access to slots & conversation state
 from rasa_sdk.executor import CollectingDispatcher   # --> Used to send messages back to the user
-from rasa_sdk.events import SlotSet                  # --> Used to update or reset slot values
+from rasa_sdk.events import SlotSet, ActiveLoop      # --> Used to update or reset slot values
 from rasa_sdk import FormValidationAction
 from rasa_sdk.types import DomainDict
 from typing import Any, Text, Dict
@@ -18,11 +18,20 @@ class ActionTrackShipment(Action):
 
         tracking_id = tracker.get_slot("tracking_id")
 
-        #  Load JSON file
-        with open("tracking.json") as f:
-            data = json.load(f)
+        if not tracking_id:
+            dispatcher.utter_message(text="Please provide a valid tracking ID.")
+            return []
 
-        #  Check if tracking ID exists
+        #  Load JSON file
+        try:
+            with open("tracking.json") as f:
+                data = json.load(f)
+        except:
+            dispatcher.utter_message(text="Tracking system unavailable.")
+            return []
+
+        tracking_id = tracking_id.strip().upper()   # normalize input
+
         if tracking_id in data:
             shipment = data[tracking_id]
 
@@ -85,7 +94,10 @@ class ActionBookShipment(Action):
             return []
 
         sender = tracker.get_slot("sender_name")
+        sender_number = tracker.get_slot("sender_contact_number")
+        sender_email = tracker.get_slot("sender_email")
         receiver = tracker.get_slot("receiver_name")
+        receiver_number = tracker.get_slot("receiver_contact_number")
         location = tracker.get_slot("delivery_location")
 
         booking_id = "BKI" + str(random.randint(1000, 9999))
@@ -98,7 +110,10 @@ class ActionBookShipment(Action):
         booking_data = {
             "booking_id": booking_id,
             "sender": sender,
+            "sender_number": sender_number,
+            "sender_email": sender_email,
             "receiver": receiver,
+            "receiver_number": receiver_number,
             "location": location,
             "cost": total_cost
         }
@@ -120,6 +135,11 @@ class ActionBookShipment(Action):
 🚚 Shipment Booked Successfully!
 
 Booking ID: {booking_id}
+Sender Name: {sender}
+Sender Contact: {sender_number}
+Sender Email: {sender_email}
+Receiver Name: {receiver}
+Receiver Contact :{receiver_number}
 Delivery Location: {location}
 Shipping Cost: ₹{total_cost}
 
@@ -248,7 +268,8 @@ Working Hours: {branch['working_hours']}
             )
 
         return [
-            SlotSet("nearest_branch", None)
+            SlotSet("nearest_branch", None),
+            
         ]
 
 

@@ -19,9 +19,14 @@
     "location": "Mumbai",
     "eta": "10 March 2026"
   },
-  "UVW3149": {
+  "LMN5500": {
     "status": "In Transit",
     "location": "Ahemdabad",
     "eta": "8 March 2026"
+  },
+  "UVW5050":{
+    "status": "Delivered",
+    "location": "Banglore",
+    "eta": "3 March 2026"
   }
 }
