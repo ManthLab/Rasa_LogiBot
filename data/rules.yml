@@ -83,5 +83,3 @@ rules:
     - active_loop: null
     - action: action_get_nearest_branch
     
-
-

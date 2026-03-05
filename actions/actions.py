@@ -271,5 +271,3 @@ Working Hours: {branch['working_hours']}
             SlotSet("nearest_branch", None),
             
         ]
-
-

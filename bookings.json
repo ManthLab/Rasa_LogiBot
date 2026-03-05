@@ -50,5 +50,35 @@
         "receiver_number": "0798678980",
         "location": "Kalyan",
         "cost": 150
+    },
+    {
+        "booking_id": "BKI8217",
+        "sender": "Manthan",
+        "sender_number": "9082840443",
+        "sender_email": "manthan@gmail.com",
+        "receiver": "Pratham",
+        "receiver_number": "9687576587",
+        "location": "Australia",
+        "cost": 150
+    },
+    {
+        "booking_id": "BKI1234",
+        "sender": "Pratham",
+        "sender_number": "9876758760",
+        "sender_email": "pratham@gmail.com",
+        "receiver": "Atharva",
+        "receiver_number": "9879768700",
+        "location": "Kochi",
+        "cost": 150
+    },
+    {
+        "booking_id": "BKI2216",
+        "sender": "Atharva",
+        "sender_number": "9798687600",
+        "sender_email": "atharva@gmail.com",
+        "receiver": "Pratham",
+        "receiver_number": "9687689900",
+        "location": "Surat",
+        "cost": 150
     }
 ]
