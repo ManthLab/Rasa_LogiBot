@@ -361,7 +361,7 @@ class ValidatePickupForm(FormValidationAction):
             return {"pickup_date": slot_value}
 
         except:
-            dispatcher.utter_message(text="Enter pickup date (example: 9 March 2026).")
+            dispatcher.utter_message(text="Please enter a valid date.")
             return {"pickup_date": None}
 
 
