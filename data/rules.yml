@@ -83,3 +83,35 @@ rules:
     - active_loop: null
     - action: action_get_nearest_branch
     
+# -------- SCHEDULE PICKUP --------
+
+- rule: Start pickup form
+  steps:
+    - intent: schedule_pickup
+    - action: pickup_form
+    - active_loop: pickup_form
+
+- rule: Submit pickup form
+  condition:
+    - active_loop: pickup_form
+  steps:
+    - action: pickup_form
+    - active_loop: null
+    - action: action_schedule_pickup
+
+- rule: Stop pickup form if user changes intent
+  condition:
+    - active_loop: pickup_form
+  steps:
+    - intent: nlu_fallback
+    - action: action_deactivate_loop
+    - active_loop: null
+
+- rule: Cancel any active form
+  condition:
+    - active_loop: pickup_form
+  steps:
+    - intent: deny
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: utter_cancelled

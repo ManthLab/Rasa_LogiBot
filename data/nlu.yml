@@ -80,6 +80,17 @@ nlu:
     - [Banglore](nearest_branch)
     - Nearest Branch in [Ahemdabad](nearest_branch)
 
+- intent: schedule_pickup
+  examples: |
+    - schedule a pickup
+    - I want to schedule a pickup
+    - Arrange pickup
+    - Do you also have pickup arangements
+    - Do you also provide pickups
+    - Do you have any pickup facility
+    - What about scheduling a pickup
+    - any pickup facilities
+
 - intent: affirm
   examples: |
     - yes
@@ -101,6 +112,10 @@ nlu:
     - cancel
     - not now 
     - cancel booking
+    - restart
+    - menu
+    - go back
+    - start over
 
 - intent: bot_challenge
   examples: |

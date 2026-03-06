@@ -7,6 +7,9 @@ from rasa_sdk.events import SlotSet, ActiveLoop      # --> Used to update or res
 from rasa_sdk import FormValidationAction
 from rasa_sdk.types import DomainDict
 from typing import Any, Text, Dict
+from rasa_sdk import FormValidationAction
+from datetime import datetime
+from dateutil import parser
 
 #----------------- Tracking Shipment ------------------
 class ActionTrackShipment(Action):
@@ -271,3 +274,113 @@ Working Hours: {branch['working_hours']}
             SlotSet("nearest_branch", None),
             
         ]
+    
+#------------------- Schedule Pickup -------------
+
+class ActionSchedulePickup(Action):
+    def name(self):
+        return ("action_schedule_pickup")
+    
+    def run(self, dispatcher, tracker, domain):
+
+        name = tracker.get_slot("pickup_name")
+        contact = tracker.get_slot("pickup_contact")
+        address = tracker.get_slot("pickup_address")
+        date = tracker.get_slot("pickup_date")
+        time = tracker.get_slot("pickup_time")
+
+        pickup_id = "PCK" + str(random.randint(1000, 9999))
+
+        pickup_data = {
+            "pickup_id": pickup_id,
+            "name": name,
+            "contact": contact,
+            "address": address,
+            "date": date,
+            "time": time
+        }
+
+        # Load existing pickups
+        try:
+            with open("pickup_data.json", "r") as file:
+                data = json.load(file)
+        except:
+            data = {"pickups": []}
+
+        # Add new pickup
+        data["pickups"].append(pickup_data)
+
+        # Save back
+        with open("pickup_data.json", "w") as file:
+            json.dump(data, file, indent=4)
+
+        dispatcher.utter_message(
+            text=f"""
+📦 Pickup Scheduled Successfully!
+
+Pickup ID: {pickup_id}
+
+Name: {name}
+Contact: {contact}
+Address: {address}
+
+Pickup Date: {date}
+Pickup Time: {time}
+
+Our agent will arrive as per pickup scheduled.
+"""
+        )
+
+        return [
+            SlotSet("pickup_name", None),
+            SlotSet("pickup_contact", None),
+            SlotSet("pickup_address", None),
+            SlotSet("pickup_date", None),
+            SlotSet("pickup_time", None)
+        ]
+       
+
+class ValidatePickupForm(FormValidationAction):
+
+    def name(self):
+        return "validate_pickup_form"
+
+
+    def validate_pickup_date(self, slot_value, dispatcher, tracker, domain):
+
+        try:
+            pickup_date = parser.parse(slot_value).date()
+            today = datetime.today().date()
+
+            if pickup_date < today:
+                dispatcher.utter_message(
+                    text="Pickup date cannot be in the past. Please enter a valid future date."
+                )
+                return {"pickup_date": None}
+
+            return {"pickup_date": slot_value}
+
+        except:
+            dispatcher.utter_message(text="Enter pickup date (example: 9 March 2026).")
+            return {"pickup_date": None}
+
+
+    def validate_pickup_time(self, slot_value, dispatcher, tracker, domain):
+
+        try:
+            pickup_time = parser.parse(slot_value).time()
+
+            start = datetime.strptime("09:00", "%H:%M").time()
+            end = datetime.strptime("18:00", "%H:%M").time()
+
+            if pickup_time < start or pickup_time > end:
+                dispatcher.utter_message(
+                    text="Pickup allowed only between 9 AM and 6 PM."
+                )
+                return {"pickup_time": None}
+
+            return {"pickup_time": slot_value}
+
+        except:
+            dispatcher.utter_message(text="Please enter a valid time.")
+            return {"pickup_time": None}

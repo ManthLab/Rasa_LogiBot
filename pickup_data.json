@@ -1,0 +1,20 @@
+{
+    "pickups": [
+        {
+            "pickup_id": "PCK6946",
+            "name": "Manthan",
+            "contact": "9082840443",
+            "address": "B2/1, Garibacha wada, M.P Road, Dombivli 421202.",
+            "date": "08 March 2026",
+            "time": "4 PM"
+        },
+        {
+            "pickup_id": "PCK1607",
+            "name": "John Doe",
+            "contact": "9798687560",
+            "address": "L-32, st.george , 3rd street, New York -45",
+            "date": "9 March",
+            "time": "5 PM"
+        }
+    ]
+}

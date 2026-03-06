@@ -11,6 +11,7 @@ intents:
   - cancel_shipment
   - get_shipping_rates
   - nearest_branch
+  - schedule_pickup
 
 
 entities:
@@ -26,6 +27,7 @@ slots:
       - type: from_entity
         entity: tracking_id
 
+#-------------- Book Shipment -------------
   sender_name:
     type: text
     mappings:
@@ -81,6 +83,7 @@ slots:
     mappings:
       - type: custom
 
+#--------------- Get Rates -----------
   from_location:
     type: text
     mappings:
@@ -97,6 +100,7 @@ slots:
           - active_loop: rates_form
             requested_slot: to_location
 
+#--------------- nearest branch -----------
   nearest_branch:
     type: text
     mappings:
@@ -106,6 +110,47 @@ slots:
         conditions:
           - active_loop: branch_form
             requested_slot: nearest_branch
+
+#--------------- Schedule Pickup ------------
+  pickup_name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: pickup_form
+            requested_slot: pickup_name
+
+  pickup_contact:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: pickup_form
+            requested_slot: pickup_contact
+
+  pickup_address:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: pickup_form
+            requested_slot: pickup_address
+
+  pickup_date:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: pickup_form
+            requested_slot: pickup_date
+
+  pickup_time:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: pickup_form
+            requested_slot: pickup_time
         
 forms:
   tracking_form:
@@ -130,6 +175,15 @@ forms:
     required_slots:
       - nearest_branch
 
+  pickup_form:
+    required_slots:
+      - pickup_name
+      - pickup_contact
+      - pickup_address
+      - pickup_date
+      - pickup_time
+
+
 responses:
   utter_greet_bot:
     - text: |
@@ -147,6 +201,8 @@ responses:
           payload: "/get_shipping_rates"
         - title: "📍Find nearest branch"
           payload: "/nearest_branch"
+        - title: "Schedule Pickup"
+          payload: "/schedule_pickup"  
 
 #-------------- Track Shipment ------------
   utter_ask_tracking_id:
@@ -214,6 +270,25 @@ responses:
   utter_iamabot:
     - text: "I am a bot, powered by Rasa."
 
+#----------------- Schedule Pickup ----------------
+  utter_ask_pickup_name:
+    - text: "Enter your name."
+
+  utter_ask_pickup_contact:
+    - text: "Enter your contact number."
+
+  utter_ask_pickup_address:
+    - text : "Enter pickup address."
+
+  utter_ask_pickup_date:
+    - text: "Enter pickup date."
+
+  utter_pickup_time:
+    - text: "Enter pickup time."
+
+  utter_cancelled:
+    - text: "Okay 👍 I've cancelled the current process. How else can I help?"
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
@@ -225,3 +300,5 @@ actions:
   - action_cancel_booking
   - action_get_shipping_rates
   - action_get_nearest_branch
+  - action_schedule_pickup
+  - validate_pickup_form
