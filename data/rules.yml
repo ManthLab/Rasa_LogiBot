@@ -2,24 +2,36 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
-
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+# ── Core ──────────────────────────────────────────────────────────────────
 
 - rule: Greet user
   steps:
     - intent: greet
     - action: utter_greet_bot
 
-# -------- TRACKING --------
+- rule: Say goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
 
-- rule: Start tracking shipment
+- rule: Say I am a bot
+  steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
+
+- rule: Help user
+  steps:
+    - intent: ask_help
+    - action: utter_help
+
+- rule: Thank you response
+  steps:
+    - intent: thank_you
+    - action: utter_thank_you
+
+# ── Track Shipment ────────────────────────────────────────────────────────
+
+- rule: Start tracking form
   steps:
     - intent: track_shipment
     - action: tracking_form
@@ -33,7 +45,16 @@ rules:
     - active_loop: null
     - action: action_track_shipment
 
-# -------- BOOKING --------
+- rule: Stop tracking form
+  condition:
+    - active_loop: tracking_form
+  steps:
+    - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
+
+# ── Book Shipment ─────────────────────────────────────────────────────────
 
 - rule: Start booking form
   steps:
@@ -43,24 +64,25 @@ rules:
 
 - rule: Submit booking form
   condition:
-  - active_loop: booking_form
+    - active_loop: booking_form
   steps:
-  - action: booking_form
-  - active_loop: null
-  - action: utter_ask_confirm_booking
+    - action: booking_form
+    - active_loop: null
+    - action: utter_ask_confirm_booking
 
-- rule: Confirm booking
+- rule: Stop booking form
+  condition:
+    - active_loop: booking_form
   steps:
-    - intent: affirm
-    - action: action_book_shipment
+    - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
 
-- rule: Cancel booking after confirmation
-  steps:
-    - intent: deny
-    - action: action_cancel_booking
+# NOTE: affirm -> action_book_shipment and deny -> action_cancel_booking
+# are handled ONLY in stories.yml to avoid RulePolicy conflicts.
 
-
-# ---------- SHIPPING RATES -------------
+# ── Shipping Rates ────────────────────────────────────────────────────────
 
 - rule: Start rates form
   steps:
@@ -76,9 +98,18 @@ rules:
     - active_loop: null
     - action: action_get_shipping_rates
 
-#------------ Nearest Branch --------------
+- rule: Stop rates form
+  condition:
+    - active_loop: rates_form
+  steps:
+    - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
 
-- rule: Start nearest branch form
+# ── Nearest Branch ────────────────────────────────────────────────────────
+
+- rule: Start branch form
   steps:
     - intent: nearest_branch
     - action: branch_form
@@ -91,8 +122,17 @@ rules:
     - action: branch_form
     - active_loop: null
     - action: action_get_nearest_branch
-    
-# -------- SCHEDULE PICKUP --------
+
+- rule: Stop branch form
+  condition:
+    - active_loop: branch_form
+  steps:
+    - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
+
+# ── Schedule Pickup ───────────────────────────────────────────────────────
 
 - rule: Start pickup form
   steps:
@@ -108,19 +148,20 @@ rules:
     - active_loop: null
     - action: action_schedule_pickup
 
-- rule: Stop pickup form if user changes intent
+- rule: Stop pickup form
   condition:
     - active_loop: pickup_form
   steps:
-    - intent: nlu_fallback
+    - intent: stop
     - action: action_deactivate_loop
     - active_loop: null
+    - action: action_cancel_active_form
 
-- rule: Cancel any active form
+- rule: Deny pickup form
   condition:
     - active_loop: pickup_form
   steps:
     - intent: deny
     - action: action_deactivate_loop
     - active_loop: null
-    - action: utter_cancelled
+    - action: action_cancel_active_form

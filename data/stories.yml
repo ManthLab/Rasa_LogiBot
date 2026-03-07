@@ -2,3 +2,150 @@ version: "3.1"
 
 stories:
 
+# ── Booking: full flow confirmed ──────────────────────────────────────────
+- story: booking confirmed
+  steps:
+    - intent: book_shipment
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: utter_ask_confirm_booking
+    - intent: affirm
+    - action: action_book_shipment
+
+# ── Booking: cancelled after review ──────────────────────────────────────
+- story: booking cancelled
+  steps:
+    - intent: book_shipment
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: utter_ask_confirm_booking
+    - intent: deny
+    - action: action_cancel_booking
+
+# ── Booking: confirmed then greet ────────────────────────────────────────
+#- story: booking confirmed then continue
+#  steps:
+#    - intent: book_shipment
+#    - action: booking_form
+#    - active_loop: booking_form
+#    - active_loop: null
+#    - action: utter_ask_confirm_booking
+#    - intent: affirm
+#    - action: action_book_shipment
+#    - intent: greet
+#    - action: utter_greet_bot
+
+# ── Booking: confirmed then track ────────────────────────────────────────
+- story: booking confirmed then track
+  steps:
+    - intent: book_shipment
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: utter_ask_confirm_booking
+    - intent: affirm
+    - action: action_book_shipment
+    - intent: track_shipment
+    - action: tracking_form
+    - active_loop: tracking_form
+
+# ── Pickup: full flow ─────────────────────────────────────────────────────
+- story: pickup scheduled
+  steps:
+    - intent: schedule_pickup
+    - action: pickup_form
+    - active_loop: pickup_form
+    - active_loop: null
+    - action: action_schedule_pickup
+
+# ── Pickup: scheduled then greet ─────────────────────────────────────────
+- story: pickup scheduled then continue
+  steps:
+    - intent: schedule_pickup
+    - action: pickup_form
+    - active_loop: pickup_form
+    - active_loop: null
+    - action: action_schedule_pickup
+    - intent: greet
+    - action: utter_greet_bot
+
+# ── Track ─────────────────────────────────────────────────────────────────
+- story: track shipment
+  steps:
+    - intent: track_shipment
+    - action: tracking_form
+    - active_loop: tracking_form
+    - active_loop: null
+    - action: action_track_shipment
+
+# ── Rates ─────────────────────────────────────────────────────────────────
+- story: get rates
+  steps:
+    - intent: get_shipping_rates
+    - action: rates_form
+    - active_loop: rates_form
+    - active_loop: null
+    - action: action_get_shipping_rates
+
+# ── Rates then book ───────────────────────────────────────────────────────
+- story: rates then book confirmed
+  steps:
+    - intent: get_shipping_rates
+    - action: rates_form
+    - active_loop: rates_form
+    - active_loop: null
+    - action: action_get_shipping_rates
+    - intent: book_shipment
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: utter_ask_confirm_booking
+    - intent: affirm
+    - action: action_book_shipment
+
+# ── Branch ────────────────────────────────────────────────────────────────
+- story: nearest branch
+  steps:
+    - intent: nearest_branch
+    - action: branch_form
+    - active_loop: branch_form
+    - active_loop: null
+    - action: action_get_nearest_branch
+
+# ── Greet then book ───────────────────────────────────────────────────────
+- story: greet then book confirmed
+  steps:
+    - intent: greet
+    - action: utter_greet_bot
+    - intent: book_shipment
+    - action: booking_form
+    - active_loop: booking_form
+    - active_loop: null
+    - action: utter_ask_confirm_booking
+    - intent: affirm
+    - action: action_book_shipment
+
+# ── Greet then pickup ─────────────────────────────────────────────────────
+- story: greet then pickup
+  steps:
+    - intent: greet
+    - action: utter_greet_bot
+    - intent: schedule_pickup
+    - action: pickup_form
+    - active_loop: pickup_form
+    - active_loop: null
+    - action: action_schedule_pickup
+
+# ── Thank you ─────────────────────────────────────────────────────────────
+- story: thank you
+  steps:
+    - intent: thank_you
+    - action: utter_thank_you
+
+# ── Goodbye ───────────────────────────────────────────────────────────────
+- story: goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye

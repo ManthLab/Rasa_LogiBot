@@ -1,6 +1,7 @@
 version: "3.1"
 
 nlu:
+# ── Greet ─────────────────────────────────────────────────────────────────
 - intent: greet
   examples: |
     - hey
@@ -9,48 +10,68 @@ nlu:
     - hello there
     - good morning
     - good evening
-    - moin
+    - good afternoon
     - hey there
     - let's go
     - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+    - start
+    - hi there
+    - howdy
+    - what's up
+    - hola
+    - namaste
 
-
+# ── Track Shipment ────────────────────────────────────────────────────────
 - intent: track_shipment
   examples: |
     - Track Shipment
-    - Want to track my shipment
+    - I want to track my shipment
     - Track my order
-    - Track my shipment
     - I want to track a parcel
     - Where is my order?
-    - Track Shipment
+    - Where is my package?
+    - Check shipment status
+    - Track my package
+    - What is the status of my order?
     - Track my order [XYZ12345](tracking_id)
     - It's [XYZ2150](tracking_id)
     - [ABC3567](tracking_id)
     - [MNO0637](tracking_id)
     - Where is [123456](tracking_id)
     - Check status of [AWB67890](tracking_id)
+    - tracking id is [LMN5500](tracking_id)
+    - my tracking number is [UVW5050](tracking_id)
+    - can you track [MNO2105](tracking_id)
+    - status of [ABC9090](tracking_id)
 
+# ── Book Shipment ─────────────────────────────────────────────────────────
 - intent: book_shipment
   examples: |
     - Book a shipment
-    - Want to book a new shipment
+    - I want to book a new shipment
     - Shipment booking
-    - Booking shipment
+    - Booking a shipment
     - Send parcel
     - Create shipment
     - I want to book a shipment
+    - I need to send a package
+    - How do I book a courier?
+    - New delivery booking
+    - Ship a package
+    - I want to send something
+    - start a new booking
 
+# ── Cancel Shipment ───────────────────────────────────────────────────────
 - intent: cancel_shipment
   examples: |
     - cancel my shipment
     - I want to cancel
-    - Cancel
-    - i want to cancel my shipment
+    - cancel booking
+    - I want to cancel my shipment
+    - cancel my order
+    - stop the shipment
 
+# ── Get Shipping Rates ────────────────────────────────────────────────────
 - intent: get_shipping_rates
   examples: |
     - I want to know the shipping rates
@@ -63,63 +84,132 @@ nlu:
     - Shipping price from [Chennai](from_location) to [Hyderabad](to_location)
     - How much will it cost to send shipment to [Ahmedabad](to_location)?
     - Cost to send from [Kolkata](from_location)
+    - shipping rates
+    - what are the charges?
+    - delivery charges
+    - price for shipping
 
+# ── Nearest Branch ────────────────────────────────────────────────────────
 - intent: nearest_branch
   examples: |
     - nearest branch
     - What is your nearest branch
-    - The nearest branch for shipment
-    - what would be the nearest branch 
-    - Any branch near me
-    - A nearest branch to ship my parcel
-    - What is the nearest branch for me
+    - Find a branch near me
     - I live in [Mumbai](nearest_branch)
-    - What would the nearest branch for [Banglore](nearest_branch)
+    - What would the nearest branch for [Bangalore](nearest_branch)
     - Nearest branch in [Delhi](nearest_branch)
     - What is the nearest branch for shipment in [Hyderabad](nearest_branch)
-    - [Banglore](nearest_branch)
-    - Nearest Branch in [Ahemdabad](nearest_branch)
+    - [Bangalore](nearest_branch)
+    - Nearest Branch in [Ahmedabad](nearest_branch)
+    - branch in [Mumbai](nearest_branch)
+    - office in [Delhi](nearest_branch)
+    - show branch in [Banglore](nearest_branch)
+    - find branch
+    - where is your office
 
+# ── Schedule Pickup ───────────────────────────────────────────────────────
 - intent: schedule_pickup
   examples: |
     - schedule a pickup
     - I want to schedule a pickup
     - Arrange pickup
-    - Do you also have pickup arangements
-    - Do you also provide pickups
-    - Do you have any pickup facility
-    - What about scheduling a pickup
-    - any pickup facilities
+    - Do you also have pickup arrangements?
+    - Do you also provide pickups?
+    - Do you have any pickup facility?
+    - What about scheduling a pickup?
+    - any pickup facilities?
+    - book a home pickup
+    - I need someone to pick up my parcel
+    - home collection
+    - doorstep pickup
 
+# ── Affirm ────────────────────────────────────────────────────────────────
 - intent: affirm
   examples: |
     - yes
     - y
+    - yeah
+    - yep
+    - sure
     - indeed
     - of course
     - that sounds good
     - correct
+    - confirmed
+    - go ahead
+    - proceed
+    - ok
+    - okay
 
+# ── Deny / Stop ───────────────────────────────────────────────────────────
 - intent: deny
   examples: |
     - no
     - n
+    - nope
     - never
     - I don't think so
-    - don't like that
-    - no way
     - not really
+    - not now
     - cancel
-    - not now 
     - cancel booking
+
+- intent: stop
+  examples: |
+    - stop
+    - exit
+    - quit
     - restart
     - menu
     - go back
     - start over
+    - main menu
+    - home
+    - reset
+    - abort
 
+# ── Bot Challenge ─────────────────────────────────────────────────────────
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - who are you?
+    - what are you?
+
+# ── Help ──────────────────────────────────────────────────────────────────
+- intent: ask_help
+  examples: |
+    - help
+    - I need help
+    - what can you do?
+    - what are your services?
+    - show me what you can do
+    - help me
+    - what do you offer?
+    - options
+    - services
+
+# ── Thank You ─────────────────────────────────────────────────────────────
+- intent: thank_you
+  examples: |
+    - thank you
+    - thanks
+    - thanks a lot
+    - thank you so much
+    - great thanks
+    - cheers
+    - appreciate it
+
+# ── Goodbye ───────────────────────────────────────────────────────────────
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you
+    - see you later
+    - cya
+    - good night
+    - have a nice day
+    - talk to you later

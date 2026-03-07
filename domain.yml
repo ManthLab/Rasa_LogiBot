@@ -5,6 +5,7 @@ intents:
   - goodbye
   - affirm
   - deny
+  - stop
   - bot_challenge
   - track_shipment
   - book_shipment
@@ -12,6 +13,8 @@ intents:
   - get_shipping_rates
   - nearest_branch
   - schedule_pickup
+  - ask_help
+  - thank_you
 
 
 entities:
@@ -20,14 +23,16 @@ entities:
   - to_location
   - nearest_branch
 
+
 slots:
+  # ── Tracking ──────────────────────────────
   tracking_id:
     type: text
     mappings:
       - type: from_entity
         entity: tracking_id
 
-#-------------- Book Shipment -------------
+  # ── Book Shipment ─────────────────────────
   sender_name:
     type: text
     mappings:
@@ -68,25 +73,37 @@ slots:
           - active_loop: booking_form
             requested_slot: receiver_contact_number
 
-  delivery_location:
+  # Split delivery address into 3 parts
+  delivery_address:
     type: text
     mappings:
       - type: from_text
         conditions:
           - active_loop: booking_form
-            requested_slot: delivery_location
+            requested_slot: delivery_address
 
-  booking_confirmation_pending:
-    type: bool
-    initial_value: false
-    influence_conversation: true
+  delivery_city:
+    type: text
     mappings:
-      - type: custom
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: delivery_city
 
-#--------------- Get Rates -----------
+  delivery_pincode:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: delivery_pincode
+
+  # ── Shipping Rates ────────────────────────
   from_location:
     type: text
     mappings:
+      - type: from_entity
+        entity: from_location
       - type: from_text
         conditions:
           - active_loop: rates_form
@@ -95,12 +112,14 @@ slots:
   to_location:
     type: text
     mappings:
+      - type: from_entity
+        entity: to_location
       - type: from_text
         conditions:
           - active_loop: rates_form
             requested_slot: to_location
 
-#--------------- nearest branch -----------
+  # ── Nearest Branch ────────────────────────
   nearest_branch:
     type: text
     mappings:
@@ -111,7 +130,7 @@ slots:
           - active_loop: branch_form
             requested_slot: nearest_branch
 
-#--------------- Schedule Pickup ------------
+  # ── Schedule Pickup ───────────────────────
   pickup_name:
     type: text
     mappings:
@@ -151,12 +170,13 @@ slots:
         conditions:
           - active_loop: pickup_form
             requested_slot: pickup_time
-        
+
+
 forms:
   tracking_form:
     required_slots:
       - tracking_id
-      
+
   booking_form:
     required_slots:
       - sender_name
@@ -164,7 +184,9 @@ forms:
       - sender_email
       - receiver_name
       - receiver_contact_number
-      - delivery_location
+      - delivery_address
+      - delivery_city
+      - delivery_pincode
 
   rates_form:
     required_slots:
@@ -185,113 +207,212 @@ forms:
 
 
 responses:
+  # ── Greeting ──────────────────────────────
   utter_greet_bot:
     - text: |
-        Hello 👋 I am LogiBot – Your Logistics Assistant.
+        👋 Hello! I'm **LogiBot** – Your Smart Logistics Assistant.
 
-        How can I help you today?
+        I can help you with:
       buttons:
-        - title: "📦Track Shipment"
+        - title: "📦 Track Shipment"
           payload: "/track_shipment"
-        - title: "🚚Book New Shipment"
+        - title: "🚚 Book New Shipment"
           payload: "/book_shipment"
-        - title: "❌Cancel Shipment"
-          payload: "/cancel_shipment"
-        - title: "💰Get Shipping Rates"
+        - title: "💰 Shipping Rates"
           payload: "/get_shipping_rates"
-        - title: "📍Find nearest branch"
+        - title: "📍 Find Nearest Branch"
           payload: "/nearest_branch"
-        - title: "Schedule Pickup"
-          payload: "/schedule_pickup"  
+        - title: "🔄 Schedule Pickup"
+          payload: "/schedule_pickup"
+        - title: "❌ Cancel Shipment"
+          payload: "/cancel_shipment"
 
-#-------------- Track Shipment ------------
+  # ── Track Shipment ────────────────────────
   utter_ask_tracking_id:
-   - text: "Please provide your tracking id."
+    - text: "🔍 Please enter your **Tracking ID** (e.g. XYZ12345):"
 
-#-------------- Book Shipment -------------
+  # ── Book Shipment ─────────────────────────
   utter_ask_sender_name:
-   - text: "Enter senders name."
+    - text: "📝 Let's set up your shipment!\n\n👤 Please enter the **sender's full name**:"
 
   utter_ask_sender_contact_number:
-   - text: "Enter senders contact number."
+    - text: "📞 Enter the **sender's 10-digit mobile number**:"
 
   utter_ask_sender_email:
-   - text: "Enter senders email."
+    - text: "📧 Enter the **sender's email address**:"
 
   utter_ask_receiver_name:
-   - text: "Enter receivers name." 
+    - text: "👤 Enter the **receiver's full name**:"
 
   utter_ask_receiver_contact_number:
-   - text: "Enter receivers contact number." 
+    - text: "📞 Enter the **receiver's 10-digit mobile number**:"
 
-  utter_ask_delivery_location:
-   - text: "Enter delivery location."
+  utter_ask_delivery_address:
+    - text: |
+        🏠 Enter the **delivery street address** (house/flat no. + street name):
+        _(e.g. Flat 5B, Shiv Nagar, MG Road)_
 
-#------------- Get Rates -----------------
-  utter_ask_from_location:
-   - text: "Please enter pickup location." 
+  utter_ask_delivery_city:
+    - text: "🏙️ Enter the **delivery city**:"
 
-  utter_ask_to_location:
-  - text: "Please enter delivery location." 
+  utter_ask_delivery_pincode:
+    - text: "📮 Enter the **6-digit pincode** of the delivery location:"
 
-#-------------- Confirm Booking ----------------
+  # ── Confirm Booking ───────────────────────
   utter_ask_confirm_booking:
     - text: |
-        Please review your details:
+        📋 **Please review your shipment details:**
 
-        Sender: {sender_name}
-        Sender_Contact: {sender_contact_number}
-        Email: {sender_email}
-        
-        Receiver: {receiver_name}
-        Receiver_Contact: {receiver_contact_number}
-        Address: {delivery_location}
-        
+        ┌─ SENDER ────────────────────────────
+        👤 Name    : {sender_name}
+        📞 Contact : {sender_contact_number}
+        📧 Email   : {sender_email}
+
+        ┌─ RECEIVER ──────────────────────────
+        👤 Name    : {receiver_name}
+        📞 Contact : {receiver_contact_number}
+
+        ┌─ DELIVERY ──────────────────────────
+        🏠 Address : {delivery_address}
+        🏙️ City    : {delivery_city}
+        📮 Pincode : {delivery_pincode}
+
         Confirm booking?
       buttons:
-        - title: "Yes"
+        - title: "✅ Yes, Confirm"
           payload: "/affirm"
-        - title: "No"
-          payload: "/deny"   
+        - title: "❌ No, Cancel"
+          payload: "/deny"
 
-#-------------- Nearest Branch ---------------
+  # ── Shipping Rates ────────────────────────
+  utter_ask_from_location:
+    - text: "📍 Enter the **pickup/origin city**:"
+
+  utter_ask_to_location:
+    - text: "📍 Enter the **delivery/destination city**:"
+
+  # ── Nearest Branch ────────────────────────
   utter_ask_nearest_branch:
-    - text: "Please provide the name of the city from where you are planning to send your shipment:"       
+    - text: |
+        🏢 Which city are you looking for a branch in?
 
-  utter_did_that_help:
-    - text: "Did that help you?"
+        We currently have branches in:
+        Mumbai | Delhi | Bangalore | Ahmedabad
+      buttons:
+        - title: "Mumbai"
+          payload: "Mumbai"
+        - title: "Delhi"
+          payload: "Delhi"
+        - title: "Bangalore"
+          payload: "Bangalore"
+        - title: "Ahmedabad"
+          payload: "Ahmedabad"
 
-  utter_happy:
-    - text: "Great, carry on!"
-
-  utter_goodbye:
-    - text: "Bye"
-
-  utter_iamabot:
-    - text: "I am a bot, powered by Rasa."
-
-#----------------- Schedule Pickup ----------------
+  # ── Schedule Pickup ───────────────────────
   utter_ask_pickup_name:
-    - text: "Enter your name."
+    - text: "📦 Let's schedule your pickup!\n\n👤 Enter your **full name**:"
 
   utter_ask_pickup_contact:
-    - text: "Enter your contact number."
+    - text: "📞 Enter your **10-digit contact number**:"
 
   utter_ask_pickup_address:
-    - text : "Enter pickup address."
+    - text: |
+        🏠 Enter the **full pickup address** (include flat/house no., street, area):
+        _(e.g. 12A, Sai Nagar, Link Road, Borivali West)_
 
   utter_ask_pickup_date:
-    - text: "Enter pickup date."
+    - text: |
+        📅 Enter your **preferred pickup date**:
+        _(e.g. 15 March 2026 or 2026-03-15)_
 
-  utter_pickup_time:
-    - text: "Enter pickup time."
+  utter_ask_pickup_time:
+    - text: |
+        🕐 Enter your **preferred pickup time**:
+        _(Available: 9:00 AM – 6:00 PM)_
+        _(e.g. 10 AM, 2:30 PM)_
 
+  # ── General ───────────────────────────────
   utter_cancelled:
-    - text: "Okay 👍 I've cancelled the current process. How else can I help?"
+    - text: |
+        ❌ Process cancelled.
+
+        What else can I help you with?
+      buttons:
+        - title: "📦 Track Shipment"
+          payload: "/track_shipment"
+        - title: "🚚 Book Shipment"
+          payload: "/book_shipment"
+        - title: "🏠 Main Menu"
+          payload: "/greet"
+
+  utter_goodbye:
+    - text: "👋 Goodbye! Have a great day. Feel free to come back anytime. 😊"
+
+  utter_iamabot:
+    - text: "🤖 I'm **LogiBot**, a virtual assistant powered by Rasa & LogiExpress. How can I help you?"
+
+  utter_thank_you:
+    - text: "😊 You're welcome! Is there anything else I can help you with?"
+      buttons:
+        - title: "🏠 Main Menu"
+          payload: "/greet"
+        - title: "No, that's all"
+          payload: "/goodbye"
+
+  utter_help:
+    - text: |
+        🆘 **Here's what I can do for you:**
+
+        📦 **Track Shipment** – Real-time shipment tracking
+        🚚 **Book Shipment** – Schedule a new delivery
+        💰 **Shipping Rates** – Get instant cost estimates
+        📍 **Nearest Branch** – Find branch near you
+        🔄 **Schedule Pickup** – Book a home pickup
+        ❌ **Cancel Shipment** – Cancel a booking
+
+        Which service do you need?
+      buttons:
+        - title: "📦 Track"
+          payload: "/track_shipment"
+        - title: "🚚 Book"
+          payload: "/book_shipment"
+        - title: "💰 Rates"
+          payload: "/get_shipping_rates"
+        - title: "📍 Branch"
+          payload: "/nearest_branch"
+        - title: "🔄 Pickup"
+          payload: "/schedule_pickup"
+
+  utter_did_that_help:
+    - text: "Did that help you? 😊"
+      buttons:
+        - title: "Yes, thanks!"
+          payload: "/thank_you"
+        - title: "No, need more help"
+          payload: "/ask_help"
+
+  utter_default:
+    - text: |
+        🤔 I'm not sure I understood that.
+
+        Here's what I can help you with:
+      buttons:
+        - title: "📦 Track Shipment"
+          payload: "/track_shipment"
+        - title: "🚚 Book Shipment"
+          payload: "/book_shipment"
+        - title: "💰 Shipping Rates"
+          payload: "/get_shipping_rates"
+        - title: "📍 Nearest Branch"
+          payload: "/nearest_branch"
+        - title: "🔄 Schedule Pickup"
+          payload: "/schedule_pickup"
+
 
 session_config:
   session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  carry_over_slots_to_new_session: false
+
 
 actions:
   - action_track_shipment
@@ -302,3 +423,4 @@ actions:
   - action_get_nearest_branch
   - action_schedule_pickup
   - validate_pickup_form
+  - action_cancel_active_form
