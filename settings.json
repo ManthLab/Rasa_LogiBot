@@ -1,8 +1,0 @@
-{
-    "liveServer.settings.ignoreFiles": [
-        "**/*.json",
-        "**/*.py",
-        "**/*.yml",
-        "**/*.yaml"
-    ]
-}
