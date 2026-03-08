@@ -163,7 +163,8 @@ class ActionBookShipment(Action):
 
     def run(self, dispatcher, tracker, domain):
         intent_name = tracker.latest_message.get("intent", {}).get("name")
-        if intent_name != "affirm":
+        # if intent_name != "affirm":
+        if intent_name not in ["affirm", "confirm_booking"]:
             dispatcher.utter_message(text="❌ Booking cancelled. How else can I help you?")
             return _clear(BOOKING_SLOTS)
 
@@ -215,6 +216,15 @@ class ActionBookShipment(Action):
             f"💰 Shipping Cost  : Rs.{total_cost}\n"
             f"📅 Booked On      : {booking_data['booked_at']}\n\n"
             f"Thank you for choosing LogiExpress! 🚚"
+        )
+
+        dispatcher.utter_message(
+            text="How else can I help you?",
+            buttons=[
+                {"title": "📦 Track Shipment", "payload": "/track_shipment"},
+                {"title": "🚚 Book Shipment", "payload": "/book_shipment"},
+                {"title": "💰 Shipping Rates", "payload": "/get_shipping_rates"},
+            ]
         )
 
         return _clear(BOOKING_SLOTS)

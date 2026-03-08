@@ -152,7 +152,6 @@ nlu:
     - not really
     - not now
     - cancel
-    - cancel booking
 
 - intent: stop
   examples: |
@@ -213,3 +212,17 @@ nlu:
     - good night
     - have a nice day
     - talk to you later
+
+
+#----------- Confirm Booking --------------
+- intent: confirm_booking
+  examples: |
+    - confirm booking
+    - yes confirm
+    - confirm
+
+#------------ Cancel Booking ---------------
+- intent: cancel_booking
+  examples: |
+    - cancel booking
+    - stop booking

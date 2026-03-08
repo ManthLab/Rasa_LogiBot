@@ -68,7 +68,19 @@ rules:
   steps:
     - action: booking_form
     - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
     - action: utter_ask_confirm_booking
+
+- rule: confirm shipment booking
+  steps:
+    - intent: confirm_booking
+    - action: action_book_shipment
+
+- rule: cancel shipment booking
+  steps:
+    - intent: cancel_booking
+    - action: action_cancel_booking 
 
 - rule: Stop booking form
   condition:

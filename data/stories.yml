@@ -2,54 +2,54 @@ version: "3.1"
 
 stories:
 
-# ── Booking: full flow confirmed ──────────────────────────────────────────
-- story: booking confirmed
-  steps:
-    - intent: book_shipment
-    - action: booking_form
-    - active_loop: booking_form
-    - active_loop: null
-    - action: utter_ask_confirm_booking
-    - intent: affirm
-    - action: action_book_shipment
+# # ── Booking: full flow confirmed ──────────────────────────────────────────
+# - story: booking confirmed
+#   steps:
+#     - intent: book_shipment
+#     - action: booking_form
+#     - active_loop: booking_form
+#     - active_loop: null
+#     - action: utter_ask_confirm_booking
+#     - intent: confirm_booking
+#     - action: action_book_shipment
 
-# ── Booking: cancelled after review ──────────────────────────────────────
-- story: booking cancelled
-  steps:
-    - intent: book_shipment
-    - action: booking_form
-    - active_loop: booking_form
-    - active_loop: null
-    - action: utter_ask_confirm_booking
-    - intent: deny
-    - action: action_cancel_booking
+# # ── Booking: cancelled after review ──────────────────────────────────────
+# - story: booking cancelled
+#   steps:
+#     - intent: book_shipment
+#     - action: booking_form
+#     - active_loop: booking_form
+#     - active_loop: null
+#     - action: utter_ask_confirm_booking
+#     - intent: cancel_booking
+#     - action: action_cancel_booking
 
-# ── Booking: confirmed then greet ────────────────────────────────────────
-#- story: booking confirmed then continue
-#  steps:
-#    - intent: book_shipment
-#    - action: booking_form
-#    - active_loop: booking_form
-#    - active_loop: null
-#    - action: utter_ask_confirm_booking
-#    - intent: affirm
-#    - action: action_book_shipment
-#    - intent: greet
-#    - action: utter_greet_bot
+# # ── Booking: confirmed then greet ────────────────────────────────────────
+# - story: booking confirmed then continue
+#   steps:
+#     - intent: book_shipment
+#     - action: booking_form
+#     - active_loop: booking_form
+#     - active_loop: null
+#     - action: utter_ask_confirm_booking
+#     - intent: cancel_booking
+#     - action: action_book_shipment
+#     - intent: greet
+#     - action: utter_greet_bot
 
-# ── Booking: confirmed then track ────────────────────────────────────────
-- story: booking confirmed then track
-  steps:
-    - intent: book_shipment
-    - action: booking_form
-    - active_loop: booking_form
-    - active_loop: null
-    - action: utter_ask_confirm_booking
-    - intent: affirm
-    - action: action_book_shipment
-    - intent: track_shipment
-    - action: tracking_form
-    - active_loop: tracking_form
+# # ── Booking: confirmed then track ────────────────────────────────────────
+# - story: booking confirmed then track
+#   steps:
+#     - intent: book_shipment
+#     - action: booking_form
+#     - active_loop: booking_form
+#     - active_loop: null
+#     - action: utter_ask_confirm_booking
+#     - intent: confirm_booking
+#     - action: action_book_shipment
+#     - intent: track_shipment
+#     - action: tracking_form
+#     - active_loop: tracking_form
 
 # ── Pickup: full flow ─────────────────────────────────────────────────────
 - story: pickup scheduled
@@ -102,7 +102,7 @@ stories:
     - active_loop: booking_form
     - active_loop: null
     - action: utter_ask_confirm_booking
-    - intent: affirm
+    - intent: confirm_booking
     - action: action_book_shipment
 
 # ── Branch ────────────────────────────────────────────────────────────────
@@ -124,7 +124,7 @@ stories:
     - active_loop: booking_form
     - active_loop: null
     - action: utter_ask_confirm_booking
-    - intent: affirm
+    - intent: confirm_booking
     - action: action_book_shipment
 
 # ── Greet then pickup ─────────────────────────────────────────────────────

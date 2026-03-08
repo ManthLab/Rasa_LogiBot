@@ -25,38 +25,13 @@
             "time": "3 PM"
         },
         {
-            "pickup_id": "PCK9262",
-            "name": "Manthan",
-            "contact": "9978687900",
-            "address": "B/21 56th street, lion circle, Mumbai-65",
-            "date": "09 March 2026",
-            "time": "5 PM"
-        },
-        {
-            "pickup_id": "PCK1404",
-            "name": "Manthan P",
-            "contact": "9082840443",
-            "address": "Dombivli",
-            "date": "15 March 2026",
-            "time": "5 PM"
-        },
-        {
-            "pickup_id": "PCK2430",
-            "name": "Manthan P",
-            "contact": "9082840443",
-            "address": "B-21, Ganesh Prasad Chawl, Garibacha wada, M.P Road, Dombivli west",
-            "date": "15 Mar 2026",
-            "time": "01:00 PM",
-            "scheduled_at": "07 Mar 2026 15:24"
-        },
-        {
-            "pickup_id": "PCK2914",
-            "name": "Don T",
-            "contact": "9687558790",
+            "pickup_id": "PCK9961",
+            "name": "Manthan Pawar",
+            "contact": "9678567400",
             "address": "12A, Sai Nagar, Link Road, Borivali West",
-            "date": "12 Mar 2026",
-            "time": "05:00 PM",
-            "scheduled_at": "07 Mar 2026 15:25"
+            "date": "14 Mar 2026",
+            "time": "04:00 PM",
+            "scheduled_at": "08 Mar 2026 12:31"
         }
     ]
 }
