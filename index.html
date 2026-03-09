@@ -840,7 +840,7 @@
             </div>
             <div class="offer-card green">
               <div class="offer-bg-shape"></div>
-              <div class="offer-badge">📦 Bundle</div>
+              <div class="offer-badge">📦 Save</div>
               <div class="offer-title">Send 3, Pay for 2!</div>
               <div class="offer-desc">Valid this weekend only</div>
             </div>
@@ -1025,11 +1025,11 @@
           </div>
         </div>
         <div class="msg-buttons">
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment')">📦 Track Shipment</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment')">🚚 Book Shipment</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?')">💰 Rates</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'What is the nearest branch?')">📍 Branch</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup')">🔄 Pickup</button>
+          <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment', event)">📦 Track Shipment</button>
+          <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment', event)">🚚 Book Shipment</button>
+          <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?', event)">💰 Rates</button>
+          <button type="button" class="msg-btn" onclick="clickBtn(this,'What is the nearest branch?', event)">📍 Branch</button>
+          <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup', event)">🔄 Pickup</button>
         </div>
         <div class="msg-time">${fmtTime(new Date())}</div>
       </div>`;
@@ -1080,9 +1080,18 @@
           btnsHtml = `<div class="msg-buttons">${buttons
             .map(
               (b) =>
-                `<button type="button" class="msg-btn" onclick="event.preventDefault(); clickBtn(this, '${escAttr(b.payload || b.title)}')">${escHtml(b.title)}</button>`,
+                `<button type="button" class="msg-btn"
+      onclick="clickBtn(this, '${escAttr(b.payload || b.title)}', event)">
+      ${escHtml(b.title)}
+      </button>`,
             )
             .join("")}</div>`;
+          // btnsHtml = `<div class="msg-buttons">${buttons
+          //   .map(
+          //     (b) =>
+          //       `<button type="button" class="msg-btn" onclick="event.preventDefault(); clickBtn(this, '${escAttr(b.payload || b.title)}')">${escHtml(b.title)}</button>`,
+          //   )
+          //   .join("")}</div>`;
         }
 
         row.innerHTML = `
@@ -1160,19 +1169,31 @@
         callRasa(text);
       }
 
-      function clickBtn(btn, payload) {
-        // Disable all buttons in the same group
-        const parent = btn.closest(".msg-buttons");
-        if (parent)
-          parent
-            .querySelectorAll(".msg-btn")
-            .forEach((b) => (b.disabled = true));
-        btn.classList.add("used");
+      // function clickBtn(btn, payload) {
+      //   // Disable all buttons in the same group
+      //   const parent = btn.closest(".msg-buttons");
+      //   if (parent)
+      //     parent
+      //       .querySelectorAll(".msg-btn")
+      //       .forEach((b) => (b.disabled = true));
+      //   btn.classList.add("used");
 
-        // The payload starts with / (intent trigger) or is plain text
-        const msgText = payload.startsWith("/")
-          ? btn.textContent.trim()
-          : payload;
+      //   // The payload starts with / (intent trigger) or is plain text
+      //   const msgText = payload.startsWith("/")
+      //     ? btn.textContent.trim()
+      //     : payload;
+      //   appendUser(msgText);
+      //   showTyping();
+      //   callRasa(payload);
+      // }
+
+      function clickBtn(btn, payload, e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        const msgText = btn.innerText;
         appendUser(msgText);
         showTyping();
         callRasa(payload);

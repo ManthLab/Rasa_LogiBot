@@ -115,27 +115,5 @@
         "delivery_address": "Flat 5B, Shiv Nagar, MG Road, Dombivli - 421202",
         "cost": 150,
         "booked_at": "08 Mar 2026 13:40"
-    },
-    {
-        "booking_id": "BKI3423",
-        "sender": "Manthan P",
-        "sender_number": "9082840443",
-        "sender_email": "manthan@gmail.com",
-        "receiver": "Don T",
-        "receiver_number": "9876543210",
-        "delivery_address": "Flat 5B, Shiv Nagar, MG Road, Dombivli - 421202",
-        "cost": 150,
-        "booked_at": "08 Mar 2026 14:06"
-    },
-    {
-        "booking_id": "BKI7858",
-        "sender": "Manthan Pawar",
-        "sender_number": "9082840443",
-        "sender_email": "manthan21@gmail.com",
-        "receiver": "Don Thomas",
-        "receiver_number": "1234567890",
-        "delivery_address": "Flat 5B, Shiv Nagar, MG Road, Dombivli - 421202",
-        "cost": 150,
-        "booked_at": "08 Mar 2026 14:17"
     }
 ]

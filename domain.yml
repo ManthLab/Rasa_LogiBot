@@ -226,8 +226,8 @@ responses:
           payload: "/nearest_branch"
         - title: "🔄 Schedule Pickup"
           payload: "/schedule_pickup"
-        - title: "❌ Cancel Shipment"
-          payload: "/cancel_shipment"
+        # - title: "❌ Cancel Shipment"
+        #   payload: "/cancel_shipment"
 
   # ── Track Shipment ────────────────────────
   utter_ask_tracking_id:

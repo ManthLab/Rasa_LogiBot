@@ -204,19 +204,39 @@ class ActionBookShipment(Action):
         with open("bookings.json", "w") as f:
             json.dump(data, f, indent=4)
 
-        dispatcher.utter_message(text=
-            f"✅ Shipment Booked Successfully!\n\n"
-            f"🔖 Booking ID     : {booking_id}\n\n"
-            f"👤 Sender         : {sender}\n"
-            f"📞 Contact        : {sender_number}\n"
-            f"📧 Email          : {sender_email}\n\n"
-            f"👤 Receiver       : {receiver}\n"
-            f"📞 Contact        : {receiver_number}\n"
-            f"📦 Delivery To    : {full_address}\n\n"
-            f"💰 Shipping Cost  : Rs.{total_cost}\n"
-            f"📅 Booked On      : {booking_data['booked_at']}\n\n"
-            f"Thank you for choosing LogiExpress! 🚚"
-        )
+        # dispatcher.utter_message(text=
+        #     f"✅ Shipment Booked Successfully!\n\n"
+        #     f"🔖 Booking ID     : {booking_id}\n\n"
+        #     f"👤 Sender         : {sender}\n"
+        #     f"📞 Contact        : {sender_number}\n"
+        #     f"📧 Email          : {sender_email}\n\n"
+        #     f"👤 Receiver       : {receiver}\n"
+        #     f"📞 Contact        : {receiver_number}\n"
+        #     f"📦 Delivery To    : {full_address}\n\n"
+        #     f"💰 Shipping Cost  : Rs.{total_cost}\n"
+        #     f"📅 Booked On      : {booking_data['booked_at']}\n\n"
+        #     f"Thank you for choosing LogiExpress! 🚚"
+        # )
+        dispatcher.utter_message(
+    text=f"""
+📦 Shipment Booked Successfully!
+
+Booking ID: {booking_id}
+
+👤 Sender: {sender}
+📞 Contact: {sender_number}
+📧 Email: {sender_email}
+
+📍 Receiver: {receiver}
+📞 Contact: {receiver_number}
+🏠 Address: {full_address}
+
+💰 Cost: ₹{total_cost}
+📅 Booked On: {booking_data['booked_at']}
+
+Thank you for choosing LogiExpress!
+"""
+)
 
         dispatcher.utter_message(
             text="How else can I help you?",
