@@ -123,6 +123,20 @@ nlu:
     - home collection
     - doorstep pickup
 
+#---------------- Offers -------------------
+- intent: ask_offers
+  examples: |
+    - show current offers
+    - what offers are available
+    - do you have any offers
+    - tell me offers
+    - show me discounts
+    - any deals
+    - logistics offers
+    - shipping discounts
+    - current promotions
+    - Are there any offers available
+
 # ── Affirm ────────────────────────────────────────────────────────────────
 - intent: affirm
   examples: |

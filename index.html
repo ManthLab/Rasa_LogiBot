@@ -21,26 +21,33 @@
       }
 
       :root {
-        --bg: #0b0f1a;
-        --surface: #111827;
-        --surface2: #1a2236;
-        --surface3: #1f2d45;
-        --border: #243048;
+        --bg: #ffffff;
+        /* surfaces */
+        --surface: #ffffff;
+        --surface2: #f6f8fb;
+        --surface3: #eef2f7;
+        /* borders */
+        --border: #e5e7eb;
+        /* brand accent */
         --accent: #f97316;
         --accent2: #fb923c;
-        --accent-glow: rgba(249, 115, 22, 0.25);
-        --blue: #3b82f6;
-        --blue-soft: #1e3a5f;
-        --green: #22c55e;
-        --green-soft: #14532d;
-        --text: #f1f5f9;
-        --text-muted: #94a3b8;
-        --text-dim: #64748b;
-        --bot-bubble: #1a2236;
+        --accent-glow: rgba(249, 115, 22, 0.18);
+        /* utility colors */
+        --blue: #2563eb;
+        --blue-soft: #e8f1ff;
+        --green: #16a34a;
+        --green-soft: #e8f7ee;
+        /* text colors */
+        --text: #0f172a;
+        --text-muted: #475569;
+        --text-dim: #94a3b8;
+        /* chat bubbles */
+        --bot-bubble: #f6f8fb;
         --user-bubble: #f97316;
+        /* ui */
         --radius: 16px;
         --radius-sm: 10px;
-        --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         --font-head: "Syne", sans-serif;
         --font-body: "DM Sans", sans-serif;
       }
@@ -76,7 +83,7 @@
       .sidebar-header {
         padding: 24px 20px 20px;
         border-bottom: 1px solid var(--border);
-        background: linear-gradient(135deg, #0f1829 0%, #1a2236 100%);
+        background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
       }
 
       .logo {
@@ -103,7 +110,7 @@
         font-family: var(--font-head);
         font-weight: 800;
         font-size: 20px;
-        background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+        background: linear-gradient(135deg, #1e293b 0%, #64748b 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -118,7 +125,7 @@
 
       /* Offers Banner */
       .offers-strip {
-        margin: 16px;
+        margin: 14px;
         border-radius: var(--radius-sm);
         overflow: hidden;
         position: relative;
@@ -128,6 +135,7 @@
         display: flex;
         gap: 0;
         width: 100%;
+        transition: transform 0.45s ease;
       }
 
       .offer-card {
@@ -137,6 +145,7 @@
         position: relative;
         overflow: hidden;
         cursor: default;
+        flex-shrink: 0;
       }
 
       .offer-card.orange {
@@ -403,6 +412,7 @@
         flex-direction: column;
         gap: 16px;
         scroll-behavior: smooth;
+        background: #fafbfc;
       }
 
       .messages::-webkit-scrollbar {
@@ -501,6 +511,7 @@
         word-break: break-word;
       }
 
+      /* Light-theme bot bubble: light gray bg, dark text, soft border */
       .msg-row.bot .bubble {
         background: var(--bot-bubble);
         color: var(--text);
@@ -530,7 +541,7 @@
 
       .msg-btn {
         padding: 8px 12px;
-        background: transparent;
+        background: #fff;
         border: 1px solid var(--accent);
         color: var(--accent);
         border-radius: 20px;
@@ -559,6 +570,8 @@
         flex-wrap: wrap;
         gap: 7px;
         padding: 8px 20px 4px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
       }
 
       .chip {
@@ -575,7 +588,7 @@
       }
 
       .chip:hover {
-        background: var(--surface3);
+        background: #fff4ed;
         border-color: var(--accent);
         color: var(--accent);
       }
@@ -648,6 +661,7 @@
       .input-row:focus-within {
         border-color: var(--accent);
         box-shadow: 0 0 0 3px var(--accent-glow);
+        background: #fff;
       }
 
       #msgInput {
@@ -660,7 +674,13 @@
         font-size: 14px;
         padding: 10px 0;
         resize: none;
-        max-height: 100px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        min-width: 0;
+      }
+
+      #msgInput::-webkit-scrollbar {
+        display: none;
       }
 
       #msgInput::placeholder {
@@ -706,11 +726,12 @@
       /* ── Welcome / Empty State ───────────────────────────────────────── */
       .welcome-card {
         margin: 8px 0;
-        padding: 20px;
-        background: linear-gradient(135deg, #0f1829 0%, #1a2236 100%);
+        padding: 20px 20px 0px 20px;
+        background: #fff;
         border: 1px solid var(--border);
         border-radius: var(--radius);
         border-left: 3px solid var(--accent);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
       }
 
       .msg-row.bot .welcome-card {
@@ -741,9 +762,9 @@
 
       .feature-chip {
         padding: 4px 12px;
-        background: rgba(249, 115, 22, 0.12);
+        background: #fff4ed;
         border: 1px solid rgba(249, 115, 22, 0.3);
-        color: var(--accent2);
+        color: var(--accent);
         border-radius: 20px;
         font-size: 12px;
       }
@@ -765,6 +786,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        color: #fff;
       }
 
       .track-body {
@@ -797,81 +819,67 @@
       }
 
       .status-badge.transit {
-        background: rgba(59, 130, 246, 0.15);
-        color: #60a5fa;
-        border: 1px solid rgba(59, 130, 246, 0.3);
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--blue);
+        border: 1px solid rgba(37, 99, 235, 0.25);
       }
 
       .status-badge.delivered {
-        background: rgba(34, 197, 94, 0.15);
-        color: #4ade80;
-        border: 1px solid rgba(34, 197, 94, 0.3);
+        background: rgba(22, 163, 74, 0.1);
+        color: var(--green);
+        border: 1px solid rgba(22, 163, 74, 0.25);
       }
 
-      /* Responsive */
-      /* @media (max-width: 768px) {
-              .sidebar {
-                display: none;
-              } */
-
       /* ── Floating Chatbot Widget ───────────────────── */
-
       #chatbot-widget {
         position: fixed;
-        bottom: 90px;
-        right: 20px;
+        bottom: 110px;
+        right: 40px;
 
         width: 380px;
-        /* Use max-height + height:auto so it never overflows the viewport */
         height: auto;
         max-height: calc(100vh - 110px);
 
         z-index: 9999;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         border-radius: 16px;
+        border: 1px solid var(--border);
         overflow: hidden;
 
-        display: none; /* toggled by JS */
+        display: none;
       }
 
-      /* Inner .app must be a column and respect the widget's height */
       #chatbot-widget .app {
         display: flex;
         flex-direction: column;
-        /* Fill exactly the widget height so flex children can scroll */
         height: 75vh;
         max-height: calc(100vh - 110px);
         overflow: hidden;
       }
 
-      /* Hide sidebar inside chatbot */
       #chatbot-widget .sidebar {
         display: none;
       }
 
-      /* Chat area fills remaining space */
       #chatbot-widget .chat-area {
         flex: 1;
         display: flex;
         flex-direction: column;
-        min-height: 0; /* critical: lets flex child shrink below content size */
+        min-height: 0;
         overflow: hidden;
       }
 
-      /* Messages scroll within their slice */
       #chatbot-widget .messages {
         flex: 1;
         overflow-y: auto;
         min-height: 0;
       }
 
-      /* Chips: wrap nicely, never overflow horizontally */
       #chatbot-widget .chips-row {
         flex-shrink: 0;
         flex-wrap: wrap;
         padding: 6px 14px;
         gap: 6px;
-        /* Remove fixed max-height — let wrapping handle it naturally */
         max-height: none;
         overflow: visible;
       }
@@ -881,22 +889,19 @@
         padding: 10px 14px 14px;
       }
 
-      /* Textarea stays within the input row */
       #chatbot-widget #msgInput {
-        min-width: 0; /* prevents textarea from blowing out flex row */
+        min-width: 0;
       }
 
-      /* Header stays pinned at top */
       #chatbot-widget .chat-header {
         flex-shrink: 0;
       }
 
-      /* } */
-
+      /* ── Toggle button ── */
       #chatbot-toggle {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
+        bottom: 40px;
+        right: 40px;
 
         width: 60px;
         height: 60px;
@@ -909,8 +914,12 @@
         font-size: 26px;
 
         cursor: pointer;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);
         z-index: 10000;
+        transition: transform 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       #chatbot-toggle:hover {
@@ -931,7 +940,6 @@
             <div class="logo-sub">Logistics Assistant</div>
           </div>
 
-          <!-- Offer Cards -->
           <div class="offers-strip" id="offersStrip">
             <div class="offers-scroll" id="offersScroll">
               <div class="offer-card orange">
@@ -960,7 +968,6 @@
             </div>
           </div>
 
-          <!-- Quick Services -->
           <div class="sidebar-section">
             <div class="sidebar-label">Quick Services</div>
             <div class="service-grid">
@@ -994,7 +1001,6 @@
             </div>
           </div>
 
-          <!-- Status -->
           <div style="flex: 1"></div>
           <div class="status-row">
             <span class="status-text"
@@ -1006,7 +1012,6 @@
 
         <!-- ── Chat Area ─────────────────────────────────────────────── -->
         <main class="chat-area">
-          <!-- Header -->
           <header class="chat-header">
             <div class="chat-header-left">
               <div class="bot-avatar">🤖</div>
@@ -1032,13 +1037,10 @@
             </div>
           </header>
 
-          <!-- Messages -->
           <div class="messages" id="messages">
             <div class="date-sep" id="dateSep">Today</div>
-            <!-- Welcome message injected by JS on load -->
           </div>
 
-          <!-- Quick chips -->
           <div class="chips-row" id="quickChips">
             <div class="chip" onclick="sendMsg('Track my shipment')">
               📦 Track
@@ -1050,12 +1052,14 @@
               💰 Rates
             </div>
             <div class="chip" onclick="sendMsg('Find nearest branch')">
-              📍 Branch
+              <img src="icons/location.svg" width="16" height="16" style="vertical-align:middle;">
+              Branch
             </div>
-            <div class="chip" onclick="sendMsg('help')">❓ Help</div>
+            <div class="chip" onclick="sendMsg('Schedule a pickup')">
+              🔄 Pickup
+            </div>
           </div>
 
-          <!-- Input -->
           <div class="input-area">
             <div class="input-row">
               <textarea
@@ -1083,17 +1087,12 @@
       const SERVER = "http://localhost:5005";
       const messagesEl = document.getElementById("messages");
 
-      // ── Persistent session ID (stays same for entire browser session) ──
-      // This is critical: Rasa tracks conversation state by sender ID.
-      // Using Date.now() per message would start a brand-new conversation
-      // each time and lose all slot/form context.
       let SESSION_ID = sessionStorage.getItem("logibot_session");
       if (!SESSION_ID) {
         SESSION_ID = "logi_" + Math.random().toString(36).slice(2, 10);
         sessionStorage.setItem("logibot_session", SESSION_ID);
       }
 
-      // ── Helpers ──────────────────────────────────────────────────
       function fmtTime(d) {
         return d.toLocaleTimeString("en-IN", {
           hour: "2-digit",
@@ -1124,7 +1123,6 @@
         }
       }
 
-      // ── Inject welcome card via JS so it matches the chat bubble style ──
       function injectWelcome() {
         const row = document.createElement("div");
         row.className = "msg-row bot";
@@ -1135,44 +1133,84 @@
           <h2>👋 Hello! I'm LogiBot</h2>
           <p>Your smart logistics assistant from <strong>LogiExpress</strong>. I can help you track shipments, book deliveries, find branches, and much more.</p>
           <div class="msg-buttons">
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment', event)">📦 Track Shipment</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment', event)">🚚 Book Shipment</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?', event)">💰 Rates</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'What is the nearest branch?', event)">
-  <img src="icons/location.svg" width="16" height="14">
-  Branch
-</button>
-          <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup', event)">🔄 Pickup</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment', event)">📦 Track Shipment</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment', event)">🚚 Book Shipment</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?', event)">💰 Rates</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'What is the nearest branch?', event)"> <img src="icons/location.svg" width="16" height="16" style="vertical-align:middle;"> Branch </button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup', event)">🔄 Pickup</button>
+          </div>
+          <div class="offers-strip">
+            <div class="offers-scroll">
+              <div class="offer-card green">
+                <div class="offer-bg-shape"></div>
+                <div class="offer-badge">📦 Save</div>
+                <div class="offer-title">Send 3, Pay for 2!</div>
+                <div class="offer-desc">Valid this weekend only</div>
+              </div>
+              <div class="offer-card orange">
+                <div class="offer-bg-shape"></div>
+                <div class="offer-badge">🔥 Limited Offer</div>
+                <div class="offer-title">20% OFF on First Booking</div>
+                <div class="offer-desc">Use code: LOGI20 at checkout</div>
+              </div>
+              <div class="offer-card blue">
+                <div class="offer-bg-shape"></div>
+                <div class="offer-badge">⚡ Express</div>
+                <div class="offer-title">Same Day Delivery</div>
+                <div class="offer-desc">Available in Mumbai & Delhi</div>
+              </div>
+              <div class="offer-card green">
+                <div class="offer-bg-shape"></div>
+                <div class="offer-badge">📦 Save</div>
+                <div class="offer-title">Send 3, Pay for 2!</div>
+                <div class="offer-desc">Valid this weekend only</div>
+              </div>
+              <div class="offer-card orange">
+                <div class="offer-bg-shape"></div>
+                <div class="offer-badge">🔥 Limited Offer</div>
+                <div class="offer-title">20% OFF on First Booking</div>
+                <div class="offer-desc">Use code: LOGI20 at checkout</div>
+              </div>
+            </div>
+            <div class="offer-dots">
+              <div class="offer-dot active"></div>
+              <div class="offer-dot"></div>
+              <div class="offer-dot"></div>
+            </div>
+          </div>
         </div>
-        </div>
-        
         <div class="msg-time">${fmtTime(new Date())}</div>
       </div>`;
         messagesEl.appendChild(row);
         scrollBottom();
       }
+
       injectWelcome();
 
-      // ── Offers carousel ──────────────────────────────────────────
-      let offerIdx = 0;
-      const offerCards = document.querySelectorAll(".offer-card");
-      const offerDots = document.querySelectorAll(".offer-dot");
+      setTimeout(() => {
+        const scroll = document.querySelector(".welcome-card .offers-scroll");
+        scroll.style.transform = "translateX(-100%)";
+        setInterval(moveCarousel, 4000);
+      }, 200);
 
-      function showOffer(i) {
-        offerIdx = i;
-        offerCards.forEach(
-          (c, j) => (c.style.display = j === i ? "block" : "none"),
-        );
-        offerDots.forEach((d, j) => d.classList.toggle("active", j === i));
+      let offerIdx = 1;
+
+      function moveCarousel() {
+        const scroll = document.querySelector(".welcome-card .offers-scroll");
+        const cards = document.querySelectorAll(".welcome-card .offer-card");
+        offerIdx++;
+        scroll.style.transform = `translateX(-${offerIdx * 100}%)`;
+        if (offerIdx === cards.length - 1) {
+          setTimeout(() => {
+            scroll.style.transition = "none";
+            offerIdx = 1;
+            scroll.style.transform = `translateX(-${offerIdx * 100}%)`;
+            scroll.offsetHeight;
+            scroll.style.transition = "transform 0.45s ease";
+          }, 450);
+        }
       }
 
-      // Init – only show first card
-      showOffer(0);
-
-      // Auto-rotate every 4 seconds
-      setInterval(() => showOffer((offerIdx + 1) % offerCards.length), 4000);
-
-      // ── Append messages ──────────────────────────────────────────
       function appendUser(text) {
         const row = document.createElement("div");
         row.className = "msg-row user";
@@ -1201,12 +1239,6 @@
       </button>`,
             )
             .join("")}</div>`;
-          // btnsHtml = `<div class="msg-buttons">${buttons
-          //   .map(
-          //     (b) =>
-          //       `<button type="button" class="msg-btn" onclick="event.preventDefault(); clickBtn(this, '${escAttr(b.payload || b.title)}')">${escHtml(b.title)}</button>`,
-          //   )
-          //   .join("")}</div>`;
         }
 
         row.innerHTML = `
@@ -1241,16 +1273,12 @@
       }
 
       function formatBotText(text) {
-        // Bold **text**
         text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-        // Bold *text*
         text = text.replace(/\*(.*?)\*/g, "<strong>$1</strong>");
-        // Inline code `text`
         text = text.replace(
           /`([^`]+)`/g,
-          '<code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-size:12px">$1</code>',
+          '<code style="background:rgba(0,0,0,0.06);padding:1px 6px;border-radius:4px;font-size:12px">$1</code>',
         );
-        // Newlines
         text = text.replace(/\n/g, "<br>");
         return text;
       }
@@ -1267,12 +1295,10 @@
         return String(s).replace(/'/g, "\\'").replace(/"/g, '\\"');
       }
 
-      // ── Send message ─────────────────────────────────────────────
       async function sendMessage() {
         const input = document.getElementById("msgInput");
         const text = input.value.trim();
         if (!text) return;
-
         input.value = "";
         input.style.height = "auto";
         sendMsg(text);
@@ -1284,30 +1310,11 @@
         callRasa(text);
       }
 
-      // function clickBtn(btn, payload) {
-      //   // Disable all buttons in the same group
-      //   const parent = btn.closest(".msg-buttons");
-      //   if (parent)
-      //     parent
-      //       .querySelectorAll(".msg-btn")
-      //       .forEach((b) => (b.disabled = true));
-      //   btn.classList.add("used");
-
-      //   // The payload starts with / (intent trigger) or is plain text
-      //   const msgText = payload.startsWith("/")
-      //     ? btn.textContent.trim()
-      //     : payload;
-      //   appendUser(msgText);
-      //   showTyping();
-      //   callRasa(payload);
-      // }
-
       function clickBtn(btn, payload, e) {
         if (e) {
           e.preventDefault();
           e.stopPropagation();
         }
-
         const msgText = btn.innerText;
         appendUser(msgText);
         showTyping();
@@ -1325,7 +1332,6 @@
           if (!res.ok) throw new Error("Server error " + res.status);
           const responses = await res.json();
 
-          // ADD THIS - check what Rasa actually returns
           console.log("Rasa raw response:", JSON.stringify(responses));
 
           removeTyping();
@@ -1335,12 +1341,9 @@
             return;
           }
 
-          // Small delay between multiple messages for natural feel
           for (let i = 0; i < responses.length; i++) {
             const r = responses[i];
-
             let messageText = r.text || r.custom?.text || "";
-
             if (messageText) {
               await delay(i * 300);
               appendBot(messageText, r.buttons);
@@ -1363,10 +1366,8 @@
 
       function clearChat() {
         if (!confirm("Clear all messages and start a new session?")) return;
-        // Reset session so Rasa starts a fresh conversation
         SESSION_ID = "logi_" + Math.random().toString(36).slice(2, 10);
         sessionStorage.setItem("logibot_session", SESSION_ID);
-        // Clear and re-inject welcome
         messagesEl.innerHTML = '<div class="date-sep">Today</div>';
         injectWelcome();
       }
@@ -1384,6 +1385,7 @@
         });
       });
     </script>
+
     <button id="chatbot-toggle">
       <svg
         viewBox="0 0 24 24"

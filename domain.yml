@@ -17,6 +17,7 @@ intents:
   - thank_you
   - confirm_booking
   - cancel_booking
+  - ask_offers
 
 
 entities:
@@ -333,6 +334,31 @@ responses:
         _(Available: 9:00 AM – 6:00 PM)_
         _(e.g. 10 AM, 2:30 PM)_
 
+#------------ Offers -----------
+  utter_ask_offers:
+    - text: |
+        🎉 *Current Offers at LogiExpress*
+
+        🔥 **20% OFF First Shipment**  
+        New customers get a special discount on their first delivery.
+
+        ⚡ **Same Day Delivery Available**  
+        Express shipping available in selected cities.
+
+        📦 **Send 3 Shipments – Pay for 2**  
+        Ship more and save more this week!
+
+        Would you like to book a shipment now?
+      buttons:
+        - title: 🚚 Book Shipment
+          payload: /book_shipment
+        - title: "💰 Rates"
+          payload: "/get_shipping_rates"
+        - title: "🔄 Pickup"
+          payload: "/schedule_pickup"
+        - title: "🏠 Main Menu"
+          payload: "/greet"
+
   # ── General ───────────────────────────────
   utter_cancelled:
     - text: |
@@ -370,7 +396,6 @@ responses:
         💰 **Shipping Rates** – Get instant cost estimates
         📍 **Nearest Branch** – Find branch near you
         🔄 **Schedule Pickup** – Book a home pickup
-        ❌ **Cancel Shipment** – Cancel a booking
 
         Which service do you need?
       buttons:

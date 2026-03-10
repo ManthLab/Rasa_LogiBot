@@ -154,9 +154,7 @@ class ValidateBookingForm(FormValidationAction):
         return {"delivery_pincode": val}
 
 
-# ─────────────────────────────────────────────
-#  Book Shipment – Action
-# ─────────────────────────────────────────────
+#------------------- Book Shipment – Action ------------------
 class ActionBookShipment(Action):
     def name(self):
         return "action_book_shipment"
@@ -250,9 +248,7 @@ Thank you for choosing LogiExpress!
         return _clear(BOOKING_SLOTS)
 
 
-# ─────────────────────────────────────────────
-#  Cancel Booking Mid-Form
-# ─────────────────────────────────────────────
+#-------------- Cancel Booking Mid-Form ----------------
 class ActionCancelBooking(Action):
     def name(self):
         return "action_cancel_booking"
@@ -269,9 +265,8 @@ class ActionCancelBooking(Action):
         return _clear(BOOKING_SLOTS)
 
 
-# ─────────────────────────────────────────────
-#  Shipping Rates
-# ─────────────────────────────────────────────
+#------------- Shipping Rates ---------------
+
 class ActionGetShippingRates(Action):
     def name(self):
         return "action_get_shipping_rates"
@@ -318,9 +313,9 @@ Would you like to book a shipment?""",
         return _clear(RATES_SLOTS)
 
 
-# ─────────────────────────────────────────────
-#  Nearest Branch
-# ─────────────────────────────────────────────
+
+#----------- Nearest Branch ---------------
+
 class ActionNearestBranch(Action):
     def name(self):
         return "action_get_nearest_branch"

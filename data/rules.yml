@@ -177,3 +177,9 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+
+#-------------- Offers -------------------
+- rule: Show available offers
+  steps:
+    - intent: ask_offers
+    - action: utter_ask_offers
