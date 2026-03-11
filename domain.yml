@@ -337,7 +337,7 @@ responses:
 #------------ Offers -----------
   utter_ask_offers:
     - text: |
-        🎉 *Current Offers at LogiExpress*
+        🔖 *Current Offers at LogiExpress*
 
         🔥 **20% OFF First Shipment**  
         New customers get a special discount on their first delivery.

@@ -10,10 +10,8 @@ from typing import Any, Text, Dict, List, Optional
 from datetime import datetime
 from dateutil import parser
 
+#----------------- Helper – clear all booking slots
 
-# ─────────────────────────────────────────────
-#  Helper – clear all booking slots
-# ─────────────────────────────────────────────
 BOOKING_SLOTS = [
     "sender_name", "sender_contact_number", "sender_email",
     "receiver_name", "receiver_contact_number", "delivery_address",
@@ -31,9 +29,7 @@ def _clear(slots):
     return [SlotSet(s, None) for s in slots]
 
 
-# ─────────────────────────────────────────────
-#  Track Shipment
-# ─────────────────────────────────────────────
+#-------------------- Track Shipment
 class ActionTrackShipment(Action):
     def name(self):
         return "action_track_shipment"
@@ -80,17 +76,7 @@ Is there anything else I can help you with?"""
 
         return [SlotSet("tracking_id", None)]
 
-
-# ─────────────────────────────────────────────
-#  Booking Form – Validation
-#
-#  IMPORTANT: Do NOT override required_slots() here.
-#  Doing so and checking tracker.latest_message intent
-#  causes the form to abort mid-fill when the user types
-#  something (e.g. an email address) that NLU misclassifies
-#  as "deny" or "cancel". Cancellation is handled solely
-#  by rules.yml (deny/stop → action_deactivate_loop).
-# ─────────────────────────────────────────────
+#-------------------- Booking Form – Validation
 class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_booking_form"
@@ -154,7 +140,7 @@ class ValidateBookingForm(FormValidationAction):
         return {"delivery_pincode": val}
 
 
-#------------------- Book Shipment – Action ------------------
+#------------------- Book Shipment – Action 
 class ActionBookShipment(Action):
     def name(self):
         return "action_book_shipment"
@@ -248,7 +234,7 @@ Thank you for choosing LogiExpress!
         return _clear(BOOKING_SLOTS)
 
 
-#-------------- Cancel Booking Mid-Form ----------------
+#-------------- Cancel Booking Mid-Form 
 class ActionCancelBooking(Action):
     def name(self):
         return "action_cancel_booking"
@@ -265,8 +251,7 @@ class ActionCancelBooking(Action):
         return _clear(BOOKING_SLOTS)
 
 
-#------------- Shipping Rates ---------------
-
+#------------- Shipping Rates 
 class ActionGetShippingRates(Action):
     def name(self):
         return "action_get_shipping_rates"
@@ -283,9 +268,9 @@ class ActionGetShippingRates(Action):
         to_loc   = to_location.strip().title()
 
         if from_loc.lower() == to_loc.lower():
-            base, distance, tier = 100, 50, "Local"
+            base, distance, tier = 100, 50, "Inter-city"
         else:
-            base, distance, tier = 100, 100, "Inter-city"
+            base, distance, tier = 100, 100, "Domestic"
 
         total_cost = base + distance
 
@@ -312,10 +297,7 @@ Would you like to book a shipment?""",
 
         return _clear(RATES_SLOTS)
 
-
-
-#----------- Nearest Branch ---------------
-
+#----------- Nearest Branch 
 class ActionNearestBranch(Action):
     def name(self):
         return "action_get_nearest_branch"
@@ -370,10 +352,8 @@ Would you like to book a shipment or schedule a pickup?""",
 
         return [SlotSet("nearest_branch", None)]
 
+#------------- Schedule Pickup – Action
 
-# ─────────────────────────────────────────────
-#  Schedule Pickup – Action
-# ─────────────────────────────────────────────
 class ActionSchedulePickup(Action):
     def name(self):
         return "action_schedule_pickup"
@@ -422,13 +402,8 @@ class ActionSchedulePickup(Action):
 
         return _clear(PICKUP_SLOTS)
 
+#------------- Pickup Form – Validation
 
-# ─────────────────────────────────────────────
-#  Pickup Form – Validation
-#
-#  Same note as ValidateBookingForm:
-#  No required_slots() override – cancellation via rules.yml only.
-# ─────────────────────────────────────────────
 class ValidatePickupForm(FormValidationAction):
     def name(self):
         return "validate_pickup_form"
@@ -490,10 +465,7 @@ class ValidatePickupForm(FormValidationAction):
             )
             return {"pickup_time": None}
 
-
-# ─────────────────────────────────────────────
-#  Cancel Any Active Form
-# ─────────────────────────────────────────────
+#------------- Cancel Any Active Form
 class ActionCancelActiveForm(Action):
     def name(self):
         return "action_cancel_active_form"

@@ -23,8 +23,8 @@
       :root {
         --bg: #ffffff;
         /* surfaces */
-        --surface: #ffffff;
-        --surface2: #f6f8fb;
+        --surface: #e0e0e0;
+        --surface2: #eef2f7;
         --surface3: #eef2f7;
         /* borders */
         --border: #e5e7eb;
@@ -540,6 +540,9 @@
       }
 
       .msg-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 8px 12px;
         background: #fff;
         border: 1px solid var(--accent);
@@ -551,6 +554,12 @@
         cursor: pointer;
         transition: all 0.2s;
         white-space: nowrap;
+      }
+
+      .msg-btn img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
       }
 
       .msg-btn:hover,
@@ -1043,20 +1052,46 @@
 
           <div class="chips-row" id="quickChips">
             <div class="chip" onclick="sendMsg('Track my shipment')">
-              📦 Track
+              <img
+                src="icons/track.svg"
+                width="16"
+                height="16"
+                style="vertical-align: middle"
+              />Track
             </div>
             <div class="chip" onclick="sendMsg('Book a new shipment')">
-              🚚 Book
+              <img
+                src="icons/bookshipment.svg"
+                width="16"
+                height="16"
+                style="vertical-align: middle"
+              />Book
             </div>
             <div class="chip" onclick="sendMsg('What are the shipping rates?')">
-              💰 Rates
+              <img
+                src="icons/rates.svg"
+                width="16"
+                height="16"
+                style="vertical-align: middle"
+              />Rates
             </div>
             <div class="chip" onclick="sendMsg('Find nearest branch')">
-              <img src="icons/location.svg" width="16" height="16" style="vertical-align:middle;">
+              <img
+                src="icons/location.svg"
+                width="16"
+                height="16"
+                style="vertical-align: middle"
+              />
               Branch
             </div>
             <div class="chip" onclick="sendMsg('Schedule a pickup')">
-              🔄 Pickup
+              <img
+                src="icons/pickup.svg"
+                width="16"
+                height="16"
+                style="vertical-align: middle"
+              />
+              Pickup
             </div>
           </div>
 
@@ -1133,11 +1168,11 @@
           <h2>👋 Hello! I'm LogiBot</h2>
           <p>Your smart logistics assistant from <strong>LogiExpress</strong>. I can help you track shipments, book deliveries, find branches, and much more.</p>
           <div class="msg-buttons">
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment', event)">📦 Track Shipment</button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment', event)">🚚 Book Shipment</button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?', event)">💰 Rates</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment', event)"><img src="icons/track.svg" width="16" height="16" style="vertical-align:middle;">  Track Shipment</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment', event)"><img src="icons/bookshipment.svg" width="16" height="16" style="vertical-align:middle;"> Book Shipment</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?', event)"><img src="icons/rates.svg" width="16" height="16" style="vertical-align:middle;"> Rates</button>
             <button type="button" class="msg-btn" onclick="clickBtn(this,'What is the nearest branch?', event)"> <img src="icons/location.svg" width="16" height="16" style="vertical-align:middle;"> Branch </button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup', event)">🔄 Pickup</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup', event)"><img src="icons/pickup.svg" width="16" height="16" style="vertical-align:middle;"> Pickup</button>
           </div>
           <div class="offers-strip">
             <div class="offers-scroll">
