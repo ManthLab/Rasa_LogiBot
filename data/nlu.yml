@@ -163,13 +163,12 @@ nlu:
     - no not now
     - not now
     - no thanks
-    - cancel
+    - Cancel form
     - don't want to
     - never mind
     - forget it
     - leave it
     - I changed my mind
-    - abort
     - cancel form       
     - stop the form      
     - cancel this        
@@ -247,12 +246,6 @@ nlu:
     - yes confirm
     - confirm
 
-#------------ Cancel Booking ---------------
-- intent: cancel_booking
-  examples: |
-    - cancel booking
-    - stop booking
-
 #---------------- Out of Scope --------------
 - intent: out_of_scope
   examples: |
@@ -284,6 +277,7 @@ nlu:
     - i dont know what to say
     - I want to eat pizza 
     - i want chips
+    - 
 
   #------------------------------------------------ Multi Intent ------------------------------------------
 

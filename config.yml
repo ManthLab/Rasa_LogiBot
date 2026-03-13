@@ -24,7 +24,7 @@ pipeline:
     epochs: 100
     constrain_similarities: true
   - name: FallbackClassifier
-    threshold: 0.70                            # below this confidence → nlu_fallback intent
+    threshold: 0.80                            # below this confidence → nlu_fallback intent
     ambiguity_threshold: 0.10
 
 policies:

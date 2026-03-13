@@ -55,6 +55,15 @@ rules:
     - active_loop: null
     - action: action_cancel_active_form
 
+- rule: Deny tracking form
+  condition:
+    - active_loop: tracking_form
+  steps:
+    - intent: deny
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
+
 # ── Book Shipment ───────────────────────────────────────
 
 - rule: Start booking form
@@ -72,7 +81,7 @@ rules:
     - active_loop: null
     - slot_was_set:
         - requested_slot: null
-    - action: utter_ask_confirm_booking
+    - action: action_ask_confirm_booking
 
 - rule: confirm shipment booking
   steps:
@@ -89,6 +98,15 @@ rules:
     - active_loop: booking_form
   steps:
     - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
+
+- rule: Deny booking form
+  condition:
+    - active_loop: booking_form
+  steps:
+    - intent: deny
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
@@ -119,6 +137,15 @@ rules:
     - active_loop: null
     - action: action_cancel_active_form
 
+- rule: Deny rates form
+  condition:
+    - active_loop: rates_form
+  steps:
+    - intent: deny
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
+
 # ── Nearest Branch ───────────────────────────────────────
 
 - rule: Start branch form
@@ -141,6 +168,15 @@ rules:
     - active_loop: branch_form
   steps:
     - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_active_form
+
+- rule: Deny inside branch form
+  condition:
+    - active_loop: branch_form
+  steps:
+    - intent: deny
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form

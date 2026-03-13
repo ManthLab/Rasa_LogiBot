@@ -9,7 +9,7 @@ stories:
 #     - action: booking_form
 #     - active_loop: booking_form
 #     - active_loop: null
-#     - action: utter_ask_confirm_booking
+#     - action: action_ask_confirm_booking
 #     - intent: confirm_booking
 #     - action: action_book_shipment
 
@@ -20,7 +20,7 @@ stories:
 #     - action: booking_form
 #     - active_loop: booking_form
 #     - active_loop: null
-#     - action: utter_ask_confirm_booking
+#     - action: action_ask_confirm_booking
 #     - intent: cancel_booking
 #     - action: action_cancel_booking
 
@@ -31,7 +31,7 @@ stories:
 #     - action: booking_form
 #     - active_loop: booking_form
 #     - active_loop: null
-#     - action: utter_ask_confirm_booking
+#     - action: action_ask_confirm_booking
 #     - intent: cancel_booking
 #     - action: action_book_shipment
 #     - intent: greet
@@ -44,7 +44,7 @@ stories:
 #     - action: booking_form
 #     - active_loop: booking_form
 #     - active_loop: null
-#     - action: utter_ask_confirm_booking
+#     - action: action_ask_confirm_booking
 #     - intent: confirm_booking
 #     - action: action_book_shipment
 #     - intent: track_shipment
@@ -107,7 +107,7 @@ stories:
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
-    - action: utter_ask_confirm_booking
+    - action: action_ask_confirm_booking
     - intent: confirm_booking
     - action: action_book_shipment
 
@@ -131,7 +131,7 @@ stories:
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
-    - action: utter_ask_confirm_booking
+    - action: action_ask_confirm_booking
     - intent: confirm_booking
     - action: action_book_shipment
 
@@ -171,7 +171,7 @@ stories:
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
-    - action: utter_ask_confirm_booking
+    - action: action_ask_confirm_booking
     - intent: confirm_booking
     - action: action_book_shipment
 

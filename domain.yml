@@ -273,31 +273,31 @@ responses:
   utter_ask_delivery_pincode:
     - text: "📮 Enter the **6-digit pincode** of the delivery location:"
 
-  # ── Confirm Booking ───────────────────────
-  utter_ask_confirm_booking:
-    - text: |
-        📋 **Please review your shipment details:**
+  # # ── Confirm Booking ───────────────────────
+  # utter_ask_confirm_booking:
+  #   - text: |
+  #       📋 **Please review your shipment details:**
 
-        ┌─ SENDER ────────────────────────────
-        👤 Name    : {sender_name}
-        📞 Contact : {sender_contact_number}
-        📧 Email   : {sender_email}
+  #       ┌─ SENDER ────────────────────────────
+  #       👤 Name    : {sender_name}
+  #       📞 Contact : {sender_contact_number}
+  #       📧 Email   : {sender_email}
 
-        ┌─ RECEIVER ──────────────────────────
-        👤 Name    : {receiver_name}
-        📞 Contact : {receiver_contact_number}
+  #       ┌─ RECEIVER ──────────────────────────
+  #       👤 Name    : {receiver_name}
+  #       📞 Contact : {receiver_contact_number}
 
-        ┌─ DELIVERY ──────────────────────────
-        🏠 Address : {delivery_address}
-        🏙️ City    : {delivery_city}
-        📮 Pincode : {delivery_pincode}
+  #       ┌─ DELIVERY ──────────────────────────
+  #       🏠 Address : {delivery_address}
+  #       🏙️ City    : {delivery_city}
+  #       📮 Pincode : {delivery_pincode}
 
-        Confirm booking?
-      buttons:
-        - title: "✅ Yes, Confirm"
-          payload: "/confirm_booking"
-        - title: "❌ No, Cancel"
-          payload: "/cancel_booking"
+  #       Confirm booking?
+  #     buttons:
+  #       - title: "✅ Yes, Confirm"
+  #         payload: "/confirm_booking"
+  #       - title: "❌ No, Cancel"
+  #         payload: "/cancel_booking"
 
   # ── Shipping Rates ────────────────────────
   utter_ask_from_location:
@@ -457,9 +457,9 @@ responses:
     - text: "I can only assist with logistics services. Try asking me about tracking, booking, or shipping rates!"
 
   utter_ask_rephrase:
-  - text: "Sorry, I didn't catch that. Could you please rephrase? 🙏"
-  - text: "I'm not sure I understood. Could you try saying that differently?"
-  - text: "Could you clarify that? I want to make sure I get it right. 😊"
+    - text: "Sorry, I didn't catch that. Could you please rephrase? 🙏"
+    - text: "I'm not sure I understood. Could you try saying that differently?"
+    - text: "Could you clarify that? I want to make sure I get it right. 😊"
 
 
 session_config:
@@ -480,3 +480,4 @@ actions:
   - action_log_conversation
   - action_session_start
   - action_reset_logistics_slots
+  - action_ask_confirm_booking

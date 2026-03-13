@@ -91,7 +91,28 @@ class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_booking_form"
 
+    def _is_cancel_intent(self, tracker) -> bool:
+        intent = tracker.latest_message.get("intent", {}).get("name")
+#        print(f"DEBUG intent: {intent}")
+        return intent in [
+        "deny", "stop", "cancel_booking", 
+        "cancel_shipment"
+    ]
+
+    # ── validators ────────────────────────────────────────────────────────
     def validate_sender_name(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "sender_name":             None,
+                "sender_contact_number":   None,
+                "sender_email":            None,
+                "receiver_name":           None,
+                "receiver_contact_number": None,
+                "delivery_address":        None,
+                "delivery_city":           None,
+                "delivery_pincode":        None,
+                "requested_slot":          None
+            }
         if not slot_value:
             return {"sender_name": None}
         val = slot_value.strip()
@@ -101,6 +122,17 @@ class ValidateBookingForm(FormValidationAction):
         return {"sender_name": val}
 
     def validate_sender_contact_number(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "sender_contact_number":   None,
+                "sender_email":            None,
+                "receiver_name":           None,
+                "receiver_contact_number": None,
+                "delivery_address":        None,
+                "delivery_city":           None,
+                "delivery_pincode":        None,
+                "requested_slot":          None
+            }
         if not slot_value:
             return {"sender_contact_number": None}
         val = slot_value.strip()
@@ -110,6 +142,16 @@ class ValidateBookingForm(FormValidationAction):
         return {"sender_contact_number": val}
 
     def validate_sender_email(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "sender_email":            None,
+                "receiver_name":           None,
+                "receiver_contact_number": None,
+                "delivery_address":        None,
+                "delivery_city":           None,
+                "delivery_pincode":        None,
+                "requested_slot":          None
+            }
         if not slot_value:
             return {"sender_email": None}
         val = slot_value.strip()
@@ -119,6 +161,15 @@ class ValidateBookingForm(FormValidationAction):
         return {"sender_email": val.lower()}
 
     def validate_receiver_name(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "receiver_name":           None,
+                "receiver_contact_number": None,
+                "delivery_address":        None,
+                "delivery_city":           None,
+                "delivery_pincode":        None,
+                "requested_slot":          None
+            }
         if not slot_value:
             return {"receiver_name": None}
         val = slot_value.strip()
@@ -128,6 +179,14 @@ class ValidateBookingForm(FormValidationAction):
         return {"receiver_name": val}
 
     def validate_receiver_contact_number(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "receiver_contact_number": None,
+                "delivery_address":        None,
+                "delivery_city":           None,
+                "delivery_pincode":        None,
+                "requested_slot":          None
+            }
         if not slot_value:
             return {"receiver_contact_number": None}
         val = slot_value.strip()
@@ -137,6 +196,13 @@ class ValidateBookingForm(FormValidationAction):
         return {"receiver_contact_number": val}
 
     def validate_delivery_address(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "delivery_address": None,
+                "delivery_city":    None,
+                "delivery_pincode": None,
+                "requested_slot":   None
+            }
         if not slot_value:
             return {"delivery_address": None}
         val = slot_value.strip()
@@ -146,6 +212,12 @@ class ValidateBookingForm(FormValidationAction):
         return {"delivery_address": val}
 
     def validate_delivery_city(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "delivery_city":    None,
+                "delivery_pincode": None,
+                "requested_slot":   None
+            }
         if not slot_value:
             return {"delivery_city": None}
         val = slot_value.strip()
@@ -155,6 +227,11 @@ class ValidateBookingForm(FormValidationAction):
         return {"delivery_city": val.title()}
 
     def validate_delivery_pincode(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+                "delivery_pincode": None,
+                "requested_slot":   None
+            }
         if not slot_value:
             return {"delivery_pincode": None}
         val = slot_value.strip()
@@ -163,7 +240,7 @@ class ValidateBookingForm(FormValidationAction):
             return {"delivery_pincode": None}
         return {"delivery_pincode": val}
 
-#------------------- Book Shipment – Action 
+#------------------- Book Shipment – Action --------------------
 class ActionBookShipment(Action):
     def name(self):
         return "action_book_shipment"
@@ -263,6 +340,60 @@ Thank you for choosing LogiExpress!
     + _clear(BOOKING_SLOTS)
 )
 
+#----------------- Confirm Booking ---------------
+class ActionAskConfirmBooking(Action):
+    def name(self):
+        return "action_ask_confirm_booking"
+
+    def run(self, dispatcher, tracker, domain):
+
+        required = {
+            "sender_name":             tracker.get_slot("sender_name"),
+            "sender_contact_number":   tracker.get_slot("sender_contact_number"),
+            "sender_email":            tracker.get_slot("sender_email"),
+            "receiver_name":           tracker.get_slot("receiver_name"),
+            "receiver_contact_number": tracker.get_slot("receiver_contact_number"),
+            "delivery_address":        tracker.get_slot("delivery_address"),
+            "delivery_city":           tracker.get_slot("delivery_city"),
+            "delivery_pincode":        tracker.get_slot("delivery_pincode"),
+        }
+
+        missing = [k for k, v in required.items() if not v]
+
+        if missing:
+            dispatcher.utter_message(
+                text="❌ Booking could not be completed — some details are missing. Please start again.",
+                buttons=[
+                    {"title": "🚚 Book Shipment", "payload": "/book_shipment"},
+                    {"title": "🏠 Main Menu",      "payload": "/greet"},
+                ]
+            )
+            return _clear(BOOKING_SLOTS)
+
+        dispatcher.utter_message(
+            text=f"""📋 Please review your shipment details:
+
+┌─ SENDER ────────────────────────────
+👤 Name    : {required['sender_name']}
+📞 Contact : {required['sender_contact_number']}
+📧 Email   : {required['sender_email']}
+
+┌─ RECEIVER ──────────────────────────
+👤 Name    : {required['receiver_name']}
+📞 Contact : {required['receiver_contact_number']}
+
+┌─ DELIVERY ──────────────────────────
+🏠 Address : {required['delivery_address']}
+🏙️ City    : {required['delivery_city']}
+📮 Pincode : {required['delivery_pincode']}
+
+Confirm booking?""",
+            buttons=[
+                {"title": "✅ Yes, Confirm", "payload": "/confirm_booking"},
+                {"title": "❌ No, Cancel",   "payload": "/cancel_booking"},
+            ]
+        )
+        return []
 
 #-------------- Cancel Booking Mid-Form 
 class ActionCancelBooking(Action):
@@ -288,7 +419,7 @@ class ActionCancelBooking(Action):
 )
 
 
-#------------- Shipping Rates 
+#------------- Shipping Rates ---------------
 class ActionGetShippingRates(Action):
     def name(self):
         return "action_get_shipping_rates"
@@ -338,10 +469,44 @@ Would you like to book a shipment?""",
         ActiveLoop(None),
         SlotSet("requested_slot", None)
     ]
-    + _clear(BOOKING_SLOTS)
+    + _clear(RATES_SLOTS)
 )
 
-#----------- Nearest Branch 
+#------------------------- Rates Validation -------------------
+class ValidateRatesForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_rates_form"
+
+    def _is_cancel_intent(self, tracker) -> bool:
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        return intent in [
+            "deny", "stop", "cancel_booking",
+            "cancel_shipment"
+        ]
+
+    def validate_from_location(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {"from_location": None, "to_location": None, "requested_slot": None}
+        if not slot_value:
+            return {"from_location": None}
+        val = slot_value.strip().title()
+        if not re.fullmatch(r"[A-Za-z\s\-]+", val) or len(val) < 3:
+            dispatcher.utter_message(text="📍 Please enter a valid origin city name (letters only).")
+            return {"from_location": None}
+        return {"from_location": val}
+
+    def validate_to_location(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {"to_location": None, "requested_slot": None}
+        if not slot_value:
+            return {"to_location": None}
+        val = slot_value.strip().title()
+        if not re.fullmatch(r"[A-Za-z\s\-]+", val) or len(val) < 3:
+            dispatcher.utter_message(text="📍 Please enter a valid destination city name (letters only).")
+            return {"to_location": None}
+        return {"to_location": val}  
+
+#----------- Nearest Branch ----------------------
 class ActionNearestBranch(Action):
     def name(self):
         return "action_get_nearest_branch"
@@ -409,6 +574,25 @@ class ActionSchedulePickup(Action):
 
     def run(self, dispatcher, tracker, domain):
         log_conversation(tracker)
+        # ── guard: check all required slots are filled ────────────────
+        required_slots = {
+            "pickup_name":    tracker.get_slot("pickup_name"),
+            "pickup_contact": tracker.get_slot("pickup_contact"),
+            "pickup_address": tracker.get_slot("pickup_address"),
+            "pickup_date":    tracker.get_slot("pickup_date"),
+            "pickup_time":    tracker.get_slot("pickup_time"),
+        }
+        missing = [k for k, v in required_slots.items() if not v]
+        if missing:
+            dispatcher.utter_message(
+                text="❌ Pickup could not be scheduled — some details are missing.\n"
+                     "Please start again.",
+                buttons=[
+                    {"title": "🔄 Schedule Pickup", "payload": "/schedule_pickup"},
+                    {"title": "🏠 Main Menu",        "payload": "/greet"},
+                ]
+            )
+            return [AllSlotsReset()]
         name    = tracker.get_slot("pickup_name")
         contact = tracker.get_slot("pickup_contact")
         address = tracker.get_slot("pickup_address")
@@ -458,12 +642,29 @@ class ActionSchedulePickup(Action):
     + _clear(PICKUP_SLOTS)
 )
 
-#------------- Pickup Form – Validation
+#--------------- PickUp Validations ---------------------
 class ValidatePickupForm(FormValidationAction):
     def name(self):
         return "validate_pickup_form"
 
+    # ── helper ────────────────────────────────────────────────────────────
+    def _is_cancel_intent(self, tracker) -> bool:
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        return intent in [
+        "deny", "stop", "cancel_booking",
+        "cancel_shipment"
+    ]
+
+    # ── validators ────────────────────────────────────────────────────────
     def validate_pickup_name(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {"pickup_name": None,
+                    "pickup_contact": None,
+                    "pickup_address": None,
+                    "pickup_date":    None,   
+                    "pickup_time":   None,   
+                    "requested_slot": None
+        }
         if not slot_value:
             return {"pickup_name": None}
         val = slot_value.strip()
@@ -473,6 +674,13 @@ class ValidatePickupForm(FormValidationAction):
         return {"pickup_name": val}
 
     def validate_pickup_contact(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {"pickup_contact": None,
+                    "pickup_address": None,
+                    "pickup_date":    None,   
+                    "pickup_time":   None,   
+                    "requested_slot": None
+        }
         if not slot_value:
             return {"pickup_contact": None}
         val = slot_value.strip()
@@ -482,6 +690,13 @@ class ValidatePickupForm(FormValidationAction):
         return {"pickup_contact": val}
 
     def validate_pickup_address(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+            "pickup_address": None,
+            "pickup_date":    None,   
+            "pickup_time":   None,   
+            "requested_slot": None
+        }
         if not slot_value:
             return {"pickup_address": None}
         val = slot_value.strip()
@@ -494,6 +709,13 @@ class ValidatePickupForm(FormValidationAction):
         return {"pickup_address": val}
 
     def validate_pickup_date(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {
+            "pickup_date":   None,
+            "pickup_time":  None,    
+            "requested_slot": None
+        }
+
         if not slot_value:
             return {"pickup_date": None}
         try:
@@ -508,6 +730,8 @@ class ValidatePickupForm(FormValidationAction):
             return {"pickup_date": None}
 
     def validate_pickup_time(self, slot_value, dispatcher, tracker, domain):
+        if self._is_cancel_intent(tracker):
+            return {"pickup_time": None, "requested_slot": None}
         if not slot_value:
             return {"pickup_time": None}
         try:
@@ -522,8 +746,7 @@ class ValidatePickupForm(FormValidationAction):
             dispatcher.utter_message(text="🕐 Invalid time. Please enter like: *10 AM*, *2:30 PM*, or *14:30*")
             return {"pickup_time": None}
 
-
-#------------- Cancel Any Active Form
+#------------- Cancel Any Active Form --------------------------
 class ActionCancelActiveForm(Action):
     def name(self):
         return "action_cancel_active_form"
