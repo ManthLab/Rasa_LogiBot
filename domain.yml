@@ -18,6 +18,18 @@ intents:
   - confirm_booking
   - cancel_booking
   - ask_offers
+  - nlu_fallback
+  - out_of_scope
+  #-------------------- Multi-intents---------------
+  - greet+track_shipment
+  - greet+book_shipment
+  - greet+get_shipping_rates
+  - greet+schedule_pickup
+  - greet+nearest_branch
+  - track_shipment+ask_help
+  - book_shipment+get_shipping_rates
+  - thank_you+goodbye
+  - nearest_branch+book_shipment
 
 
 entities:
@@ -434,6 +446,20 @@ responses:
           payload: "/nearest_branch"
         - title: "🔄 Schedule Pickup"
           payload: "/schedule_pickup"
+
+  utter_fallback:
+    - text: "I'm sorry, I didn't quite understand that. 😕"
+    - text: "Hmm, I couldn't understand your message. Could you rephrase?"
+    - text: "I'm not sure what you mean. Could you try again?"
+
+  utter_out_of_scope:
+    - text: "That's outside what I can help with. I'm a logistics assistant — I can help you track shipments, book deliveries, check rates, find branches, or schedule pickups. 📦"
+    - text: "I can only assist with logistics services. Try asking me about tracking, booking, or shipping rates!"
+
+  utter_ask_rephrase:
+  - text: "Sorry, I didn't catch that. Could you please rephrase? 🙏"
+  - text: "I'm not sure I understood. Could you try saying that differently?"
+  - text: "Could you clarify that? I want to make sure I get it right. 😊"
 
 
 session_config:

@@ -2,7 +2,7 @@ version: "3.1"
 
 rules:
 
-# ── Core ──────────────────────────────────────────────────────────────────
+# ── Core ─────────────────────────────────────────
 
 - rule: Greet user
   steps:
@@ -29,7 +29,7 @@ rules:
     - intent: thank_you
     - action: utter_thank_you
 
-# ── Track Shipment ────────────────────────────────────────────────────────
+# ── Track Shipment ────────────────────────────────────
 
 - rule: Start tracking form
   steps:
@@ -55,7 +55,7 @@ rules:
     - active_loop: null
     - action: action_cancel_active_form
 
-# ── Book Shipment ─────────────────────────────────────────────────────────
+# ── Book Shipment ───────────────────────────────────────
 
 - rule: Start booking form
   steps:
@@ -93,10 +93,7 @@ rules:
     - active_loop: null
     - action: action_cancel_active_form
 
-# NOTE: affirm -> action_book_shipment and deny -> action_cancel_booking
-# are handled ONLY in stories.yml to avoid RulePolicy conflicts.
-
-# ── Shipping Rates ────────────────────────────────────────────────────────
+# ── Shipping Rates ─────────────────────────────────────
 
 - rule: Start rates form
   steps:
@@ -122,7 +119,7 @@ rules:
     - active_loop: null
     - action: action_cancel_active_form
 
-# ── Nearest Branch ────────────────────────────────────────────────────────
+# ── Nearest Branch ───────────────────────────────────────
 
 - rule: Start branch form
   steps:
@@ -148,7 +145,7 @@ rules:
     - active_loop: null
     - action: action_cancel_active_form
 
-# ── Schedule Pickup ───────────────────────────────────────────────────────
+# ── Schedule Pickup ─────────────────────────────────────────
 
 - rule: Start pickup form
   steps:
@@ -193,3 +190,123 @@ rules:
 - rule: Log every user message
   steps:
     - action: action_log_conversation
+
+#-------------------- Fallback ---------------
+- rule: Handle low NLU confidence
+  steps:
+    - intent: nlu_fallback
+    - action: utter_fallback
+    - action: utter_help        
+
+- rule: Handle out of scope
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+
+#------------------ Fallback inside active forms -----------------
+
+- rule: Handle fallback inside booking form
+  condition:
+    - active_loop: booking_form
+  steps:
+    - intent: nlu_fallback
+    - action: utter_ask_rephrase
+
+- rule: Handle fallback inside tracking form
+  condition:
+    - active_loop: tracking_form
+  steps:
+    - intent: nlu_fallback
+    - action: utter_ask_rephrase
+
+- rule: Handle fallback inside rates form
+  condition:
+    - active_loop: rates_form
+  steps:
+    - intent: nlu_fallback
+    - action: utter_ask_rephrase
+
+- rule: Handle fallback inside branch form
+  condition:
+    - active_loop: branch_form
+  steps:
+    - intent: nlu_fallback
+    - action: utter_ask_rephrase
+
+- rule: Handle fallback inside pickup form
+  condition:
+    - active_loop: pickup_form
+  steps:
+    - intent: nlu_fallback
+    - action: utter_ask_rephrase
+
+
+# ── Multi-intent rules ─────────────────────────────────────
+
+- rule: Greet then track
+  steps:
+    - intent: greet+track_shipment
+    - action: utter_greet_bot
+    - action: action_reset_logistics_slots
+    - action: tracking_form
+    - active_loop: tracking_form
+
+- rule: Greet then book
+  steps:
+    - intent: greet+book_shipment
+    - action: utter_greet_bot
+    - action: action_reset_logistics_slots
+    - action: booking_form
+    - active_loop: booking_form
+
+- rule: Greet then rates
+  steps:
+    - intent: greet+get_shipping_rates
+    - action: utter_greet_bot
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+
+- rule: Greet then pickup
+  steps:
+    - intent: greet+schedule_pickup
+    - action: utter_greet_bot
+    - action: action_reset_logistics_slots
+    - action: pickup_form
+    - active_loop: pickup_form
+
+- rule: Greet then branch
+  steps:
+    - intent: greet+nearest_branch
+    - action: utter_greet_bot
+    - action: action_reset_logistics_slots
+    - action: branch_form
+    - active_loop: branch_form
+
+- rule: Help with tracking
+  steps:
+    - intent: track_shipment+ask_help
+    - action: utter_help
+    - action: action_reset_logistics_slots
+    - action: tracking_form
+    - active_loop: tracking_form
+
+- rule: Rates and book
+  steps:
+    - intent: book_shipment+get_shipping_rates
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+
+- rule: Thank you and goodbye
+  steps:
+    - intent: thank_you+goodbye
+    - action: utter_thank_you
+    - action: utter_goodbye
+
+- rule: Nearest branch then book
+  steps:
+    - intent: nearest_branch+book_shipment
+    - action: action_reset_logistics_slots
+    - action: branch_form
+    - active_loop: branch_form
