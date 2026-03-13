@@ -131,7 +131,7 @@ slots:
       - type: from_text
         conditions:
           - active_loop: branch_form
-            requested_slot: nearest_branch
+            requested_slot: nearest_branch       
 
   # ── Schedule Pickup ───────────────────────
   pickup_name:
@@ -438,7 +438,7 @@ responses:
 
 session_config:
   session_expiration_time: 60
-  carry_over_slots_to_new_session: false
+  carry_over_slots_to_new_session: true
 
 
 actions:
@@ -451,3 +451,6 @@ actions:
   - action_schedule_pickup
   - validate_pickup_form
   - action_cancel_active_form
+  - action_log_conversation
+  - action_session_start
+  - action_reset_logistics_slots

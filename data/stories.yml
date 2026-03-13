@@ -55,6 +55,7 @@ stories:
 - story: pickup scheduled
   steps:
     - intent: schedule_pickup
+    - action: action_reset_logistics_slots
     - action: pickup_form
     - active_loop: pickup_form
     - active_loop: null
@@ -64,6 +65,7 @@ stories:
 - story: pickup scheduled then continue
   steps:
     - intent: schedule_pickup
+    - action: action_reset_logistics_slots
     - action: pickup_form
     - active_loop: pickup_form
     - active_loop: null
@@ -75,6 +77,7 @@ stories:
 - story: track shipment
   steps:
     - intent: track_shipment
+    - action: action_reset_logistics_slots
     - action: tracking_form
     - active_loop: tracking_form
     - active_loop: null
@@ -84,6 +87,7 @@ stories:
 - story: get rates
   steps:
     - intent: get_shipping_rates
+    - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
@@ -93,11 +97,13 @@ stories:
 - story: rates then book confirmed
   steps:
     - intent: get_shipping_rates
+    - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
     - action: action_get_shipping_rates
     - intent: book_shipment
+    - action: action_reset_logistics_slots
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
@@ -109,6 +115,7 @@ stories:
 - story: nearest branch
   steps:
     - intent: nearest_branch
+    - action: action_reset_logistics_slots
     - action: branch_form
     - active_loop: branch_form
     - active_loop: null
@@ -120,6 +127,7 @@ stories:
     - intent: greet
     - action: utter_greet_bot
     - intent: book_shipment
+    - action: action_reset_logistics_slots
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
@@ -133,6 +141,7 @@ stories:
     - intent: greet
     - action: utter_greet_bot
     - intent: schedule_pickup
+    - action: action_reset_logistics_slots
     - action: pickup_form
     - active_loop: pickup_form
     - active_loop: null

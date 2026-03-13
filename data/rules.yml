@@ -34,6 +34,7 @@ rules:
 - rule: Start tracking form
   steps:
     - intent: track_shipment
+    - action: action_reset_logistics_slots
     - action: tracking_form
     - active_loop: tracking_form
 
@@ -59,6 +60,7 @@ rules:
 - rule: Start booking form
   steps:
     - intent: book_shipment
+    - action: action_reset_logistics_slots
     - action: booking_form
     - active_loop: booking_form
 
@@ -99,6 +101,7 @@ rules:
 - rule: Start rates form
   steps:
     - intent: get_shipping_rates
+    - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form
 
@@ -124,6 +127,7 @@ rules:
 - rule: Start branch form
   steps:
     - intent: nearest_branch
+    - action: action_reset_logistics_slots
     - action: branch_form
     - active_loop: branch_form
 
@@ -149,6 +153,7 @@ rules:
 - rule: Start pickup form
   steps:
     - intent: schedule_pickup
+    - action: action_reset_logistics_slots
     - action: pickup_form
     - active_loop: pickup_form
 
@@ -183,3 +188,8 @@ rules:
   steps:
     - intent: ask_offers
     - action: utter_ask_offers
+
+#-------------- Logs -------------------
+- rule: Log every user message
+  steps:
+    - action: action_log_conversation

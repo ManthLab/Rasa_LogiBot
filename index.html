@@ -977,7 +977,7 @@
             </div>
           </div>
 
-          <div class="sidebar-section">
+          <!-- <div class="sidebar-section">
             <div class="sidebar-label">Quick Services</div>
             <div class="service-grid">
               <div class="service-btn" onclick="sendMsg('Track my shipment')">
@@ -1008,7 +1008,7 @@
                 <span class="label">Help</span>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div style="flex: 1"></div>
           <div class="status-row">
@@ -1050,7 +1050,7 @@
             <div class="date-sep" id="dateSep">Today</div>
           </div>
 
-          <div class="chips-row" id="quickChips">
+          <!-- <div class="chips-row" id="quickChips">
             <div class="chip" onclick="sendMsg('Track my shipment')">
               <img
                 src="icons/track.svg"
@@ -1093,7 +1093,7 @@
               />
               Pickup
             </div>
-          </div>
+          </div> -->
 
           <div class="input-area">
             <div class="input-row">
@@ -1120,14 +1120,39 @@
 
     <script>
       const SERVER = "http://localhost:5005";
+
+      let SESSION_ID = localStorage.getItem("logi_session");
+
+      if (!SESSION_ID) {
+        SESSION_ID = "logi_" + crypto.randomUUID();
+        localStorage.setItem("logi_session", SESSION_ID);
+      }
       const messagesEl = document.getElementById("messages");
 
-      let SESSION_ID = sessionStorage.getItem("logibot_session");
-      if (!SESSION_ID) {
-        SESSION_ID = "logi_" + Math.random().toString(36).slice(2, 10);
-        sessionStorage.setItem("logibot_session", SESSION_ID);
-      }
+      // async function sendMessage() {
+      //   const input = document.getElementById("msgInput");
+      //   const userMessage = input.value.trim();
 
+      //   if (!userMessage) return;
+
+      //   appendUser(userMessage);
+      //   input.value = "";
+
+      //   const res = await fetch("http://127.0.0.1:5005/webhooks/rest/webhook", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({
+      //       sender: sender,
+      //       message: userMessage,
+      //     }),
+      //   });
+
+      //   const data = await res.json();
+
+      //   data.forEach((msg) => {
+      //     appendBot(msg.text, msg.buttons);
+      //   });
+      // }
       function fmtTime(d) {
         return d.toLocaleTimeString("en-IN", {
           hour: "2-digit",
@@ -1358,6 +1383,8 @@
 
       async function callRasa(text) {
         try {
+          const controller = new AbortController();
+          setTimeout(() => controller.abort(), 60000);
           const res = await fetch(`${SERVER}/webhooks/rest/webhook`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -1401,8 +1428,15 @@
 
       function clearChat() {
         if (!confirm("Clear all messages and start a new session?")) return;
-        SESSION_ID = "logi_" + Math.random().toString(36).slice(2, 10);
-        sessionStorage.setItem("logibot_session", SESSION_ID);
+
+        // delete session
+        localStorage.removeItem("logi_session");
+
+        // create new session
+        SESSION_ID = crypto.randomUUID();
+        localStorage.setItem("logi_session", SESSION_ID);
+
+        // reset UI
         messagesEl.innerHTML = '<div class="date-sep">Today</div>';
         injectWelcome();
       }
