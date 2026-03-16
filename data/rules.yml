@@ -113,9 +113,9 @@ rules:
 
 # ── Shipping Rates ─────────────────────────────────────
 
-- rule: Start rates form
+- rule: Activate rates form
   steps:
-    - intent: get_shipping_rates
+    - intent: check_rates
     - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form
@@ -128,23 +128,47 @@ rules:
     - active_loop: null
     - action: action_get_shipping_rates
 
-- rule: Stop rates form
+- rule: Cancel rates form with stop
   condition:
     - active_loop: rates_form
   steps:
     - intent: stop
     - action: action_deactivate_loop
     - active_loop: null
-    - action: action_cancel_active_form
+    - action: action_cancel_rates_form
 
-- rule: Deny rates form
+- rule: Cancel rates form with deny
   condition:
     - active_loop: rates_form
   steps:
     - intent: deny
     - action: action_deactivate_loop
     - active_loop: null
-    - action: action_cancel_active_form
+    - action: action_cancel_rates_form
+
+- rule: Cancel rates form with cancel_shipment intent
+  condition:
+    - active_loop: rates_form
+  steps:
+    - intent: cancel_shipment
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_rates_form
+
+- rule: Handle out_of_scope inside rates form
+  condition:
+    - active_loop: rates_form
+  steps:
+    - intent: out_of_scope
+    - action: rates_form
+    - active_loop: rates_form
+
+- rule: Handle nlu_fallback inside rates form
+  condition:
+    - active_loop: rates_form
+  steps:
+    - intent: nlu_fallback
+    - action: utter_ask_rephrase     
 
 # ── Nearest Branch ───────────────────────────────────────
 
@@ -297,7 +321,7 @@ rules:
 
 - rule: Greet then rates
   steps:
-    - intent: greet+get_shipping_rates
+    - intent: greet+check_rates
     - action: utter_greet_bot
     - action: action_reset_logistics_slots
     - action: rates_form
@@ -329,7 +353,7 @@ rules:
 
 - rule: Rates and book
   steps:
-    - intent: book_shipment+get_shipping_rates
+    - intent: book_shipment+check_rates
     - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form

@@ -86,17 +86,53 @@ stories:
 # ── Rates ─────────────────────────────────────────────────────────────────
 - story: get rates
   steps:
-    - intent: get_shipping_rates
+    - intent: check_rates
     - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
     - action: action_get_shipping_rates
 
+# ── Rates cancelled with stop ─────────────────────────────────────────────
+- story: get rates cancelled stop
+  steps:
+    - intent: check_rates
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+    - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_rates_form
+
+# ── Rates cancelled with deny ─────────────────────────────────────────────
+- story: get rates cancelled deny
+  steps:
+    - intent: check_rates
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+    - intent: deny
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_rates_form
+
+# ── Rates cancelled with cancel_shipment ──────────────────────────────────
+- story: get rates cancelled cancel_shipment
+  steps:
+    - intent: check_rates
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+    - intent: cancel_shipment
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_cancel_rates_form
+
 # ── Rates then book ───────────────────────────────────────────────────────
 - story: rates then book confirmed
   steps:
-    - intent: get_shipping_rates
+    - intent: check_rates
     - action: action_reset_logistics_slots
     - action: rates_form
     - active_loop: rates_form

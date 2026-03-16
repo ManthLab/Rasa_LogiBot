@@ -72,8 +72,21 @@ nlu:
     - stop the shipment
 
 # ── Get Shipping Rates ────────────────────────────────────────────────────
-- intent: get_shipping_rates
+- intent: check_rates
   examples: |
+    - rates
+    - Rates
+    - shipping rates
+    - check rates
+    - what are the rates
+    - show me rates
+    - rate inquiry
+    - how much does shipping cost
+    - shipping cost
+    - price list
+    - what's the shipping price
+    - calculate rates
+    - get rates
     - I want to know the shipping rates
     - What are your shipping charges?
     - How much does shipping cost?
@@ -84,10 +97,41 @@ nlu:
     - Shipping price from [Chennai](from_location) to [Hyderabad](to_location)
     - How much will it cost to send shipment to [Ahmedabad](to_location)?
     - Cost to send from [Kolkata](from_location)
-    - shipping rates
     - what are the charges?
     - delivery charges
     - price for shipping
+
+- intent: inform
+  examples: |
+    - 421202
+    - 10115
+    - 560001
+    - 110001
+    - 400001
+    - 110020
+    - 700001
+    - Germany
+    - France
+    - USA
+    - United States
+    - Australia
+    - United Kingdom
+    - Singapore
+    - UAE
+    - document
+    - non-document
+    - parcel
+    - package
+    - 220 grams
+    - 500g
+    - 1kg
+    - 1.5 kg
+    - 2kg
+    - 30
+    - 45
+    - 12
+    - 10115
+    - SW1A 1AA
 
 # ── Nearest Branch ────────────────────────────────────────────────────────
 - intent: nearest_branch
@@ -177,22 +221,42 @@ nlu:
 - intent: stop
   examples: |
     - stop
-    - exit
+    - Stop
+    - STOP
+    - cancel
+    - Cancel
+    - CANCEL
+    - not now
+    - Not now
+    - cancel for now
     - quit
-    - restart
-    - menu
-    - go back
-    - start over
-    - main menu
-    - home
-    - reset
+    - Quit
+    - exit
+    - never mind
+    - nevermind
+    - forget it
+    - leave it
     - abort
-    - cancel form        
-    - stop form        
-    - end this           
-    - quit form         
+    - go back
+    - no more
+    - end this
+    - drop it
+    - I want to stop
+    - please stop
+    - let's stop
+    - that's enough
+    - I don't want this
+    - skip it
+    - nah
+    - not interested
+    - I changed my mind
+    - leave this
+    - close this
+    - I want to cancel
+    - cancel this
+    - cancel please         
 
-# ── Bot Challenge ─────────────────────────────────────────────────────────
+# ── Bot Challenge ───────────────────────────────────────
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -202,7 +266,7 @@ nlu:
     - who are you?
     - what are you?
 
-# ── Help ──────────────────────────────────────────────────────────────────
+# ── Help ────────────────────────────────────────────────
 - intent: ask_help
   examples: |
     - help
@@ -296,7 +360,7 @@ nlu:
     - hey can I book a courier
     - good morning I want to ship something
 
-- intent: greet+get_shipping_rates
+- intent: greet+check_rates
   examples: |
     - hi what are the shipping charges
     - hello how much does shipping cost
@@ -324,7 +388,7 @@ nlu:
     - how do I track my package
     - can you help me find my parcel
 
-- intent: book_shipment+get_shipping_rates
+- intent: book_shipment+check_rates
   examples: |
     - I want to book and know the rates
     - what are the charges and how do I book

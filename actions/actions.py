@@ -1,4 +1,5 @@
 import re
+import math
 import json
 import random
 from rasa_sdk import Action, Tracker
@@ -26,8 +27,16 @@ PICKUP_SLOTS = [
     "pickup_name", "pickup_contact", "pickup_address", "pickup_date", "pickup_time",
 ]
 
-RATES_SLOTS = ["from_location", "to_location"]
-
+RATES_SLOTS = [
+    "destination_country",
+    "from_pincode",
+    "to_pincode",
+    "shipment_type",
+    "weight_grams",
+    "length_cm",
+    "width_cm",
+    "height_cm",
+]
 
 def _clear(slots):
     return [SlotSet(s, None) for s in slots]
@@ -328,7 +337,7 @@ Thank you for choosing LogiExpress!
             buttons=[
                 {"title": "📦 Track Shipment", "payload": "/track_shipment"},
                 {"title": "🚚 Book Shipment", "payload": "/book_shipment"},
-                {"title": "💰 Shipping Rates", "payload": "/get_shipping_rates"},
+                {"title": "💰 Shipping Rates", "payload": "/check_rates"},
             ]
         )
 
@@ -406,7 +415,7 @@ class ActionCancelBooking(Action):
             text="❌ Booking cancelled.\n\nHow else can I assist you?",
             buttons=[
                 {"title": "📦 Track Shipment",  "payload": "/track_shipment"},
-                {"title": "💰 Get Rates",        "payload": "/get_shipping_rates"},
+                {"title": "💰 Get Rates",        "payload": "/check_rates"},
                 {"title": "📍 Nearest Branch",   "payload": "/nearest_branch"},
             ]
         )
@@ -420,91 +429,320 @@ class ActionCancelBooking(Action):
 
 
 #------------- Shipping Rates ---------------
+
+RATES_SLOTS = [
+    "destination_country",
+    "from_pincode",
+    "to_pincode",
+    "shipment_type",       
+    "weight_grams",
+    "length_cm",
+    "width_cm",
+    "height_cm",
+]
+
+CANCEL_INTENTS = {"deny", "stop", "cancel_booking", "cancel_shipment"}
+
+CANCEL_KEYWORDS = {
+    "cancel", "stop", "quit", "exit", "no", "nope", "never mind",
+    "forget it", "not now", "leave it", "abort", "back", "drop it",
+    "cancel for now", "i want to cancel", "cancel this", "cancel please",
+    "nevermind", "skip it", "i changed my mind", "close this"
+}
+
+def _is_cancel(tracker: Tracker) -> bool:
+    intent = tracker.latest_message.get("intent", {}).get("name", "")
+    text = tracker.latest_message.get("text", "").strip().lower()
+    return intent in CANCEL_INTENTS or text in CANCEL_KEYWORDS
+
+def _clear(slots: list) -> list:
+    return [SlotSet(s, None) for s in slots]
+
+def _is_cancel(tracker: Tracker) -> bool:
+    intent = tracker.latest_message.get("intent", {}).get("name", "")
+    return intent in CANCEL_INTENTS
+
+INTERNATIONAL_CARRIERS = ["UPS", "FedEx", "DHL", "WorldWyde Express Standard"]
+
+INTL_BASE_RATES = {
+    # per 500 g slab, zone → carrier → ₹ per slab
+    "Europe":       {"UPS": 1900, "FedEx": 2100, "DHL": 2200, "WorldWyde Express Standard": 2050},
+    "USA/Canada":   {"UPS": 1800, "FedEx": 2000, "DHL": 2150, "WorldWyde Express Standard": 1950},
+    "Asia Pacific": {"UPS": 1400, "FedEx": 1600, "DHL": 1700, "WorldWyde Express Standard": 1550},
+    "Middle East":  {"UPS": 1300, "FedEx": 1500, "DHL": 1600, "WorldWyde Express Standard": 1450},
+    "Rest of World":{"UPS": 2000, "FedEx": 2200, "DHL": 2300, "WorldWyde Express Standard": 2100},
+}
+
+DOMESTIC_CARRIERS = ["DTDC", "BlueDart", "Delhivery", "Ekart Logistics"]
+DOMESTIC_BASE_RATES = {
+    # flat per 500 g slab
+    "same_city":  {"DTDC": 50,  "BlueDart": 70,  "Delhivery": 55,  "Ekart Logistics": 48},
+    "metro":      {"DTDC": 80,  "BlueDart": 100, "Delhivery": 85,  "Ekart Logistics": 75},
+    "rest_india": {"DTDC": 100, "BlueDart": 130, "Delhivery": 110, "Ekart Logistics": 95},
+}
+
+COUNTRY_TO_ZONE = {
+    # Europe
+    "germany": "Europe", "france": "Europe", "uk": "Europe",
+    "united kingdom": "Europe", "italy": "Europe", "spain": "Europe",
+    "netherlands": "Europe", "sweden": "Europe", "norway": "Europe",
+    "switzerland": "Europe", "poland": "Europe", "austria": "Europe",
+    # USA / Canada
+    "usa": "USA/Canada", "united states": "USA/Canada",
+    "america": "USA/Canada", "canada": "USA/Canada",
+    # Asia Pacific
+    "australia": "Asia Pacific", "new zealand": "Asia Pacific",
+    "japan": "Asia Pacific", "singapore": "Asia Pacific",
+    "malaysia": "Asia Pacific", "thailand": "Asia Pacific",
+    "indonesia": "Asia Pacific", "philippines": "Asia Pacific",
+    "south korea": "Asia Pacific", "china": "Asia Pacific",
+    # Middle East
+    "uae": "Middle East", "dubai": "Middle East",
+    "saudi arabia": "Middle East", "qatar": "Middle East",
+    "bahrain": "Middle East", "kuwait": "Middle East", "oman": "Middle East",
+}
+
+def get_zone(country: str) -> str:
+    return COUNTRY_TO_ZONE.get(country.strip().lower(), "Rest of World")
+
+def chargeable_weight_g(actual_g: float, l: float, w: float, h: float, is_doc: bool) -> float:
+    """Returns the higher of actual weight and volumetric weight (in grams)."""
+    if is_doc:
+        return actual_g   # documents: no volumetric
+    vol_weight_g = (l * w * h / 5000) * 1000   # DIM factor 5000 cm³/kg → grams
+    return max(actual_g, vol_weight_g)
+
+def slabs(weight_g: float) -> float:
+    """Number of 500 g slabs (minimum 1)."""
+    return max(1, math.ceil(weight_g / 500))
+
+def calc_intl_rates(zone: str, weight_g: float) -> Dict[str, int]:
+    base = INTL_BASE_RATES.get(zone, INTL_BASE_RATES["Rest of World"])
+    n = slabs(weight_g)
+    return {carrier: rate * n for carrier, rate in base.items()}
+
+def calc_domestic_rates(from_pin: str, to_pin: str, weight_g: float) -> Dict[str, int]:
+    # Simple zone logic from Indian pincodes (first digit = region)
+    f, t = from_pin[0], to_pin[0]
+    if from_pin == to_pin:
+        tier = "same_city"
+    elif f == t:
+        tier = "metro"
+    else:
+        tier = "rest_india"
+    base = DOMESTIC_BASE_RATES[tier]
+    n = slabs(weight_g)
+    return {carrier: rate * n for carrier, rate in base.items()}
+
+
+# ── Form action ───────────────────────────────────────────────────────────────
 class ActionGetShippingRates(Action):
     def name(self):
         return "action_get_shipping_rates"
 
-    def run(self, dispatcher, tracker, domain):
-        log_conversation(tracker)
-        from_location = tracker.get_slot("from_location")
-        to_location   = tracker.get_slot("to_location")
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain):
+        country      = (tracker.get_slot("destination_country") or "").strip()
+        from_pin     = (tracker.get_slot("from_pincode") or "").strip()
+        to_pin       = (tracker.get_slot("to_pincode") or "").strip()
+        ship_type    = (tracker.get_slot("shipment_type") or "document").lower()
+        weight_g     = float(tracker.get_slot("weight_grams") or 500)
+        is_doc       = ship_type == "document"
+        is_intl      = bool(country)
 
-        if not from_location or not to_location:
-            dispatcher.utter_message(text="⚠️ Could not determine locations. Please try again.")
-            return _clear(RATES_SLOTS)
+        # Non-document dimensions
+        l = float(tracker.get_slot("length_cm") or 0)
+        w = float(tracker.get_slot("width_cm")  or 0)
+        h = float(tracker.get_slot("height_cm") or 0)
 
-        from_loc = from_location.strip().title()
-        to_loc   = to_location.strip().title()
+        chargeable = chargeable_weight_g(weight_g, l, w, h, is_doc)
 
-        if from_loc.lower() == to_loc.lower():
-            base, distance, tier = 100, 50, "Inter-city"
+        # ── Calculate rates ──
+        if is_intl:
+            zone  = get_zone(country)
+            rates = calc_intl_rates(zone, chargeable)
+            dest_label = f"{to_pin}, {country.title()}"
         else:
-            base, distance, tier = 100, 100, "Domestic"
+            zone  = "Domestic"
+            rates = calc_domestic_rates(from_pin, to_pin, chargeable)
+            dest_label = to_pin
 
-        total_cost = base + distance
+        # ── Format output ──
+        rates_lines = "\n".join(
+            f"  • {carrier:<32}: ₹{amount:,}"
+            for carrier, amount in sorted(rates.items(), key=lambda x: x[1])
+        )
+
+        dim_line = (
+            f"📐 Dimensions : {int(l)}×{int(w)}×{int(h)} cm\n" if not is_doc else ""
+        )
+        vol_note = (
+            f"⚖️  Chargeable  : {chargeable:.0f} g (volumetric applied)\n"
+            if (not is_doc and chargeable != weight_g) else
+            f"⚖️  Weight      : {weight_g:.0f} g\n"
+        )
 
         dispatcher.utter_message(
-            text=f"""💰 *Shipping Rate Estimate*
-
-📍 From     : {from_loc}
-📍 To       : {to_loc}
-🏷️ Tier     : {tier}
-
-Base Charge    : ₹{base}
-Distance Charge: ₹{distance}
-─────────────────
-💵 Total       : ₹{total_cost}
-
-_Rates are estimates and may vary based on weight & dimensions._
-
-Would you like to book a shipment?""",
+            text=(
+                f"📦 *Shipping Rate Estimate*\n\n"
+                f"📍 From       : {from_pin}\n"
+                f"📍 To         : {dest_label}\n"
+                f"🏷️  Type       : {'Document' if is_doc else 'Non-Document'}\n"
+                f"🌍 Zone       : {zone}\n"
+                f"{vol_note}"
+                f"{dim_line}\n"
+                f"*Carrier Rates:*\n{rates_lines}\n\n"
+                f"_Rates are estimates. Final charges depend on actual pickup scan._\n\n"
+                f"Would you like to book a shipment?"
+            ),
             buttons=[
-                {"title": "✅ Book Now",    "payload": "/book_shipment"},
-                {"title": "🔙 Main Menu",   "payload": "/greet"},
+                {"title": "✅ Book Now",  "payload": "/book_shipment"},
+                {"title": "🔙 Main Menu", "payload": "/greet"},
             ]
         )
 
-        return (
-    [
-        ActiveLoop(None),
-        SlotSet("requested_slot", None)
-    ]
-    + _clear(RATES_SLOTS)
-)
+        return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
 
-#------------------------- Rates Validation -------------------
+
+# ── Form validation ───────────────────────────────────────────────────────────
 class ValidateRatesForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_rates_form"
 
-    def _is_cancel_intent(self, tracker) -> bool:
-        intent = tracker.latest_message.get("intent", {}).get("name")
-        return intent in [
-            "deny", "stop", "cancel_booking",
-            "cancel_shipment"
+    def validate_destination_country(self, slot_value, dispatcher, tracker, domain):
+        if slot_value is None:
+            return {"destination_country": None}
+        
+        if _is_cancel(tracker):
+            return {s: None for s in RATES_SLOTS}
+
+        val = (slot_value or "").strip().lower()
+        if val in ("india", "in"):
+            dispatcher.utter_message(
+                text="🇮🇳 For domestic shipments within India, I'll use your pincodes directly."
+            )
+            return {"destination_country": None}
+
+        if not re.fullmatch(r"[a-zA-Z\s\-]+", val) or len(val) < 2:
+            dispatcher.utter_message(text="🌍 Please enter a valid destination country name.")
+            return {"destination_country": None}
+
+        return {"destination_country": val.title()}
+
+    def validate_from_pincode(self, slot_value, dispatcher, tracker, domain):
+        #print(f"DEBUG from_pincode => value: '{slot_value}' | intent: '{tracker.latest_message.get('intent', {}).get('name')}'")
+        #print(f"DEBUG active_loop: {tracker.active_loop}")
+        #print(f"DEBUG all slots: {tracker.current_slot_values()}")
+    
+        if slot_value is None:
+            return {"from_pincode": None}
+
+        if _is_cancel(tracker):
+            #print("DEBUG: CANCEL TRIGGERED in from_pincode!")
+            return {s: None for s in RATES_SLOTS}
+
+        val = (slot_value or "").strip()
+        if not re.fullmatch(r"\d{6}", val):
+            dispatcher.utter_message(text="📍 Please enter a valid 6-digit sender pincode.")
+            return {"from_pincode": None}
+    
+        #print(f"DEBUG from_pincode VALID => returning: {val}")
+        return {"from_pincode": val}
+
+    def validate_to_pincode(self, slot_value, dispatcher, tracker, domain):
+        if slot_value is None:
+            return {"to_pincode": None}
+        
+        if _is_cancel(tracker):
+            #print("DEBUG: CANCEL TRIGGERED in to_pincode!")
+            return {s: None for s in RATES_SLOTS}
+
+        val = (slot_value or "").strip()
+        if not re.fullmatch(r"[A-Za-z0-9\s\-]{3,10}", val):
+            dispatcher.utter_message(text="📍 Please enter a valid receiver postal/pincode.")
+            return {"to_pincode": None}
+        return {"to_pincode": val.upper()}
+
+    def validate_shipment_type(self, slot_value, dispatcher, tracker, domain):
+        if slot_value is None:
+            return {"shipment_type": None}
+        
+        if _is_cancel(tracker):
+            return {s: None for s in RATES_SLOTS}
+
+        val = (slot_value or "").strip().lower()
+        if val in ("document", "doc", "documents"):
+            return {"shipment_type": "document"}
+        if val in ("non-document", "non document", "nondocument", "parcel", "package", "non_document"):
+            return {"shipment_type": "non_document"}
+
+        dispatcher.utter_message(
+            text="📋 Please specify: *Document* or *Non-Document*?",
+            buttons=[
+            {"title": "📄 Document",     "payload": "document"},       
+            {"title": "📦 Non-Document", "payload": "non-document"},   
         ]
+        )
+        return {"shipment_type": None}
 
-    def validate_from_location(self, slot_value, dispatcher, tracker, domain):
-        if self._is_cancel_intent(tracker):
-            return {"from_location": None, "to_location": None, "requested_slot": None}
-        if not slot_value:
-            return {"from_location": None}
-        val = slot_value.strip().title()
-        if not re.fullmatch(r"[A-Za-z\s\-]+", val) or len(val) < 3:
-            dispatcher.utter_message(text="📍 Please enter a valid origin city name (letters only).")
-            return {"from_location": None}
-        return {"from_location": val}
+    def validate_weight_grams(self, slot_value, dispatcher, tracker, domain):
+        if slot_value is None:
+            return {"weight_grams": None}
+        
+        if _is_cancel(tracker):
+            return {s: None for s in RATES_SLOTS}
 
-    def validate_to_location(self, slot_value, dispatcher, tracker, domain):
-        if self._is_cancel_intent(tracker):
-            return {"to_location": None, "requested_slot": None}
-        if not slot_value:
-            return {"to_location": None}
-        val = slot_value.strip().title()
-        if not re.fullmatch(r"[A-Za-z\s\-]+", val) or len(val) < 3:
-            dispatcher.utter_message(text="📍 Please enter a valid destination city name (letters only).")
-            return {"to_location": None}
-        return {"to_location": val}  
+        raw = str(slot_value).strip().lower()
+        kg_match = re.fullmatch(r"(\d+(?:\.\d+)?)\s*kg", raw)
+        g_match  = re.fullmatch(r"(\d+(?:\.\d+)?)\s*(?:g|grams?)?", raw)
+
+        if kg_match:
+            grams = float(kg_match.group(1)) * 1000
+        elif g_match:
+            grams = float(g_match.group(1))
+        else:
+            dispatcher.utter_message(text="⚖️ Please enter a valid weight (e.g. 220 grams, 1.5 kg, 500).")
+            return {"weight_grams": None}
+
+        if grams <= 0 or grams > 70000:
+            dispatcher.utter_message(text="⚖️ Weight must be between 1g and 70kg.")
+            return {"weight_grams": None}
+
+        return {"weight_grams": str(grams)}
+
+    def _validate_dimension(self, slot_value, dispatcher, field_name: str):
+        if slot_value is None:
+            return {f"{field_name}_cm": None}
+        
+        raw = str(slot_value).strip().lower()
+        m = re.fullmatch(r"(\d+(?:\.\d+)?)\s*(?:cm)?", raw)
+        if not m or float(m.group(1)) <= 0:
+            dispatcher.utter_message(text=f"📐 Please enter a valid {field_name} in cm (e.g. 30).")
+            return {f"{field_name}_cm": None}
+        return {f"{field_name}_cm": str(float(m.group(1)))}
+
+    def validate_length_cm(self, slot_value, dispatcher, tracker, domain):
+        if _is_cancel(tracker): return {s: None for s in RATES_SLOTS}
+        return self._validate_dimension(slot_value, dispatcher, "length")
+
+    def validate_width_cm(self, slot_value, dispatcher, tracker, domain):
+        if _is_cancel(tracker): return {s: None for s in RATES_SLOTS}
+        return self._validate_dimension(slot_value, dispatcher, "width")
+
+    def validate_height_cm(self, slot_value, dispatcher, tracker, domain):
+        if _is_cancel(tracker): return {s: None for s in RATES_SLOTS}
+        return self._validate_dimension(slot_value, dispatcher, "height")
+    
+#--------------------- Cancel - Rates Form -------------------    
+class ActionCancelRatesForm(Action):
+    def name(self):
+        return "action_cancel_rates_form"
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(
+            text="No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
+        )
+        return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
+    
 
 #----------- Nearest Branch ----------------------
 class ActionNearestBranch(Action):
@@ -758,7 +996,7 @@ class ActionCancelActiveForm(Action):
             buttons=[
                 {"title": "📦 Track Shipment",  "payload": "/track_shipment"},
                 {"title": "🚚 Book Shipment",    "payload": "/book_shipment"},
-                {"title": "💰 Get Rates",        "payload": "/get_shipping_rates"},
+                {"title": "💰 Get Rates",        "payload": "/check_rates"},
                 {"title": "📍 Nearest Branch",   "payload": "/nearest_branch"},
                 {"title": "🔄 Schedule Pickup",  "payload": "/schedule_pickup"},
             ]
@@ -831,7 +1069,10 @@ class ActionResetLogisticsSlots(Action):
     def run(self, dispatcher, tracker, domain):
 
         return [
+            # ── Tracking ──
             SlotSet("tracking_id", None),
+
+            # ── Booking ──
             SlotSet("sender_name", None),
             SlotSet("sender_contact_number", None),
             SlotSet("sender_email", None),
@@ -840,9 +1081,21 @@ class ActionResetLogisticsSlots(Action):
             SlotSet("delivery_address", None),
             SlotSet("delivery_city", None),
             SlotSet("delivery_pincode", None),
-            SlotSet("from_location", None),
-            SlotSet("to_location", None),
+
+            # ── Rates ──
+            SlotSet("destination_country", None),
+            SlotSet("from_pincode", None),
+            SlotSet("to_pincode", None),
+            SlotSet("shipment_type", None),
+            SlotSet("weight_grams", None),
+            SlotSet("length_cm", None),
+            SlotSet("width_cm", None),
+            SlotSet("height_cm", None),
+
+            # ── Branch ──
             SlotSet("nearest_branch", None),
+
+            # ── Pickup ──
             SlotSet("pickup_name", None),
             SlotSet("pickup_contact", None),
             SlotSet("pickup_address", None),

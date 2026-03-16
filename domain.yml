@@ -10,7 +10,8 @@ intents:
   - track_shipment
   - book_shipment
   - cancel_shipment
-  - get_shipping_rates
+  - check_rates
+  - inform
   - nearest_branch
   - schedule_pickup
   - ask_help
@@ -20,6 +21,7 @@ intents:
   - ask_offers
   - nlu_fallback
   - out_of_scope
+
   #-------------------- Multi-intents---------------
   - greet+track_shipment
   - greet+book_shipment
@@ -34,8 +36,6 @@ intents:
 
 entities:
   - tracking_id
-  - from_location
-  - to_location
   - nearest_branch
 
 
@@ -114,25 +114,109 @@ slots:
             requested_slot: delivery_pincode
 
   # ── Shipping Rates ────────────────────────
-  from_location:
+  destination_country:
     type: text
+    influence_conversation: false
     mappings:
-      - type: from_entity
-        entity: from_location
       - type: from_text
         conditions:
           - active_loop: rates_form
-            requested_slot: from_location
+            requested_slot: destination_country
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
 
-  to_location:
+  from_pincode:
     type: text
+    influence_conversation: false
     mappings:
-      - type: from_entity
-        entity: to_location
       - type: from_text
         conditions:
           - active_loop: rates_form
-            requested_slot: to_location
+            requested_slot: from_pincode
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
+
+  to_pincode:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: to_pincode
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
+
+  shipment_type:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: shipment_type
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
+
+  weight_grams:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: weight_grams
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
+
+  length_cm:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: length_cm
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
+
+  width_cm:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: width_cm
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
+
+  height_cm:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: rates_form
+            requested_slot: height_cm
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
 
   # ── Nearest Branch ────────────────────────
   nearest_branch:
@@ -205,8 +289,14 @@ forms:
 
   rates_form:
     required_slots:
-      - from_location
-      - to_location
+      - destination_country   
+      - from_pincode         
+      - to_pincode            
+      - shipment_type
+      - weight_grams
+      - length_cm
+      - width_cm
+      - height_cm
 
   branch_form:
     required_slots:
@@ -234,7 +324,7 @@ responses:
         - title: "🚚 Book New Shipment"
           payload: "/book_shipment"
         - title: "💰 Shipping Rates"
-          payload: "/get_shipping_rates"
+          payload: "/check_rates"
         - title: "📍 Find Nearest Branch"
           payload: "/nearest_branch"
         - title: "🔄 Schedule Pickup"
@@ -300,11 +390,36 @@ responses:
   #         payload: "/cancel_booking"
 
   # ── Shipping Rates ────────────────────────
-  utter_ask_from_location:
-    - text: "📍 Enter the **pickup/origin city**:"
+  utter_rates_cancelled:
+    - text: "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
 
-  utter_ask_to_location:
-    - text: "📍 Enter the **delivery/destination city**:"
+  utter_ask_destination_country:
+    - text: "🌍 What is the **destination country** for your shipment?"
+
+  utter_ask_from_pincode:
+    - text: "📍 Enter the **sender's 6-digit pincode** (pickup location):"
+
+  utter_ask_to_pincode:              
+    - text: "📍 Enter the **receiver's postal/pincode** (delivery location):"
+
+  utter_ask_shipment_type:
+    - text: "📋 Is your shipment a **Document** or **Non-Document**?"
+      buttons:
+        - title: "📄 Document"
+          payload: "document"          
+        - title: "📦 Non-Document"
+          payload: "non-document"
+  utter_ask_weight_grams:
+    - text: "⚖️ Enter the **weight** of your shipment:\n_(e.g. 220 grams, 1.5 kg, 500)_"
+
+  utter_ask_length_cm:
+    - text: "📐 Enter the **length** of the package in cm:"
+
+  utter_ask_width_cm:
+    - text: "📐 Enter the **width** of the package in cm:"
+
+  utter_ask_height_cm:
+    - text: "📐 Enter the **height** of the package in cm:"
 
   # ── Nearest Branch ────────────────────────
   utter_ask_nearest_branch:
@@ -365,7 +480,7 @@ responses:
         - title: 🚚 Book Shipment
           payload: /book_shipment
         - title: "💰 Rates"
-          payload: "/get_shipping_rates"
+          payload: "/check_rates"
         - title: "🔄 Pickup"
           payload: "/schedule_pickup"
         - title: "🏠 Main Menu"
@@ -416,7 +531,7 @@ responses:
         - title: "🚚 Book"
           payload: "/book_shipment"
         - title: "💰 Rates"
-          payload: "/get_shipping_rates"
+          payload: "/check_rates"
         - title: "📍 Branch"
           payload: "/nearest_branch"
         - title: "🔄 Pickup"
@@ -441,7 +556,7 @@ responses:
         - title: "🚚 Book Shipment"
           payload: "/book_shipment"
         - title: "💰 Shipping Rates"
-          payload: "/get_shipping_rates"
+          payload: "/check_rates"
         - title: "📍 Nearest Branch"
           payload: "/nearest_branch"
         - title: "🔄 Schedule Pickup"
@@ -473,6 +588,8 @@ actions:
   - validate_booking_form
   - action_cancel_booking
   - action_get_shipping_rates
+  - validate_rates_form
+  - action_cancel_rates_form
   - action_get_nearest_branch
   - action_schedule_pickup
   - validate_pickup_form
