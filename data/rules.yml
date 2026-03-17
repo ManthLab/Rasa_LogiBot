@@ -370,3 +370,9 @@ rules:
     - action: action_reset_logistics_slots
     - action: branch_form
     - active_loop: branch_form
+
+#----------- Contact Support -------------
+- rule: Show contact support
+  steps:
+    - intent: contact_support
+    - action: utter_contact_support

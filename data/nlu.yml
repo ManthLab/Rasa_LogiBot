@@ -33,16 +33,18 @@ nlu:
     - Check shipment status
     - Track my package
     - What is the status of my order?
-    - Track my order [XYZ12345](tracking_id)
-    - It's [XYZ2150](tracking_id)
-    - [ABC3567](tracking_id)
-    - [MNO0637](tracking_id)
-    - Where is [123456](tracking_id)
-    - Check status of [AWB67890](tracking_id)
-    - tracking id is [LMN5500](tracking_id)
-    - my tracking number is [UVW5050](tracking_id)
-    - can you track [MNO2105](tracking_id)
-    - status of [ABC9090](tracking_id)
+    - Track my order [DTDC123456789](tracking_id)
+    - It's [BD98765432101](tracking_id)
+    - [EE123456789IN](tracking_id)
+    - [DHL1234567890](tracking_id)
+    - Where is [FMPP1234567890](tracking_id)
+    - Check status of [1Z9999W99912345678](tracking_id)
+    - tracking id is [DTDC123456789](tracking_id)
+    - my tracking number is [BD98765432101](tracking_id)
+    - can you track [EE123456789IN](tracking_id)
+    - status of [DHL1234567890](tracking_id)
+    - track [FMPP1234567890](tracking_id)
+    - where is my parcel [1Z9999W99912345678](tracking_id)
 
 # ── Book Shipment ─────────────────────────────────────────────────────────
 - intent: book_shipment
@@ -101,8 +103,15 @@ nlu:
     - delivery charges
     - price for shipping
 
+#------------------- Inform ---------------------
 - intent: inform
   examples: |
+    - India
+    - india
+    - IN
+    - domestic
+    - within india
+    - same country
     - 421202
     - 10115
     - 560001
@@ -181,7 +190,7 @@ nlu:
     - current promotions
     - Are there any offers available
 
-# ── Affirm ────────────────────────────────────────────────────────────────
+# ── Affirm ─────────────────────────────────────────
 - intent: affirm
   examples: |
     - yes
@@ -199,7 +208,7 @@ nlu:
     - ok
     - okay
 
-# ── Deny / Stop ───────────────────────────────────────────────────────────
+# ── Deny / Stop ───────────────────────────────────────
 - intent: deny
   examples: |
     - no
@@ -279,7 +288,7 @@ nlu:
     - options
     - services
 
-# ── Thank You ─────────────────────────────────────────────────────────────
+# ── Thank You ───────────────────────────────────────────
 - intent: thank_you
   examples: |
     - thank you
@@ -290,7 +299,7 @@ nlu:
     - cheers
     - appreciate it
 
-# ── Goodbye ───────────────────────────────────────────────────────────────
+# ── Goodbye ─────────────────────────────────────────────
 - intent: goodbye
   examples: |
     - bye
@@ -415,3 +424,25 @@ nlu:
     - find branch in [Bangalore](nearest_branch) and ship a package
     - nearest branch in [Hyderabad](nearest_branch) then book
     - where is your branch and I need to book a delivery
+
+#------------------- Contact Support -----------------------
+- intent: contact_support
+  examples: |
+    - contact support
+    - customer support
+    - help desk
+    - contact us
+    - support details
+    - how to contact
+    - phone number
+    - email address
+    - helpline
+    - customer care
+    - reach support
+    - support team
+    - I need help from support
+    - give me contact details
+    - show contact info
+    - support number
+    - call center
+    - customer service

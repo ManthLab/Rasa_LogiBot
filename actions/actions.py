@@ -42,7 +42,7 @@ def _clear(slots):
     return [SlotSet(s, None) for s in slots]
 
 
-#-------------------- Track Shipment
+#-------------------- Track Shipment -------------------
 class ActionTrackShipment(Action):
     def name(self):
         return "action_track_shipment"
@@ -102,7 +102,6 @@ class ValidateBookingForm(FormValidationAction):
 
     def _is_cancel_intent(self, tracker) -> bool:
         intent = tracker.latest_message.get("intent", {}).get("name")
-#        print(f"DEBUG intent: {intent}")
         return intent in [
         "deny", "stop", "cancel_booking", 
         "cancel_shipment"
@@ -271,7 +270,7 @@ class ActionBookShipment(Action):
         city            = tracker.get_slot("delivery_city")
         pincode         = tracker.get_slot("delivery_pincode")
 
-        booking_id   = "BKI" + str(random.randint(1000, 9999))
+        booking_id = "LGX" + datetime.now().strftime("%m%d") + str(random.randint(100000, 999999))
         full_address = f"{address}, {city} - {pincode}"
         total_cost   = 150
 
@@ -298,19 +297,6 @@ class ActionBookShipment(Action):
         with open("bookings.json", "w") as f:
             json.dump(data, f, indent=4)
 
-        # dispatcher.utter_message(text=
-        #     f"✅ Shipment Booked Successfully!\n\n"
-        #     f"🔖 Booking ID     : {booking_id}\n\n"
-        #     f"👤 Sender         : {sender}\n"
-        #     f"📞 Contact        : {sender_number}\n"
-        #     f"📧 Email          : {sender_email}\n\n"
-        #     f"👤 Receiver       : {receiver}\n"
-        #     f"📞 Contact        : {receiver_number}\n"
-        #     f"📦 Delivery To    : {full_address}\n\n"
-        #     f"💰 Shipping Cost  : Rs.{total_cost}\n"
-        #     f"📅 Booked On      : {booking_data['booked_at']}\n\n"
-        #     f"Thank you for choosing LogiExpress! 🚚"
-        # )
         dispatcher.utter_message(
     text=f"""
 📦 Shipment Booked Successfully!
@@ -371,7 +357,7 @@ class ActionAskConfirmBooking(Action):
 
         if missing:
             dispatcher.utter_message(
-                text="❌ Booking could not be completed — some details are missing. Please start again.",
+                text="❌ Booking cancelled.\n\nHow else can I assist you?",
                 buttons=[
                     {"title": "🚚 Book Shipment", "payload": "/book_shipment"},
                     {"title": "🏠 Main Menu",      "payload": "/greet"},
@@ -448,7 +434,7 @@ CANCEL_KEYWORDS = {
     "forget it", "not now", "leave it", "abort", "back", "drop it",
     "cancel for now", "i want to cancel", "cancel this", "cancel please",
     "nevermind", "skip it", "i changed my mind", "close this"
-}
+}                   
 
 def _is_cancel(tracker: Tracker) -> bool:
     intent = tracker.latest_message.get("intent", {}).get("name", "")
@@ -508,8 +494,8 @@ def get_zone(country: str) -> str:
 def chargeable_weight_g(actual_g: float, l: float, w: float, h: float, is_doc: bool) -> float:
     """Returns the higher of actual weight and volumetric weight (in grams)."""
     if is_doc:
-        return actual_g   # documents: no volumetric
-    vol_weight_g = (l * w * h / 5000) * 1000   # DIM factor 5000 cm³/kg → grams
+        return actual_g   
+    vol_weight_g = (l * w * h / 5000) * 1000  
     return max(actual_g, vol_weight_g)
 
 def slabs(weight_g: float) -> float:
@@ -547,7 +533,7 @@ class ActionGetShippingRates(Action):
         ship_type    = (tracker.get_slot("shipment_type") or "document").lower()
         weight_g     = float(tracker.get_slot("weight_grams") or 500)
         is_doc       = ship_type == "document"
-        is_intl      = bool(country)
+        is_intl      = bool(country) and country.lower() != "india"
 
         # Non-document dimensions
         l = float(tracker.get_slot("length_cm") or 0)
@@ -564,7 +550,7 @@ class ActionGetShippingRates(Action):
         else:
             zone  = "Domestic"
             rates = calc_domestic_rates(from_pin, to_pin, chargeable)
-            dest_label = to_pin
+            dest_label = f"{to_pin}, India"
 
         # ── Format output ──
         rates_lines = "\n".join(
@@ -610,17 +596,19 @@ class ValidateRatesForm(FormValidationAction):
 
     def validate_destination_country(self, slot_value, dispatcher, tracker, domain):
         if slot_value is None:
-            return {"destination_country": None}
-        
+           return {"destination_country": None}
+
         if _is_cancel(tracker):
-            return {s: None for s in RATES_SLOTS}
+           return {s: None for s in RATES_SLOTS}
 
         val = (slot_value or "").strip().lower()
-        if val in ("india", "in"):
+
+        # ✅ Domestic — set a sentinel value so form moves forward
+        if val in ("india", "in", "domestic", "within india", "same country"):
             dispatcher.utter_message(
-                text="🇮🇳 For domestic shipments within India, I'll use your pincodes directly."
+            text="🇮🇳 Domestic shipment selected. I'll calculate rates using your pincodes."
             )
-            return {"destination_country": None}
+            return {"destination_country": "India"}  # ← set value, don't return None
 
         if not re.fullmatch(r"[a-zA-Z\s\-]+", val) or len(val) < 2:
             dispatcher.utter_message(text="🌍 Please enter a valid destination country name.")
@@ -629,23 +617,18 @@ class ValidateRatesForm(FormValidationAction):
         return {"destination_country": val.title()}
 
     def validate_from_pincode(self, slot_value, dispatcher, tracker, domain):
-        #print(f"DEBUG from_pincode => value: '{slot_value}' | intent: '{tracker.latest_message.get('intent', {}).get('name')}'")
-        #print(f"DEBUG active_loop: {tracker.active_loop}")
-        #print(f"DEBUG all slots: {tracker.current_slot_values()}")
     
         if slot_value is None:
             return {"from_pincode": None}
 
         if _is_cancel(tracker):
-            #print("DEBUG: CANCEL TRIGGERED in from_pincode!")
             return {s: None for s in RATES_SLOTS}
 
         val = (slot_value or "").strip()
         if not re.fullmatch(r"\d{6}", val):
             dispatcher.utter_message(text="📍 Please enter a valid 6-digit sender pincode.")
             return {"from_pincode": None}
-    
-        #print(f"DEBUG from_pincode VALID => returning: {val}")
+
         return {"from_pincode": val}
 
     def validate_to_pincode(self, slot_value, dispatcher, tracker, domain):
@@ -653,7 +636,6 @@ class ValidateRatesForm(FormValidationAction):
             return {"to_pincode": None}
         
         if _is_cancel(tracker):
-            #print("DEBUG: CANCEL TRIGGERED in to_pincode!")
             return {s: None for s in RATES_SLOTS}
 
         val = (slot_value or "").strip()
@@ -812,7 +794,7 @@ class ActionSchedulePickup(Action):
 
     def run(self, dispatcher, tracker, domain):
         log_conversation(tracker)
-        # ── guard: check all required slots are filled ────────────────
+    
         required_slots = {
             "pickup_name":    tracker.get_slot("pickup_name"),
             "pickup_contact": tracker.get_slot("pickup_contact"),

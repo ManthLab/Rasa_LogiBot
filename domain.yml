@@ -576,6 +576,31 @@ responses:
     - text: "I'm not sure I understood. Could you try saying that differently?"
     - text: "Could you clarify that? I want to make sure I get it right. 😊"
 
+#---------------- Contact Support ------------------
+  utter_contact_support:
+    - text: |
+        📞 *LogiExpress Customer Support*
+
+        🕐 *Support Hours:* Mon–Sat, 9:00 AM – 6:00 PM
+
+        📱 *Call Us:*
+        • Toll-Free : 1800-123-4567
+        • WhatsApp  : +91 9082840443
+
+        📧 *Email Us:*
+        • mail_on   : support@logiexpress.in
+
+        📍 *Head Office:*
+        LogiExpress Pvt. Ltd.
+        5th Floor, MindSpace Tower No.09,
+        Airoli West, Mumbai – 400708.
+
+        🌐 *Website:* www.logiexpress.in
+
+        _Our team typically responds within 2–4 business hours._
+      buttons:
+        - title: "🏠 Main Menu"
+          payload: "/greet"
 
 session_config:
   session_expiration_time: 60

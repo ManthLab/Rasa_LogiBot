@@ -1,32 +1,32 @@
 {
-  "XYZ12345": {
+  "DTDC123456789": {
     "status": "In Transit",
     "location": "Mumbai Hub",
-    "eta": "5 March 2026"
+    "eta": "20 March 2026"
   },
-  "ABC3567": {
+  "BD98765432101": {
     "status": "Delivered",
     "location": "Delhi",
-    "eta": "1 March 2026"
+    "eta": "15 March 2026"
   },
-  "ABC9090": {
+  "EE123456789IN": {
     "status": "Delivered",
     "location": "Mumbai Hub",
-    "eta": "28 February 2026"
+    "eta": "12 March 2026"
   },
-  "MNO2105": {
+  "1Z9999W99912345678": {
     "status": "In Transit",
     "location": "Mumbai",
-    "eta": "10 March 2026"
+    "eta": "22 March 2026"
   },
-  "LMN5500": {
+  "FMPP1234567890": {
     "status": "In Transit",
-    "location": "Ahemdabad",
-    "eta": "8 March 2026"
+    "location": "Ahmedabad",
+    "eta": "21 March 2026"
   },
-  "UVW5050":{
+  "DHL1234567890": {
     "status": "Delivered",
-    "location": "Banglore",
-    "eta": "3 March 2026"
+    "location": "Bangalore",
+    "eta": "14 March 2026"
   }
 }
