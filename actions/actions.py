@@ -527,6 +527,7 @@ class ActionGetShippingRates(Action):
         return "action_get_shipping_rates"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain):
+        log_conversation(tracker)
         country      = (tracker.get_slot("destination_country") or "").strip()
         from_pin     = (tracker.get_slot("from_pincode") or "").strip()
         to_pin       = (tracker.get_slot("to_pincode") or "").strip()
@@ -786,7 +787,7 @@ Would you like to book a shipment or schedule a pickup?""",
     SlotSet("nearest_branch", None)
 ]
 
-#------------- Schedule Pickup – Action
+#------------- Schedule Pickup – Action ------------------------
 
 class ActionSchedulePickup(Action):
     def name(self):

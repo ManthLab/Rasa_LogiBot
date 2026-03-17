@@ -371,6 +371,66 @@ rules:
     - action: branch_form
     - active_loop: branch_form
 
+- rule: Track then book
+  steps:
+    - intent: track_shipment+book_shipment
+    - action: action_reset_logistics_slots
+    - action: tracking_form
+    - active_loop: tracking_form
+
+- rule: Rates then pickup
+  steps:
+    - intent: check_rates+schedule_pickup
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+
+- rule: Track then support
+  steps:
+    - intent: track_shipment+contact_support
+    - action: utter_contact_support
+
+- rule: Book then pickup
+  steps:
+    - intent: book_shipment+schedule_pickup
+    - action: action_reset_logistics_slots
+    - action: booking_form
+    - active_loop: booking_form
+
+- rule: Rates then branch
+  steps:
+    - intent: check_rates+nearest_branch
+    - action: action_reset_logistics_slots
+    - action: rates_form
+    - active_loop: rates_form
+
+- rule: Greet then support
+  steps:
+    - intent: greet+contact_support
+    - action: utter_greet_bot
+    - action: utter_contact_support
+
+- rule: Greet then offers
+  steps:
+    - intent: greet+ask_offers
+    - action: utter_greet_bot
+    - action: utter_ask_offers
+
+- rule: Thank you then book
+  steps:
+    - intent: thank_you+book_shipment
+    - action: utter_thank_you
+    - action: action_reset_logistics_slots
+    - action: booking_form
+    - active_loop: booking_form
+
+- rule: Branch then pickup
+  steps:
+    - intent: nearest_branch+schedule_pickup
+    - action: action_reset_logistics_slots
+    - action: branch_form
+    - active_loop: branch_form
+
 #----------- Contact Support -------------
 - rule: Show contact support
   steps:

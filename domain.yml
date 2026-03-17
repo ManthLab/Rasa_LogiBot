@@ -32,6 +32,15 @@ intents:
   - book_shipment+get_shipping_rates
   - thank_you+goodbye
   - nearest_branch+book_shipment
+  - track_shipment+book_shipment
+  - check_rates+schedule_pickup
+  - track_shipment+contact_support
+  - book_shipment+schedule_pickup
+  - check_rates+nearest_branch
+  - greet+contact_support
+  - greet+ask_offers
+  - thank_you+book_shipment
+  - nearest_branch+schedule_pickup
 
 
 entities:
