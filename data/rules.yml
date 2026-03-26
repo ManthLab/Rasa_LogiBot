@@ -117,6 +117,7 @@ rules:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
+    - action: action_prefill_rates   
     - action: rates_form
     - active_loop: rates_form
 
@@ -154,6 +155,14 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+
+- rule: Force rates when rates keywords detected
+  steps:
+    - intent: check_rates
+    - action: action_reset_logistics_slots
+    - action: action_prefill_rates
+    - action: rates_form
+    - active_loop: rates_form
 
 # ── Nearest Branch ───────────────────────────────────────
 
@@ -289,72 +298,73 @@ rules:
     - intent: nlu_fallback
     - action: utter_ask_rephrase
 
-# ── Multi-intent rules ─────────────────────────────────────
+# # ── Multi-intent rules ─────────────────────────────────────
 
-- rule: Greet then track
-  steps:
-    - intent: greet+track_shipment
-    - action: utter_greet_bot
-    - action: action_reset_logistics_slots
-    - action: tracking_form
-    - active_loop: tracking_form
+# - rule: Greet then track
+#   steps:
+#     - intent: greet+track_shipment
+#     - action: utter_greet_bot
+#     - action: action_reset_logistics_slots
+#     - action: tracking_form
+#     - active_loop: tracking_form
 
-- rule: Greet then book
-  steps:
-    - intent: greet+book_shipment
-    - action: utter_greet_bot
-    - action: action_reset_logistics_slots
-    - action: booking_form
-    - active_loop: booking_form
+# - rule: Greet then book
+#   steps:
+#     - intent: greet+book_shipment
+#     - action: utter_greet_bot
+#     - action: action_reset_logistics_slots
+#     - action: booking_form
+#     - active_loop: booking_form
 
-- rule: Greet then rates
-  steps:
-    - intent: greet+get_shipping_rates       
-    - action: utter_greet_bot
-    - action: action_reset_logistics_slots
-    - action: rates_form
-    - active_loop: rates_form
+# # - rule: Greet then rates
+# #   steps:
+# #     - intent: greet+check_rates   
+# #     - action: utter_greet_bot
+# #     - action: action_reset_logistics_slots
+# #     - action: action_prefill_rates
+# #     - action: rates_form
+# #     - active_loop: rates_form
 
-- rule: Greet then pickup
-  steps:
-    - intent: greet+schedule_pickup
-    - action: utter_greet_bot
-    - action: action_reset_logistics_slots
-    - action: pickup_form
-    - active_loop: pickup_form
+# - rule: Greet then pickup
+#   steps:
+#     - intent: greet+schedule_pickup
+#     - action: utter_greet_bot
+#     - action: action_reset_logistics_slots
+#     - action: pickup_form
+#     - active_loop: pickup_form
 
-- rule: Greet then branch
-  steps:
-    - intent: greet+nearest_branch
-    - action: utter_greet_bot
-    - action: action_reset_logistics_slots
-    - action: branch_form
-    - active_loop: branch_form
+# - rule: Greet then branch
+#   steps:
+#     - intent: greet+nearest_branch
+#     - action: utter_greet_bot
+#     - action: action_reset_logistics_slots
+#     - action: branch_form
+#     - active_loop: branch_form
 
-- rule: Help with tracking
-  steps:
-    - intent: track_shipment+ask_help
-    - action: utter_help
-    - action: action_reset_logistics_slots
-    - action: tracking_form
-    - active_loop: tracking_form
+# - rule: Help with tracking
+#   steps:
+#     - intent: track_shipment+ask_help
+#     - action: utter_help
+#     - action: action_reset_logistics_slots
+#     - action: tracking_form
+#     - active_loop: tracking_form
 
-- rule: Rates and book
-  steps:
-    - intent: book_shipment+get_shipping_rates   
-    - action: action_reset_logistics_slots
-    - action: rates_form
-    - active_loop: rates_form
+# - rule: Rates and book
+#   steps:
+#     - intent: book_shipment+check_rates   
+#     - action: action_reset_logistics_slots
+#     - action: rates_form
+#     - active_loop: rates_form
 
-- rule: Thank you and goodbye
-  steps:
-    - intent: thank_you+goodbye
-    - action: utter_thank_you
-    - action: utter_goodbye
+# - rule: Thank you and goodbye
+#   steps:
+#     - intent: thank_you+goodbye
+#     - action: utter_thank_you
+#     - action: utter_goodbye
 
-- rule: Nearest branch then book
-  steps:
-    - intent: nearest_branch+book_shipment
-    - action: action_reset_logistics_slots
-    - action: branch_form
-    - active_loop: branch_form
+# # - rule: Nearest branch then book
+# #   steps:
+# #     - intent: nearest_branch+book_shipment
+# #     - action: action_reset_logistics_slots
+# #     - action: branch_form
+# #     - active_loop: branch_form

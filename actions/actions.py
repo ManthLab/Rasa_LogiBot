@@ -2,6 +2,7 @@ import re
 import math
 import json
 import random
+import difflib
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet, ActiveLoop, AllSlotsReset
@@ -14,6 +15,15 @@ from rasa_sdk.events import EventType
 import logging
 import os
 from rasa_sdk.events import SessionStarted, ActionExecuted
+import mysql.connector
+
+def get_db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345",
+        database="logibot_db"
+    )
 
 CITY_TO_PINCODE = {
     "mumbai":    "400001",
@@ -460,7 +470,8 @@ def _clear(slots: list) -> list:
 
 def _is_cancel(tracker: Tracker) -> bool:
     intent = tracker.latest_message.get("intent", {}).get("name", "")
-    return intent in CANCEL_INTENTS
+    text = (tracker.latest_message.get("text") or "").lower()
+    return intent in CANCEL_INTENTS and text in CANCEL_KEYWORDS
 
 INTERNATIONAL_CARRIERS = ["UPS", "FedEx", "DHL", "WorldWyde Express Standard"]
 
@@ -612,18 +623,17 @@ class ValidateRatesForm(FormValidationAction):
     def validate_destination_country(self, slot_value, dispatcher, tracker, domain):
         if slot_value is None:
            return {"destination_country": None}
+        
+        if tracker.get_slot("destination_country") and slot_value is None:
+            return {"destination_country": tracker.get_slot("destination_country")}
 
         if _is_cancel(tracker):
            return {s: None for s in RATES_SLOTS}
 
         val = (slot_value or "").strip().lower()
 
-        # ✅ Domestic — set a sentinel value so form moves forward
         if val in ("india", "in", "domestic", "within india", "same country"):
-            dispatcher.utter_message(
-            text="🇮🇳 Domestic shipment selected. I'll calculate rates using your pincodes."
-            )
-            return {"destination_country": "India"}  # ← set value, don't return None
+            return {"destination_country": "India"}
 
         if not re.fullmatch(r"[a-zA-Z\s\-]+", val) or len(val) < 2:
             dispatcher.utter_message(text="🌍 Please enter a valid destination country name.")
@@ -727,7 +737,91 @@ class ValidateRatesForm(FormValidationAction):
 
     def validate_height_cm(self, slot_value, dispatcher, tracker, domain):
         if _is_cancel(tracker): return {s: None for s in RATES_SLOTS}
-        return self._validate_dimension(slot_value, dispatcher, "height")    
+        return self._validate_dimension(slot_value, dispatcher, "height")   
+
+#-------------- To Prefill Rates ------------------
+def correct_country(name):
+    countries = list(CITY_TO_COUNTRY.values()) + ["india", "usa"]
+    countries = [c.lower() for c in countries]
+    match = difflib.get_close_matches(name.lower(), countries, n=1, cutoff=0.7)
+    return match[0] if match else name  
+   
+CITY_TO_COUNTRY = {
+    "berlin": "Germany",
+    "paris": "France",
+    "london": "United Kingdom",
+    "dubai": "UAE",
+}
+class ActionPrefillRates(Action):
+    def name(self):
+        return "action_prefill_rates"
+
+    def run(self, dispatcher, tracker, domain):
+
+        text = tracker.latest_message.get("text", "").lower()
+
+        from_city = None
+        to_city = None
+        events = []   # ✅ Initialize FIRST
+
+        match = re.search(r"from\s+([a-zA-Z]+)\s+to\s+([a-zA-Z]+)", text)
+
+        if match:
+            from_city = match.group(1).lower()
+            to_city = match.group(2).lower()
+
+            to_city = correct_country(to_city)
+
+            events.append(SlotSet("from_city", from_city.title()))
+            events.append(SlotSet("to_city", to_city.title()))
+
+            events.append(SlotSet("from_city", from_city.title()))
+            events.append(SlotSet("to_city", to_city.title()))
+
+        if to_city in CITY_TO_PINCODE:
+            events.append(SlotSet("destination_country", "India"))
+
+        elif to_city in CITY_TO_COUNTRY:
+            events.append(SlotSet("destination_country", CITY_TO_COUNTRY[to_city]))
+
+        else:
+            events.append(SlotSet("destination_country", None))
+
+        # ✅ Smart message
+        if from_city and to_city:
+            if to_city in CITY_TO_PINCODE:
+                dispatcher.utter_message(
+                    text=(
+                        f"I'll help you calculate the shipping rates from {from_city.title()} to {to_city.title()}.\n\n"
+                        f"🇮🇳 Domestic shipment selected.\n\n"
+                        f"Please provide:\n"
+                        f"1. Sender's pincode ({from_city.title()})\n"
+                        f"2. Receiver's pincode ({to_city.title()}) 📍"
+                    )
+                )
+
+        elif to_city in CITY_TO_COUNTRY:
+            country = CITY_TO_COUNTRY[to_city]
+
+        # ✅ INTERNATIONAL
+            dispatcher.utter_message(
+                text=(
+                    f"I'll help you calculate the shipping rates from {from_city.title()} to {to_city.title()}.\n\n"
+                    f"🌍 Destination country detected: {country}\n\n"
+                    f"Please provide:\n"
+                    f"1. Sender's pincode ({from_city.title()})\n"
+                    f"2. Receiver's postal code ({country}) 📍"
+                )
+            )
+
+            events.append(SlotSet("destination_country", country))
+
+        else:
+            dispatcher.utter_message(
+                text="🌍 First, what is the destination country? 📦"
+            )
+
+        return events 
 
 # #------------------ Activate Rates Form ------------------------
 # class ActionActivateRatesForm(Action):

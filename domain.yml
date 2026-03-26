@@ -47,6 +47,8 @@ intents:
 entities:
   - tracking_id
   - nearest_branch
+  - from_location
+  - to_location
 
 
 slots:
@@ -279,6 +281,19 @@ slots:
           - active_loop: pickup_form
             requested_slot: pickup_time
 
+# ── City context for rates ───────────────────
+  from_city:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  to_city:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
 
 forms:
   tracking_form:
@@ -375,13 +390,26 @@ responses:
     - text: "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
 
   utter_ask_destination_country:
-    - text: "🌍 What is the **destination country** for your shipment?"
+    - text: "🌍 Please enter the destination country (e.g., India, Germany, USA)"
 
   utter_ask_from_pincode:
-    - text: "📍 Enter the **sender's 6-digit pincode** (pickup location):"
+    - condition:
+        - type: slot
+          name: from_city
+          value: null
+      text: "📍 Enter the sender's pincode (pickup location):"
+
+    - text: "📍 Enter the sender's pincode for {from_city} (pickup location):"
+
 
   utter_ask_to_pincode:
-    - text: "📍 Enter the **receiver's postal/pincode** (delivery location):"
+    - condition:
+        - type: slot
+          name: to_city
+          value: null
+      text: "📍 Enter the receiver's pincode (delivery location):"
+
+    - text: "📍 Enter the receiver's pincode for {to_city} (delivery location):"
 
   utter_ask_shipment_type:
     - text: "📋 Is your shipment a **Document** or **Non-Document**?"
@@ -596,6 +624,7 @@ actions:
   - action_cancel_booking
   - action_get_shipping_rates
   - validate_rates_form
+  - action_prefill_rates
   - action_cancel_rates_form
   - action_get_nearest_branch
   - action_schedule_pickup

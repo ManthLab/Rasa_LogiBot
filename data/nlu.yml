@@ -87,6 +87,29 @@ nlu:
     - cancel order
 
 # ── Get Shipping Rates ────────────────────────────────────────────────────
+- regex: rates_keywords
+  examples: |
+    - rate
+    - cost
+    - price
+    - charges
+    - shipping
+
+- synonym: germany
+  examples: |
+    - gemany
+    - germani
+    - germeny
+    - bangaluru
+
+- lookup: city
+  examples: |
+    - mumbai
+    - delhi
+    - bangalore
+    - pune
+    - ahmedabad
+
 - intent: check_rates
   examples: |
     - rates
@@ -115,6 +138,30 @@ nlu:
     - what are the charges?
     - delivery charges
     - price for shipping
+    - what are the shipping rates from Mumbai to Bangalore
+    - what are the shipping rates from Mumbai to Delhi
+    - what are the shipping rates from Mumbai to Germany
+    - shipping cost from Mumbai to Bangalore
+    - courier charges from Mumbai to Delhi
+    - price to send parcel from Mumbai to Bangalore
+    - cost from Mumbai to Germany
+    - how much does it cost to ship from Mumbai to Delhi
+    - Mumbai to Bangalore courier price
+    - Mumbai to Delhi shipping cost
+    - send package from Mumbai to Bangalore cost
+    - charges for courier from Mumbai to Germany
+    - shipping rates Mumbai to Bangalore
+    - rate from Mumbai to Delhi
+    - price from Mumbai to Germany
+    - how much to send parcel Mumbai to Bangalore
+    - rate for parcel from mumbai to bangalore
+    - calculate shipping from mumbai to germany
+    - mumbai to delhi courier cost
+    - mumbai to germany shipping price
+    - shipping rates from bangalore to mumbai
+    - shipping rates from delhi to mumbai
+    - shipping rates from pune to bangalore
+    - cost from delhi to germany
 
 #------------------- Inform ---------------------
 - intent: inform
@@ -184,8 +231,20 @@ nlu:
     - branch in [Mumbai](nearest_branch)
     - office in [Delhi](nearest_branch)
     - show branch in [Banglore](nearest_branch)
+    - what are the shipping rates from [Mumbai](from_location) to [Bangalore](to_location)
+    - shipping cost from [Mumbai](from_location) to [Delhi](to_location)
+    - courier charges from [Mumbai](from_location) to [Berlin](to_location)
+    - cost to send parcel from [Mumbai](from_location) to [Germany](to_location)
+    - how much does shipping cost from [Pune](from_location) to [Chennai](to_location)
+    - price for delivery from [Mumbai](from_location) to [Bangalore](to_location)
+    - what is the rate from [Mumbai](from_location) to [Berlin](to_location)
     - find branch
     - where is your office
+    - show me nearest branch
+    - branch in mumbai
+    - where is your office
+    - find branch location
+    - do you have branch in bangalore
 
 # ── Schedule Pickup ───────────────────────────────────────────────────────
 - intent: schedule_pickup

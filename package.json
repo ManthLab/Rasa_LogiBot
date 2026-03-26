@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@rasahq/chat-widget-ui": "^0.1.12"
+    "@rasahq/chat-widget-ui": "^0.1.12",
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.20.0"
   }
 }

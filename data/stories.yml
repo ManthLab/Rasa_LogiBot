@@ -88,6 +88,7 @@ stories:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
+    - action: action_prefill_rates   
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
@@ -98,6 +99,7 @@ stories:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
+    - action: action_prefill_rates   
     - action: rates_form
     - active_loop: rates_form
     - intent: stop
@@ -110,6 +112,7 @@ stories:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
+    - action: action_prefill_rates
     - action: rates_form
     - active_loop: rates_form
     - intent: deny
@@ -122,6 +125,7 @@ stories:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
+    - action: action_prefill_rates
     - action: rates_form
     - active_loop: rates_form
     - intent: cancel_shipment
@@ -134,6 +138,7 @@ stories:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
+    - action: action_prefill_rates   
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
