@@ -24,6 +24,16 @@ nlu:
 # ── Track Shipment ────────────────────────────────────────────────────────
 - intent: track_shipment
   examples: |
+    - track shipment
+    - Track Shipment
+    - track my shipment
+    - I want to track shipment
+    - track my order
+    - where is my shipment
+    - check shipment status
+    - track parcel
+    - track package
+    - shipment tracking
     - Track Shipment
     - I want to track my shipment
     - Track my order

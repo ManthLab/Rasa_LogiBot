@@ -74,23 +74,33 @@ class ActionTrackShipment(Action):
     def run(self, dispatcher, tracker, domain):
 
         log_conversation(tracker)
+
         tracking_id = tracker.get_slot("tracking_id")
 
         if not tracking_id:
             dispatcher.utter_message(text="❗ Please provide a valid tracking ID.")
             return []
 
-        try:
-            with open("tracking.json") as f:
-                data = json.load(f)
-        except Exception:
-            dispatcher.utter_message(text="⚠️ Tracking system is temporarily unavailable. Please try again later.")
-            return []
-
         tracking_id = tracking_id.strip().upper()
 
-        if tracking_id in data:
-            shipment = data[tracking_id]
+        try:
+            conn = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="12345",
+                database="logibot_db"
+            )
+            cursor = conn.cursor(dictionary=True)
+
+            query = "SELECT * FROM tracking WHERE tracking_id = %s"
+            cursor.execute(query, (tracking_id,))
+            shipment = cursor.fetchone()
+
+        except Exception as e:
+            dispatcher.utter_message(text="⚠️ Tracking system is temporarily unavailable.")
+            return []
+
+        if shipment:
             status_emoji = {
                 "In Transit": "🚚",
                 "Delivered": "✅",
@@ -98,8 +108,7 @@ class ActionTrackShipment(Action):
                 "Pending": "⏳",
             }.get(shipment["status"], "📦")
 
-            dispatcher.utter_message(
-                text=f"""📦 *Shipment Tracking Details*
+            response = f"""📦 *Shipment Tracking Details*
 
 🔖 Tracking ID : `{tracking_id}`
 {status_emoji} Status     : {shipment['status']}
@@ -107,17 +116,47 @@ class ActionTrackShipment(Action):
 📅 ETA         : {shipment['eta']}
 
 Is there anything else I can help you with?"""
-            )
+
+            dispatcher.utter_message(text=response)
+
         else:
-            dispatcher.utter_message(
-                text=f"❌ Tracking ID *{tracking_id}* not found.\nPlease double-check and try again."
+            response = f"❌ Tracking ID *{tracking_id}* not found.\nPlease double-check and try again."
+            dispatcher.utter_message(text=response)
+
+        # 🔥 STORE CHAT LOG (IMPORTANT)
+        
+        # 🔥 STORE CHAT LOG (FIXED)
+
+        try:
+            # ✅ Ensure session exists
+            cursor.execute(
+                "INSERT IGNORE INTO sessions (session_id) VALUES (%s)",
+                (tracker.sender_id,)
             )
 
+            log_query = """
+            INSERT INTO chat_logs (session_id, user_message, bot_response, intent)
+            VALUES (%s, %s, %s, %s)
+            """
+
+            cursor.execute(log_query, (
+                tracker.sender_id,
+                tracker.latest_message.get("text"),
+                response,
+                "track_shipment"
+            ))
+
+            conn.commit()
+
+        except Exception as e:
+            print("DB Error:", e) 
+        conn.close()
+
         return [
-    ActiveLoop(None),
-    SlotSet("requested_slot", None),
-    SlotSet("tracking_id", None)
-]
+            ActiveLoop(None),
+            SlotSet("requested_slot", None),
+            SlotSet("tracking_id", None)
+        ]
 
 #-------------------- Booking Form – Validation
 class ValidateBookingForm(FormValidationAction):
