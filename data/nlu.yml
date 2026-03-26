@@ -67,11 +67,24 @@ nlu:
 - intent: cancel_shipment
   examples: |
     - cancel my shipment
-    - I want to cancel
-    - cancel booking
     - I want to cancel my shipment
     - cancel my order
     - stop the shipment
+    - I want to cancel this delivery
+
+# ── Cancel Booking ────────────────────────────────────────────────────────
+- intent: cancel_booking
+  examples: |
+    - cancel booking
+    - cancel the booking
+    - I want to cancel the booking
+    - no cancel
+    - don't book
+    - cancel this booking
+    - I don't want to book
+    - stop booking
+    - abort booking
+    - cancel order
 
 # ── Get Shipping Rates ────────────────────────────────────────────────────
 - intent: check_rates
@@ -156,6 +169,9 @@ nlu:
 # ── Nearest Branch ────────────────────────────────────────────────────────
 - intent: nearest_branch
   examples: |
+    - Branch                    
+    - branch                   
+    - 📍 Branch                 
     - nearest branch
     - What is your nearest branch
     - Find a branch near me
@@ -381,12 +397,14 @@ nlu:
     - hey can I book a courier
     - good morning I want to ship something
 
-- intent: greet+check_rates
+- intent: greet+get_shipping_rates
   examples: |
     - hi what are the shipping charges
     - hello how much does shipping cost
     - hey what are your rates
     - hi tell me the delivery charges
+    - hi I want to check shipping rates
+    - hello show me shipping prices
 
 - intent: greet+schedule_pickup
   examples: |
@@ -409,12 +427,14 @@ nlu:
     - how do I track my package
     - can you help me find my parcel
 
-- intent: book_shipment+check_rates
+- intent: book_shipment+get_shipping_rates
   examples: |
     - I want to book and know the rates
     - what are the charges and how do I book
     - show rates and book a shipment
     - pricing and booking for a parcel
+    - book shipment and check shipping cost
+    - I want to send a parcel what are the charges
 
 - intent: thank_you+goodbye
   examples: |
@@ -452,6 +472,7 @@ nlu:
     - pricing and home collection
     - how much does it cost and can you pick it up
     - rates for pickup service
+    - shipping cost and book a pickup
 
 - intent: track_shipment+contact_support
   examples: |
@@ -476,6 +497,7 @@ nlu:
     - pricing and nearest office
     - how much to ship and where is your branch in [Mumbai](nearest_branch)
     - rates and branch in [Delhi](nearest_branch)
+    - shipping cost and nearest branch
 
 - intent: greet+contact_support
   examples: |

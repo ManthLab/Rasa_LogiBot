@@ -936,9 +936,265 @@
       #chatbot-toggle:hover {
         transform: scale(1.05);
       }
+
+      /* ── HERO SECTION ───────────────────────────────────────── */
+
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 80px;
+        background: linear-gradient(135deg, #f8fafc, #eef2f7);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* subtle background shapes */
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: rgba(249, 115, 22, 0.08);
+        border-radius: 50%;
+        top: -150px;
+        right: -150px;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: rgba(37, 99, 235, 0.05);
+        border-radius: 50%;
+        bottom: -120px;
+        left: -120px;
+      }
+
+      /* left content */
+      .hero-content {
+        max-width: 520px;
+        z-index: 1;
+      }
+
+      .hero-content h1 {
+        font-family: var(--font-head);
+        font-size: 42px;
+        line-height: 1.2;
+        margin-bottom: 16px;
+      }
+
+      .hero-content p {
+        color: var(--text-muted);
+        font-size: 16px;
+        margin-bottom: 24px;
+      }
+
+      /* buttons */
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .hero-actions button {
+        padding: 12px 20px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        background: linear-gradient(135deg, var(--accent), #c2410c);
+        color: white;
+        transition: 0.2s;
+      }
+
+      .hero-actions button.secondary {
+        background: white;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .hero-actions button:hover {
+        transform: translateY(-2px);
+      }
+
+      /* stats */
+      .hero-stats {
+        display: flex;
+        gap: 24px;
+      }
+
+      .hero-stats div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-stats strong {
+        font-size: 18px;
+      }
+
+      .hero-stats span {
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+
+      /* right visual cards */
+      .hero-visual {
+        display: grid;
+        grid-template-columns: repeat(2, 200px);
+        gap: 16px;
+        z-index: 1;
+      }
+
+      .card {
+        background: white;
+        padding: 18px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        transition: 0.2s;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+      }
+
+      .card-icon {
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
+
+      .card h3 {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+
+      .card p {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* mobile */
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+          padding: 40px 20px;
+          text-align: center;
+        }
+
+        .hero-visual {
+          margin-top: 30px;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* ── Mobile Responsive ───────────────────────────────────────────── */
+      @media (max-width: 480px) {
+        #chatbot-widget {
+          bottom: 0;
+          right: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          max-height: 100%;
+          border-radius: 0;
+          border: none;
+        }
+
+        #chatbot-widget .app {
+          height: 100%;
+          max-height: 100%;
+          border-radius: 0;
+        }
+
+        #chatbot-toggle {
+          bottom: 20px;
+          right: 20px;
+          width: 52px;
+          height: 52px;
+          font-size: 22px;
+        }
+
+        .chat-header {
+          padding: 12px 16px;
+        }
+
+        .messages {
+          padding: 16px 12px;
+        }
+
+        .input-area {
+          padding: 8px 12px 16px;
+        }
+
+        .msg-content {
+          max-width: 85%;
+        }
+
+        .msg-buttons {
+          grid-template-columns: 1fr;
+        }
+
+        .bubble {
+          font-size: 13px;
+        }
+
+        .welcome-card {
+          padding: 14px 14px 0px 14px;
+        }
+
+        .welcome-card h2 {
+          font-size: 16px;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- ── HERO LANDING PAGE ───────────────────────────────────── -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Fast & Smart Logistics Solutions 🚚</h1>
+        <p>
+          Ship, track, and manage deliveries effortlessly with LogiExpress.
+          Powered by AI chatbot assistance for real-time support.
+        </p>
+
+        <div class="hero-actions">
+          <button onclick="document.getElementById('chatbot-toggle').click()">
+            📦 Start Shipping
+          </button>
+          <button class="secondary">📍 Find Branch</button>
+        </div>
+
+        <div class="hero-stats">
+          <div><strong>10K+</strong><span>Deliveries</span></div>
+          <div><strong>99.9%</strong><span>Uptime</span></div>
+          <div><strong>24/7</strong><span>Support</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="card">
+          <div class="card-icon">📦</div>
+          <h3>Real-time Tracking</h3>
+          <p>Track shipments instantly with AI assistance</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🚚</div>
+          <h3>Fast Delivery</h3>
+          <p>Same-day delivery in major cities</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">💰</div>
+          <h3>Best Rates</h3>
+          <p>Affordable and transparent pricing</p>
+        </div>
+      </div>
+    </section>
     <div id="chatbot-widget">
       <div class="app">
         <!-- ── Sidebar ──────────────────────────────────────────────── -->
@@ -978,39 +1234,6 @@
               <div class="offer-dot" onclick="showOffer(2)"></div>
             </div>
           </div>
-
-          <!-- <div class="sidebar-section">
-            <div class="sidebar-label">Quick Services</div>
-            <div class="service-grid">
-              <div class="service-btn" onclick="sendMsg('Track my shipment')">
-                <span class="icon">📦</span>
-                <span class="label">Track Shipment</span>
-              </div>
-              <div class="service-btn" onclick="sendMsg('Book a new shipment')">
-                <span class="icon">🚚</span>
-                <span class="label">Book Shipment</span>
-              </div>
-              <div
-                class="service-btn"
-                onclick="sendMsg('What are the shipping rates?')"
-              >
-                <span class="icon">💰</span>
-                <span class="label">Shipping Rates</span>
-              </div>
-              <div class="service-btn" onclick="sendMsg('Find nearest branch')">
-                <span class="icon">📍</span>
-                <span class="label">Find Branch</span>
-              </div>
-              <div class="service-btn" onclick="sendMsg('Schedule a pickup')">
-                <span class="icon">🔄</span>
-                <span class="label">Schedule Pickup</span>
-              </div>
-              <div class="service-btn" onclick="sendMsg('help')">
-                <span class="icon">💡</span>
-                <span class="label">Help</span>
-              </div>
-            </div>
-          </div> -->
 
           <div style="flex: 1"></div>
           <div class="status-row">
@@ -1110,30 +1333,6 @@
       }
       const messagesEl = document.getElementById("messages");
 
-      // async function sendMessage() {
-      //   const input = document.getElementById("msgInput");
-      //   const userMessage = input.value.trim();
-
-      //   if (!userMessage) return;
-
-      //   appendUser(userMessage);
-      //   input.value = "";
-
-      //   const res = await fetch("http://127.0.0.1:5005/webhooks/rest/webhook", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({
-      //       sender: sender,
-      //       message: userMessage,
-      //     }),
-      //   });
-
-      //   const data = await res.json();
-
-      //   data.forEach((msg) => {
-      //     appendBot(msg.text, msg.buttons);
-      //   });
-      // }
       function fmtTime(d) {
         return d.toLocaleTimeString("en-IN", {
           hour: "2-digit",
@@ -1174,11 +1373,11 @@
           <h2>👋 Hello! I'm LogiBot</h2>
           <p>Your smart logistics assistant from <strong>LogiExpress</strong>. I can help you track shipments, book deliveries, find branches, and much more.</p>
           <div class="msg-buttons">
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'Track my shipment', event)"><img src="icons/track.svg" width="16" height="16" style="vertical-align:middle;">  Track Shipment</button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'Book a new shipment', event)"><img src="icons/bookshipment.svg" width="16" height="16" style="vertical-align:middle;"> Book Shipment</button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'What are the shipping rates?', event)"><img src="icons/rates.svg" width="16" height="16" style="vertical-align:middle;"> Rates</button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'What is the nearest branch?', event)"> <img src="icons/location.svg" width="16" height="16" style="vertical-align:middle;"> Branch </button>
-            <button type="button" class="msg-btn" onclick="clickBtn(this,'Schedule a pickup', event)"><img src="icons/pickup.svg" width="16" height="16" style="vertical-align:middle;"> Pickup</button>
+            <button type="button" class="msg-btn" onclick="clickBtn(this,'/track_shipment', event)">📦Track Shipment</button>
+<button type="button" class="msg-btn" onclick="clickBtn(this,'/book_shipment', event)">🚚Book Shipment</button>
+<button type="button" class="msg-btn" onclick="clickBtn(this,'/check_rates', event)">💰Rates</button>
+<button type="button" class="msg-btn" onclick="clickBtn(this,'/nearest_branch', event)"> <img src="icons/location.svg" width="16" height="16" style="vertical-align:middle;"> Branch </button>
+<button type="button" class="msg-btn" onclick="clickBtn(this,'/schedule_pickup', event)"><img src="icons/pickup.svg" width="16" height="16" style="vertical-align:middle;"> Pickup</button>
           </div>
           <div class="offers-strip">
             <div class="offers-scroll">
@@ -1231,16 +1430,28 @@
       setTimeout(() => {
         const scroll = document.querySelector(".welcome-card .offers-scroll");
         scroll.style.transform = "translateX(-100%)";
+        updateDots(1);
         setInterval(moveCarousel, 4000);
       }, 200);
 
       let offerIdx = 1;
+
+      function updateDots(idx) {
+        const dots = document.querySelectorAll(".welcome-card .offer-dot");
+
+        const realIdx = (((idx - 1) % 3) + 3) % 3;
+        dots.forEach((d, i) => {
+          d.classList.toggle("active", i === realIdx);
+        });
+      }
 
       function moveCarousel() {
         const scroll = document.querySelector(".welcome-card .offers-scroll");
         const cards = document.querySelectorAll(".welcome-card .offer-card");
         offerIdx++;
         scroll.style.transform = `translateX(-${offerIdx * 100}%)`;
+        updateDots(offerIdx);
+
         if (offerIdx === cards.length - 1) {
           setTimeout(() => {
             scroll.style.transition = "none";
@@ -1248,6 +1459,7 @@
             scroll.style.transform = `translateX(-${offerIdx * 100}%)`;
             scroll.offsetHeight;
             scroll.style.transition = "transform 0.45s ease";
+            updateDots(offerIdx);
           }, 450);
         }
       }

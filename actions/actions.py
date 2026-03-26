@@ -8,12 +8,26 @@ from rasa_sdk.events import SlotSet, ActiveLoop, AllSlotsReset
 from rasa_sdk import FormValidationAction
 from rasa_sdk.types import DomainDict
 from typing import Any, Text, Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import parser
 from rasa_sdk.events import EventType
 import logging
 import os
 from rasa_sdk.events import SessionStarted, ActionExecuted
+
+CITY_TO_PINCODE = {
+    "mumbai":    "400001",
+    "delhi":     "110001",
+    "bangalore": "560001",
+    "bengaluru": "560001",
+    "ahmedabad": "380001",
+    "pune":      "411001",
+    "hyderabad": "500001",
+    "chennai":   "600001",
+    "kolkata":   "700001",
+    "surat":     "395001",
+    "jaipur":    "302001",
+}
 
 #----------------- Helper – clear all booking slots
 
@@ -713,8 +727,39 @@ class ValidateRatesForm(FormValidationAction):
 
     def validate_height_cm(self, slot_value, dispatcher, tracker, domain):
         if _is_cancel(tracker): return {s: None for s in RATES_SLOTS}
-        return self._validate_dimension(slot_value, dispatcher, "height")
-    
+        return self._validate_dimension(slot_value, dispatcher, "height")    
+
+# #------------------ Activate Rates Form ------------------------
+# class ActionActivateRatesForm(Action):
+#     def name(self):
+#         return "action_activate_rates_form"
+
+#     def run(self, dispatcher, tracker, domain):
+#         text = tracker.latest_message.get("text", "").lower()
+#         events = []
+
+#         match = re.search(r"from\s+([a-zA-Z]+)\s+to\s+([a-zA-Z]+)", text)
+
+#         if match:
+#             from_city = match.group(1).lower()
+#             to_city   = match.group(2).lower()
+
+#             # If from city is known — just acknowledge, pincode will be asked
+#             if from_city in CITY_TO_PINCODE:
+#                 dispatcher.utter_message(
+#                     text=f"📍 Got it! Shipping from *{from_city.title()}*."
+#                 )
+
+#             # Set destination_country based on to_city
+#             if to_city in CITY_TO_PINCODE:
+#                 # Domestic city → set country to India, still ask pincodes
+#                 events.append(SlotSet("destination_country", "India"))
+#             elif to_city in COUNTRY_TO_ZONE:
+#                 # International country → set country, still ask pincodes
+#                 events.append(SlotSet("destination_country", to_city.title()))
+
+#         return events
+
 #--------------------- Cancel - Rates Form -------------------    
 class ActionCancelRatesForm(Action):
     def name(self):

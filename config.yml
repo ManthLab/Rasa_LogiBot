@@ -6,7 +6,7 @@ language: en
 
 pipeline:
   - name: WhitespaceTokenizer
-    intent_tokenization_flag: true      # ← enables multi-intent
+    intent_tokenization_flag: true    
     intent_split_token: "+"
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
@@ -24,7 +24,7 @@ pipeline:
     epochs: 100
     constrain_similarities: true
   - name: FallbackClassifier
-    threshold: 0.80                            # below this confidence → nlu_fallback intent
+    threshold: 0.55                         
     ambiguity_threshold: 0.10
 
 policies:

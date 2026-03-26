@@ -10,6 +10,7 @@ intents:
   - track_shipment
   - book_shipment
   - cancel_shipment
+  - cancel_booking
   - check_rates
   - inform
   - nearest_branch
@@ -17,30 +18,30 @@ intents:
   - ask_help
   - thank_you
   - confirm_booking
-  - cancel_booking
   - ask_offers
+  - contact_support
   - nlu_fallback
   - out_of_scope
 
-  #-------------------- Multi-intents---------------
+  #-------------------- Multi-intents ---------------
   - greet+track_shipment
   - greet+book_shipment
   - greet+get_shipping_rates
   - greet+schedule_pickup
   - greet+nearest_branch
-  - track_shipment+ask_help
-  - book_shipment+get_shipping_rates
-  - thank_you+goodbye
-  - nearest_branch+book_shipment
-  - track_shipment+book_shipment
-  - check_rates+schedule_pickup
-  - track_shipment+contact_support
-  - book_shipment+schedule_pickup
-  - check_rates+nearest_branch
   - greet+contact_support
   - greet+ask_offers
+  - track_shipment+ask_help
+  - track_shipment+book_shipment
+  - track_shipment+contact_support
+  - book_shipment+get_shipping_rates
+  - book_shipment+schedule_pickup
+  - thank_you+goodbye
   - thank_you+book_shipment
+  - nearest_branch+book_shipment
   - nearest_branch+schedule_pickup
+  - check_rates+schedule_pickup
+  - check_rates+nearest_branch
 
 
 entities:
@@ -97,7 +98,6 @@ slots:
           - active_loop: booking_form
             requested_slot: receiver_contact_number
 
-  # Split delivery address into 3 parts
   delivery_address:
     type: text
     mappings:
@@ -236,7 +236,7 @@ slots:
       - type: from_text
         conditions:
           - active_loop: branch_form
-            requested_slot: nearest_branch       
+            requested_slot: nearest_branch
 
   # ── Schedule Pickup ───────────────────────
   pickup_name:
@@ -298,9 +298,9 @@ forms:
 
   rates_form:
     required_slots:
-      - destination_country   
-      - from_pincode         
-      - to_pincode            
+      - destination_country
+      - from_pincode
+      - to_pincode
       - shipment_type
       - weight_grams
       - length_cm
@@ -338,8 +338,6 @@ responses:
           payload: "/nearest_branch"
         - title: "🔄 Schedule Pickup"
           payload: "/schedule_pickup"
-        # - title: "❌ Cancel Shipment"
-        #   payload: "/cancel_shipment"
 
   # ── Track Shipment ────────────────────────
   utter_ask_tracking_id:
@@ -372,32 +370,6 @@ responses:
   utter_ask_delivery_pincode:
     - text: "📮 Enter the **6-digit pincode** of the delivery location:"
 
-  # # ── Confirm Booking ───────────────────────
-  # utter_ask_confirm_booking:
-  #   - text: |
-  #       📋 **Please review your shipment details:**
-
-  #       ┌─ SENDER ────────────────────────────
-  #       👤 Name    : {sender_name}
-  #       📞 Contact : {sender_contact_number}
-  #       📧 Email   : {sender_email}
-
-  #       ┌─ RECEIVER ──────────────────────────
-  #       👤 Name    : {receiver_name}
-  #       📞 Contact : {receiver_contact_number}
-
-  #       ┌─ DELIVERY ──────────────────────────
-  #       🏠 Address : {delivery_address}
-  #       🏙️ City    : {delivery_city}
-  #       📮 Pincode : {delivery_pincode}
-
-  #       Confirm booking?
-  #     buttons:
-  #       - title: "✅ Yes, Confirm"
-  #         payload: "/confirm_booking"
-  #       - title: "❌ No, Cancel"
-  #         payload: "/cancel_booking"
-
   # ── Shipping Rates ────────────────────────
   utter_rates_cancelled:
     - text: "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
@@ -408,16 +380,17 @@ responses:
   utter_ask_from_pincode:
     - text: "📍 Enter the **sender's 6-digit pincode** (pickup location):"
 
-  utter_ask_to_pincode:              
+  utter_ask_to_pincode:
     - text: "📍 Enter the **receiver's postal/pincode** (delivery location):"
 
   utter_ask_shipment_type:
     - text: "📋 Is your shipment a **Document** or **Non-Document**?"
       buttons:
         - title: "📄 Document"
-          payload: "document"          
+          payload: "document"
         - title: "📦 Non-Document"
           payload: "non-document"
+
   utter_ask_weight_grams:
     - text: "⚖️ Enter the **weight** of your shipment:\n_(e.g. 220 grams, 1.5 kg, 500)_"
 
@@ -470,7 +443,7 @@ responses:
         _(Available: 9:00 AM – 6:00 PM)_
         _(e.g. 10 AM, 2:30 PM)_
 
-#------------ Offers -----------
+  # ── Offers ────────────────────────────────
   utter_ask_offers:
     - text: |
         🔖 *Current Offers at LogiExpress*
@@ -486,8 +459,8 @@ responses:
 
         Would you like to book a shipment now?
       buttons:
-        - title: 🚚 Book Shipment
-          payload: /book_shipment
+        - title: "🚚 Book Shipment"
+          payload: "/book_shipment"
         - title: "💰 Rates"
           payload: "/check_rates"
         - title: "🔄 Pickup"
@@ -585,7 +558,7 @@ responses:
     - text: "I'm not sure I understood. Could you try saying that differently?"
     - text: "Could you clarify that? I want to make sure I get it right. 😊"
 
-#---------------- Contact Support ------------------
+  # ── Contact Support ───────────────────────
   utter_contact_support:
     - text: |
         📞 *LogiExpress Customer Support*
@@ -628,7 +601,6 @@ actions:
   - action_schedule_pickup
   - validate_pickup_form
   - action_cancel_active_form
-  - action_log_conversation
   - action_session_start
   - action_reset_logistics_slots
   - action_ask_confirm_booking
