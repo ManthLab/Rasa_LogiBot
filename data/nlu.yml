@@ -97,6 +97,10 @@ nlu:
     - cancel order
 
 # ── Get Shipping Rates ────────────────────────────────────────────────────
+- regex: city_route
+  examples: |
+    - from [a-zA-Z]+ to [a-zA-Z]+
+    
 - regex: rates_keywords
   examples: |
     - rate
