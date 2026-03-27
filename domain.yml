@@ -229,6 +229,8 @@ slots:
           - deny
           - cancel_shipment
 
+    
+
   # ── Nearest Branch ────────────────────────
   nearest_branch:
     type: text

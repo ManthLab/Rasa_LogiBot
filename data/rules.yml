@@ -250,11 +250,10 @@ rules:
 
 # ── Fallback ──────────────────────────────────────────────
 
-- rule: Handle low NLU confidence
+- rule: Smart fallback to rates
   steps:
     - intent: nlu_fallback
-    - action: utter_fallback
-    - action: utter_help
+    - action: action_prefill_rates
 
 - rule: Handle out of scope
   steps:

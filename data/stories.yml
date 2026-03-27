@@ -202,27 +202,27 @@ stories:
 
 #---------------------- Fallback recovery -------------------
 
-- story: fallback then help
-  steps:
-    - intent: nlu_fallback
-    - action: utter_fallback
-    - action: utter_help            
-    - intent: book_shipment
-    - action: action_reset_logistics_slots
-    - action: booking_form
-    - active_loop: booking_form
-    - active_loop: null
-    - action: action_ask_confirm_booking
-    - intent: confirm_booking
-    - action: action_book_shipment
+# - story: fallback then help
+#   steps:
+#     - intent: nlu_fallback
+#     - action: utter_fallback
+#     - action: utter_help            
+#     - intent: book_shipment
+#     - action: action_reset_logistics_slots
+#     - action: booking_form
+#     - active_loop: booking_form
+#     - active_loop: null
+#     - action: action_ask_confirm_booking
+#     - intent: confirm_booking
+#     - action: action_book_shipment
 
-- story: fallback then goodbye     
-  steps:
-    - intent: nlu_fallback
-    - action: utter_fallback
-    - action: utter_help            
-    - intent: goodbye
-    - action: utter_goodbye
+# - story: fallback then goodbye     
+#   steps:
+#     - intent: nlu_fallback
+#     - action: utter_fallback
+#     - action: utter_help            
+#     - intent: goodbye
+#     - action: utter_goodbye
 
 - story: out of scope then redirect 
   steps:
