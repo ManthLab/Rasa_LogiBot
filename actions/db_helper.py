@@ -105,7 +105,6 @@ def log_chat(
         logger.error("log_chat error: %s", e)
         
 
-
 #----------------- TRACKING -----------------------
 
 def get_tracking(tracking_id: str) -> dict | None:
@@ -145,7 +144,6 @@ def insert_booking(
     """
     try:
         with get_conn() as (conn, cur):
-            # NEW — explicitly pass NOW() so timestamp is never NULL
             cur.execute(
                 """
                 INSERT INTO bookings
@@ -162,7 +160,6 @@ def insert_booking(
         return False
 
 #--------------------- PICKUPS ---------------------
-
 
 def insert_pickup(
     pickup_id: str,
@@ -182,7 +179,6 @@ def insert_pickup(
         )
     """
     try:
-        # Parse date string → MySQL DATE format (YYYY-MM-DD)
         try:
             parsed_date = datetime.strptime(pickup_date, "%d %b %Y").strftime("%Y-%m-%d")
         except ValueError:

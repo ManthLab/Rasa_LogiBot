@@ -514,6 +514,29 @@ class ActionGetShippingRates(Action):
 class ValidateRatesForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_rates_form"
+    
+    async def required_slots(
+        self,
+        domain_slots: List[Text],
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> List[Text]:
+
+        shipment_type = tracker.get_slot("shipment_type")
+
+        # If DOCUMENT → skip dimensions
+        if shipment_type == "document":
+            return [
+                "destination_country",
+                "from_pincode",
+                "to_pincode",
+                "shipment_type",
+                "weight_grams"
+            ]
+
+        # If NON-DOCUMENT → include dimensions
+        return domain_slots
 
     def validate_destination_country(self, slot_value, dispatcher, tracker, domain):
         if slot_value is None:
@@ -712,7 +735,7 @@ class ActionNearestBranch(Action):
             "bombay":    "mumbai",
             "delhi ncr": "delhi",
             "new delhi": "delhi",
-            "ahmedabad": "ahmedabad",   # fixed original typo "ahemdabad"
+            "ahmedabad": "ahmedabad",   
         }
         city_key = city_aliases.get(city_key, city_key)
 
@@ -980,7 +1003,7 @@ class ActionResetLogisticsSlots(Action):
             + [SlotSet("tracking_id", None), SlotSet("nearest_branch", None)]
         )
     
-#--------------- Log -----------------
+#------------------------ Log --------------------------
 class ActionLogUserMessage(Action):
     def name(self):
         return "action_log_user_message"
