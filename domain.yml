@@ -52,6 +52,13 @@ entities:
 
 
 slots:
+#-------- Session -------------
+  session_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   # ── Tracking ──────────────────────────────
   tracking_id:
     type: text

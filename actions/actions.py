@@ -3,6 +3,7 @@ import math
 import json
 import random
 import difflib
+import uuid
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet, ActiveLoop, AllSlotsReset
@@ -112,7 +113,7 @@ class ActionTrackShipment(Action):
 
         # ── Log to DB (was: inline INSERT + logibot_conversations.json) ──
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -297,7 +298,7 @@ class ActionBookShipment(Action):
 
         # ── Log to DB ──
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -376,7 +377,7 @@ class ActionCancelBooking(Action):
             ]
         )
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -500,7 +501,7 @@ class ActionGetShippingRates(Action):
         )
 
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -684,7 +685,7 @@ class ActionCancelRatesForm(Action):
         response = "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
         dispatcher.utter_message(text=response)
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -741,7 +742,7 @@ class ActionNearestBranch(Action):
             )
 
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -815,7 +816,7 @@ class ActionSchedulePickup(Action):
         dispatcher.utter_message(text=response)
 
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -924,7 +925,7 @@ class ActionCancelActiveForm(Action):
             ]
         )
         log_chat(
-            session_id=tracker.sender_id,
+            session_id=tracker.get_slot("session_id") or tracker.sender_id,
             user_message=tracker.latest_message.get("text"),
             bot_response=response,
             intent=tracker.latest_message.get("intent", {}).get("name"),
@@ -948,25 +949,22 @@ class ActionSessionStart(Action):
 
     async def run(self, dispatcher, tracker, domain):
 
-        session_id = tracker.sender_id
+        # 🔥 Generate NEW session id every time
+        session_id = str(uuid.uuid4())
 
-        # ✅ Close previous session (IMPORTANT)
-        close_session(session_id)
+        print("NEW SESSION CREATED:", session_id)  # debug
 
-        # ✅ Ensure new session exists
+        events = [
+            SessionStarted(),
+            SlotSet("session_id", session_id)
+        ]
+
+        # Create DB session
         ensure_session(session_id)
-
-        events = [SessionStarted()]
-
-        for key, value in tracker.current_slot_values().items():
-            if value is not None:
-                events.append(SlotSet(key, value))
 
         events.append(ActionExecuted("action_listen"))
 
         return events
-
-
 
 #------------------ RESET SLOTS ------------------ 
 
@@ -989,7 +987,7 @@ class ActionLogUserMessage(Action):
 
     def run(self, dispatcher, tracker, domain):
 
-        session_id = tracker.sender_id
+        session_id = tracker.get_slot("session_id") or tracker.sender_id
         user_msg = tracker.latest_message.get("text")
         intent = tracker.latest_message.get("intent", {}).get("name")
         confidence = tracker.latest_message.get("intent", {}).get("confidence")
