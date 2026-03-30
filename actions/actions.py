@@ -15,10 +15,9 @@ from rasa_sdk.events import EventType
 import logging
 import os
 from rasa_sdk.events import SessionStarted, ActionExecuted
+from actions.db_helper import close_session, ensure_session, log_chat, get_tracking, insert_booking, insert_pickup, get_branch
 
 # ─── DB helper (replaces all JSON file operations) ───────────
-from actions.db_helper import log_chat, ensure_session, get_tracking, insert_booking, insert_pickup, get_branch
-
 logger = logging.getLogger(__name__)
 
 
@@ -113,11 +112,11 @@ class ActionTrackShipment(Action):
 
         # ── Log to DB (was: inline INSERT + logibot_conversations.json) ──
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "track_shipment",
-            confidence   = tracker.latest_message.get("intent", {}).get("confidence"),
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
 
         return [
@@ -298,11 +297,11 @@ class ActionBookShipment(Action):
 
         # ── Log to DB ──
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "book_shipment",
-            confidence   = tracker.latest_message.get("intent", {}).get("confidence"),
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(BOOKING_SLOTS)
@@ -377,10 +376,11 @@ class ActionCancelBooking(Action):
             ]
         )
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "cancel_booking",
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(BOOKING_SLOTS)
 
@@ -500,11 +500,11 @@ class ActionGetShippingRates(Action):
         )
 
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "check_rates",
-            confidence   = tracker.latest_message.get("intent", {}).get("confidence"),
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
@@ -636,9 +636,7 @@ class ActionPrefillRates(Action):
 
         match = re.search(r"from\s+([a-zA-Z\s]+?)\s+to\s+([a-zA-Z\s]+)", text)
 
-        # =========================
-        # ✅ CASE 1: USER TYPED "from → to"
-        # =========================
+        #--------------- CASE 1: USER TYPED "from → to" --------------
         if match:
             from_city = match.group(1).strip().lower().split()[-1]
             to_city = match.group(2).strip().lower().split()[-1]
@@ -646,7 +644,7 @@ class ActionPrefillRates(Action):
             events.append(SlotSet("from_city", from_city.title()))
             events.append(SlotSet("to_city", to_city.title()))
 
-            # 🔹 DOMESTIC
+            # DOMESTIC
             if to_city in CITY_TO_PINCODE:
                 dispatcher.utter_message(
                     text=(
@@ -656,7 +654,7 @@ class ActionPrefillRates(Action):
                 )
                 events.append(SlotSet("destination_country", "India"))
 
-            # 🔹 INTERNATIONAL
+            # INTERNATIONAL
             else:
                 country = CITY_TO_COUNTRY.get(to_city, to_city.title())
 
@@ -668,9 +666,7 @@ class ActionPrefillRates(Action):
                 )
                 events.append(SlotSet("destination_country", country))
 
-        # =========================
-        # ✅ CASE 2: USER CLICKED "Rates"
-        # =========================
+        #-------------- CASE 2: USER CLICKED "Rates" --------------------
         else:
             dispatcher.utter_message(
                 text="📦 Let's calculate shipping rates."
@@ -688,10 +684,11 @@ class ActionCancelRatesForm(Action):
         response = "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
         dispatcher.utter_message(text=response)
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "cancel_rates",
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
 
@@ -742,14 +739,13 @@ class ActionNearestBranch(Action):
                 f"😔 Sorry, no branch found in *{city.strip().title()}* yet.\n"
                 f"We currently have branches in Mumbai, Delhi, Bangalore, and Ahmedabad."
             )
-            dispatcher.utter_message(text=response)
 
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "nearest_branch",
-            confidence   = tracker.latest_message.get("intent", {}).get("confidence"),
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
 
         return [
@@ -819,11 +815,11 @@ class ActionSchedulePickup(Action):
         dispatcher.utter_message(text=response)
 
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "schedule_pickup",
-            confidence   = tracker.latest_message.get("intent", {}).get("confidence"),
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(PICKUP_SLOTS)
@@ -928,10 +924,11 @@ class ActionCancelActiveForm(Action):
             ]
         )
         log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,
-            intent       = "cancel",
+            session_id=tracker.sender_id,
+            user_message=tracker.latest_message.get("text"),
+            bot_response=response,
+            intent=tracker.latest_message.get("intent", {}).get("name"),
+            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
         )
         return (
             _clear(BOOKING_SLOTS)
@@ -950,11 +947,23 @@ class ActionSessionStart(Action):
         return "action_session_start"
 
     async def run(self, dispatcher, tracker, domain):
+
+        session_id = tracker.sender_id
+
+        # ✅ Close previous session (IMPORTANT)
+        close_session(session_id)
+
+        # ✅ Ensure new session exists
+        ensure_session(session_id)
+
         events = [SessionStarted()]
+
         for key, value in tracker.current_slot_values().items():
             if value is not None:
                 events.append(SlotSet(key, value))
+
         events.append(ActionExecuted("action_listen"))
+
         return events
 
 
@@ -972,3 +981,27 @@ class ActionResetLogisticsSlots(Action):
             + _clear(RATES_SLOTS)
             + [SlotSet("tracking_id", None), SlotSet("nearest_branch", None)]
         )
+    
+#--------------- Log -----------------
+class ActionLogUserMessage(Action):
+    def name(self):
+        return "action_log_user_message"
+
+    def run(self, dispatcher, tracker, domain):
+
+        session_id = tracker.sender_id
+        user_msg = tracker.latest_message.get("text")
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        confidence = tracker.latest_message.get("intent", {}).get("confidence")
+
+        ensure_session(session_id)
+
+        log_chat(
+            session_id=session_id,
+            user_message=user_msg,
+            intent=intent,
+            confidence=confidence,
+            role="user"
+        )
+
+        return []

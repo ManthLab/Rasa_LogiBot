@@ -635,3 +635,4 @@ actions:
   - action_session_start
   - action_reset_logistics_slots
   - action_ask_confirm_booking
+  - action_log_user_message

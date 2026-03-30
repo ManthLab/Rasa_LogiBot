@@ -78,39 +78,32 @@ def close_session(session_id: str) -> None:
 #----------------- CHAT LOG -----------------
 def log_chat(
     session_id: str,
-    user_message: str,
-    bot_response: str,
-    intent: str,
+    user_message: str = None,
+    bot_response: str = None,
+    intent: str = None,
     confidence: float = None,
+    role: str = None
 ) -> None:
-    """
-    Insert one conversation turn into chat_logs.
-    Call this at the end of every action's run() method.
-
-    Usage in actions.py:
-        from db_helper import log_chat, ensure_session
-        ensure_session(tracker.sender_id)
-        log_chat(
-            session_id   = tracker.sender_id,
-            user_message = tracker.latest_message.get("text"),
-            bot_response = response,        # the string you built
-            intent       = tracker.latest_message.get("intent", {}).get("name"),
-            confidence   = tracker.latest_message.get("intent", {}).get("confidence"),
-        )
-    """
     try:
-        ensure_session(session_id)
         with get_conn() as (conn, cur):
             cur.execute(
                 """
                 INSERT INTO chat_logs
-                    (session_id, user_message, bot_response, intent, confidence)
-                VALUES (%s, %s, %s, %s, %s)
+                (session_id, user_message, bot_response, intent, confidence, role, timestamp)
+                VALUES (%s, %s, %s, %s, %s, %s, NOW())
                 """,
-                (session_id, user_message, bot_response, intent, confidence)
+                (
+                    session_id,
+                    user_message,
+                    bot_response,
+                    intent,
+                    confidence,
+                    role
+                )
             )
     except Exception as e:
         logger.error("log_chat error: %s", e)
+        
 
 
 #----------------- TRACKING -----------------------

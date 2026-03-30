@@ -367,3 +367,8 @@ rules:
 # #     - action: action_reset_logistics_slots
 # #     - action: branch_form
 # #     - active_loop: branch_form
+
+#----------------- Log ---------------------
+- rule: Log every user message
+  steps:
+    - action: action_log_user_message
