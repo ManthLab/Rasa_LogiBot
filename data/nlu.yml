@@ -12,12 +12,9 @@ nlu:
     - good evening
     - good afternoon
     - hey there
-    - let's go
     - hey dude
-    - start
     - hi there
     - howdy
-    - what's up
     - hola
     - namaste
 
@@ -130,7 +127,7 @@ nlu:
     - Rates
     - shipping rates
     - check rates
-    - what are the rates
+    - what are the rates 
     - show me rates
     - rate inquiry
     - how much does shipping cost
@@ -245,13 +242,6 @@ nlu:
     - branch in [Mumbai](nearest_branch)
     - office in [Delhi](nearest_branch)
     - show branch in [Banglore](nearest_branch)
-    - what are the shipping rates from [Mumbai](from_location) to [Bangalore](to_location)
-    - shipping cost from [Mumbai](from_location) to [Delhi](to_location)
-    - courier charges from [Mumbai](from_location) to [Berlin](to_location)
-    - cost to send parcel from [Mumbai](from_location) to [Germany](to_location)
-    - how much does shipping cost from [Pune](from_location) to [Chennai](to_location)
-    - price for delivery from [Mumbai](from_location) to [Bangalore](to_location)
-    - what is the rate from [Mumbai](from_location) to [Berlin](to_location)
     - find branch
     - where is your office
     - show me nearest branch
@@ -454,155 +444,155 @@ nlu:
 
   #------------------------------------------------ Multi Intent ------------------------------------------
 
-- intent: greet+track_shipment
-  examples: |
-    - hi I want to track my shipment
-    - hello can you track my order
-    - hey where is my package
-    - good morning track my parcel
-    - hi track [DHL1234567890](tracking_id)
-    - track my shipment [BD98765432101](tracking_id)
+# - intent: greet+track_shipment
+#   examples: |
+#     - hi I want to track my shipment
+#     - hello can you track my order
+#     - hey where is my package
+#     - good morning track my parcel
+#     - hi track [DHL1234567890](tracking_id)
+#     - track my shipment [BD98765432101](tracking_id)
 
-- intent: greet+book_shipment
-  examples: |
-    - hi I want to book a shipment
-    - hello I need to send a package
-    - hey can I book a courier
-    - good morning I want to ship something
+# - intent: greet+book_shipment
+#   examples: |
+#     - hi I want to book a shipment
+#     - hello I need to send a package
+#     - hey can I book a courier
+#     - good morning I want to ship something
 
-- intent: greet+get_shipping_rates
-  examples: |
-    - hi what are the shipping charges
-    - hello how much does shipping cost
-    - hey what are your rates
-    - hi tell me the delivery charges
-    - hi I want to check shipping rates
-    - hello show me shipping prices
+# - intent: greet+get_shipping_rates
+#   examples: |
+#     - hi what are the shipping charges
+#     - hello how much does shipping cost
+#     - hey what are your rates
+#     - hi tell me the delivery charges
+#     - hi I want to check shipping rates
+#     - hello show me shipping prices
 
-- intent: greet+schedule_pickup
-  examples: |
-    - hi I want to schedule a pickup
-    - hello arrange a pickup for me
-    - hey can I book a home pickup
-    - hi I need a doorstep pickup
+# - intent: greet+schedule_pickup
+#   examples: |
+#     - hi I want to schedule a pickup
+#     - hello arrange a pickup for me
+#     - hey can I book a home pickup
+#     - hi I need a doorstep pickup
 
-- intent: greet+nearest_branch
-  examples: |
-    - hi where is your nearest branch
-    - hello find a branch near me
-    - hey nearest branch in [Mumbai](nearest_branch)
-    - hi office in [Delhi](nearest_branch)
+# - intent: greet+nearest_branch
+#   examples: |
+#     - hi where is your nearest branch
+#     - hello find a branch near me
+#     - hey nearest branch in [Mumbai](nearest_branch)
+#     - hi office in [Delhi](nearest_branch)
 
-- intent: track_shipment+ask_help
-  examples: |
-    - I need help tracking my shipment
-    - help me track my order
-    - how do I track my package
-    - can you help me find my parcel
+# - intent: track_shipment+ask_help
+#   examples: |
+#     - I need help tracking my shipment
+#     - help me track my order
+#     - how do I track my package
+#     - can you help me find my parcel
 
-- intent: book_shipment+get_shipping_rates
-  examples: |
-    - I want to book and know the rates
-    - what are the charges and how do I book
-    - show rates and book a shipment
-    - pricing and booking for a parcel
-    - book shipment and check shipping cost
-    - I want to send a parcel what are the charges
+# - intent: book_shipment+get_shipping_rates
+#   examples: |
+#     - I want to book and know the rates
+#     - what are the charges and how do I book
+#     - show rates and book a shipment
+#     - pricing and booking for a parcel
+#     - book shipment and check shipping cost
+#     - I want to send a parcel what are the charges
 
-- intent: thank_you+goodbye
-  examples: |
-    - thanks bye
-    - thank you goodbye
-    - thanks see you
-    - cheers bye
-    - appreciate it goodbye
+# - intent: thank_you+goodbye
+#   examples: |
+#     - thanks bye
+#     - thank you goodbye
+#     - thanks see you
+#     - cheers bye
+#     - appreciate it goodbye
 
-- intent: nearest_branch+book_shipment
-  examples: |
-    - find a branch and book a shipment
-    - nearest branch and I want to ship something
-    - where is your office and how do I book
-    - show me a branch near me and create a booking
-    - branch in [Mumbai](nearest_branch) and book a shipment
-    - nearest branch in [Delhi](nearest_branch) and I want to send a parcel
-    - office near me and book a courier
-    - find branch in [Bangalore](nearest_branch) and ship a package
-    - nearest branch in [Hyderabad](nearest_branch) then book
-    - where is your branch and I need to book a delivery
+# - intent: nearest_branch+book_shipment
+#   examples: |
+#     - find a branch and book a shipment
+#     - nearest branch and I want to ship something
+#     - where is your office and how do I book
+#     - show me a branch near me and create a booking
+#     - branch in [Mumbai](nearest_branch) and book a shipment
+#     - nearest branch in [Delhi](nearest_branch) and I want to send a parcel
+#     - office near me and book a courier
+#     - find branch in [Bangalore](nearest_branch) and ship a package
+#     - nearest branch in [Hyderabad](nearest_branch) then book
+#     - where is your branch and I need to book a delivery
 
-- intent: track_shipment+book_shipment
-  examples: |
-    - track my order and book a new one
-    - I want to track and also book a shipment
-    - check my parcel status and send a new one
-    - track existing order and create new booking
-    - where is my package and I want to ship another one
+# - intent: track_shipment+book_shipment
+#   examples: |
+#     - track my order and book a new one
+#     - I want to track and also book a shipment
+#     - check my parcel status and send a new one
+#     - track existing order and create new booking
+#     - where is my package and I want to ship another one
 
-- intent: check_rates+schedule_pickup
-  examples: |
-    - what are the rates and schedule a pickup
-    - show me charges and arrange a pickup
-    - pricing and home collection
-    - how much does it cost and can you pick it up
-    - rates for pickup service
-    - shipping cost and book a pickup
+# - intent: check_rates+schedule_pickup
+#   examples: |
+#     - what are the rates and schedule a pickup
+#     - show me charges and arrange a pickup
+#     - pricing and home collection
+#     - how much does it cost and can you pick it up
+#     - rates for pickup service
+#     - shipping cost and book a pickup
 
-- intent: track_shipment+contact_support
-  examples: |
-    - track my shipment and contact support
-    - where is my order and I need help
-    - check status and reach customer care
-    - my package is missing I need support
-    - track order and give me helpline number
+# - intent: track_shipment+contact_support
+#   examples: |
+#     - track my shipment and contact support
+#     - where is my order and I need help
+#     - check status and reach customer care
+#     - my package is missing I need support
+#     - track order and give me helpline number
 
-- intent: book_shipment+schedule_pickup
-  examples: |
-    - book a shipment and schedule a pickup
-    - I want to send a parcel and need home pickup
-    - create booking and arrange doorstep collection
-    - book courier and pickup from my address
-    - ship something and pick it up from my home
+# - intent: book_shipment+schedule_pickup
+#   examples: |
+#     - book a shipment and schedule a pickup
+#     - I want to send a parcel and need home pickup
+#     - create booking and arrange doorstep collection
+#     - book courier and pickup from my address
+#     - ship something and pick it up from my home
 
-- intent: check_rates+nearest_branch
-  examples: |
-    - what are the rates and where is the nearest branch
-    - show me charges and find a branch near me
-    - pricing and nearest office
-    - how much to ship and where is your branch in [Mumbai](nearest_branch)
-    - rates and branch in [Delhi](nearest_branch)
-    - shipping cost and nearest branch
+# - intent: check_rates+nearest_branch
+#   examples: |
+#     - what are the rates and where is the nearest branch
+#     - show me charges and find a branch near me
+#     - pricing and nearest office
+#     - how much to ship and where is your branch in [Mumbai](nearest_branch)
+#     - rates and branch in [Delhi](nearest_branch)
+#     - shipping cost and nearest branch
 
-- intent: greet+contact_support
-  examples: |
-    - hi I need customer support
-    - hello give me your contact details
-    - hey I need help from support team
-    - good morning I want to reach customer care
-    - hi what is your helpline number
+# - intent: greet+contact_support
+#   examples: |
+#     - hi I need customer support
+#     - hello give me your contact details
+#     - hey I need help from support team
+#     - good morning I want to reach customer care
+#     - hi what is your helpline number
 
-- intent: greet+ask_offers
-  examples: |
-    - hi what offers do you have
-    - hello any discounts available
-    - hey show me current deals
-    - good morning any promotions going on
-    - hi tell me about your offers
+# - intent: greet+ask_offers
+#   examples: |
+#     - hi what offers do you have
+#     - hello any discounts available
+#     - hey show me current deals
+#     - good morning any promotions going on
+#     - hi tell me about your offers
 
-- intent: thank_you+book_shipment
-  examples: |
-    - thanks now I want to book a shipment
-    - thank you and I want to send a parcel
-    - cheers now book a courier for me
-    - appreciate it now create a booking
-    - thanks and I want to ship something
+# - intent: thank_you+book_shipment
+#   examples: |
+#     - thanks now I want to book a shipment
+#     - thank you and I want to send a parcel
+#     - cheers now book a courier for me
+#     - appreciate it now create a booking
+#     - thanks and I want to ship something
 
-- intent: nearest_branch+schedule_pickup
-  examples: |
-    - find nearest branch and schedule a pickup
-    - where is your office and arrange home collection
-    - branch near me and book a pickup
-    - nearest branch in [Mumbai](nearest_branch) and schedule pickup
-    - office in [Delhi](nearest_branch) and arrange doorstep pickup
+# - intent: nearest_branch+schedule_pickup
+#   examples: |
+#     - find nearest branch and schedule a pickup
+#     - where is your office and arrange home collection
+#     - branch near me and book a pickup
+#     - nearest branch in [Mumbai](nearest_branch) and schedule pickup
+#     - office in [Delhi](nearest_branch) and arrange doorstep pickup
 
 #------------------- Contact Support -----------------------
 - intent: contact_support

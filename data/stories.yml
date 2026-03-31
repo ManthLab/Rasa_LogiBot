@@ -60,6 +60,7 @@ stories:
     - active_loop: pickup_form
     - active_loop: null
     - action: action_schedule_pickup
+    - action: action_log_all_messages
 
 # ── Pickup: scheduled then greet ─────────────────────────────────────────
 - story: pickup scheduled then continue
@@ -70,8 +71,10 @@ stories:
     - active_loop: pickup_form
     - active_loop: null
     - action: action_schedule_pickup
+    - action: action_log_all_messages
     - intent: greet
     - action: utter_greet_bot
+    - action: action_log_all_messages
 
 # ── Track ─────────────────────────────────────────────────────────────────
 - story: track shipment
@@ -82,30 +85,35 @@ stories:
     - active_loop: tracking_form
     - active_loop: null
     - action: action_track_shipment
+    - action: action_log_all_messages
 
 # ── Rates ─────────────────────────────────────────────────────────────────
 - story: get rates
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
-    - action: action_prefill_rates   
+    - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
     - action: action_get_shipping_rates
+    - action: action_log_all_messages
 
 # ── Rates cancelled with stop ─────────────────────────────────────────────
 - story: get rates cancelled stop
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
-    - action: action_prefill_rates   
+    - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
     - intent: stop
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+    - action: action_log_all_messages
 
 # ── Rates cancelled with deny ─────────────────────────────────────────────
 - story: get rates cancelled deny
@@ -113,12 +121,14 @@ stories:
     - intent: check_rates
     - action: action_reset_logistics_slots
     - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
     - intent: deny
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+    - action: action_log_all_messages
 
 # ── Rates cancelled with cancel_shipment ──────────────────────────────────
 - story: get rates cancelled cancel_shipment
@@ -126,31 +136,37 @@ stories:
     - intent: check_rates
     - action: action_reset_logistics_slots
     - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
     - intent: cancel_shipment
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+    - action: action_log_all_messages
 
 # ── Rates then book ───────────────────────────────────────────────────────
 - story: rates then book confirmed
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
-    - action: action_prefill_rates   
+    - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
     - active_loop: null
     - action: action_get_shipping_rates
+    - action: action_log_all_messages
     - intent: book_shipment
     - action: action_reset_logistics_slots
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
     - action: action_ask_confirm_booking
+    - action: action_log_all_messages
     - intent: confirm_booking
     - action: action_book_shipment
+    - action: action_log_all_messages
 
 # ── Branch ────────────────────────────────────────────────────────────────
 - story: nearest branch
@@ -161,44 +177,63 @@ stories:
     - active_loop: branch_form
     - active_loop: null
     - action: action_get_nearest_branch
+    - action: action_log_all_messages
 
 # ── Greet then book ───────────────────────────────────────────────────────
 - story: greet then book confirmed
   steps:
     - intent: greet
     - action: utter_greet_bot
+    - action: action_log_all_messages
     - intent: book_shipment
     - action: action_reset_logistics_slots
     - action: booking_form
     - active_loop: booking_form
     - active_loop: null
     - action: action_ask_confirm_booking
+    - action: action_log_all_messages
     - intent: confirm_booking
     - action: action_book_shipment
+    - action: action_log_all_messages
 
 # ── Greet then pickup ─────────────────────────────────────────────────────
 - story: greet then pickup
   steps:
     - intent: greet
     - action: utter_greet_bot
+    - action: action_log_all_messages
     - intent: schedule_pickup
     - action: action_reset_logistics_slots
     - action: pickup_form
     - active_loop: pickup_form
     - active_loop: null
     - action: action_schedule_pickup
+    - action: action_log_all_messages
 
 # ── Thank you ─────────────────────────────────────────────────────────────
 - story: thank you
   steps:
     - intent: thank_you
     - action: utter_thank_you
+    - action: action_log_all_messages
 
 # ── Goodbye ───────────────────────────────────────────────────────────────
 - story: goodbye
   steps:
     - intent: goodbye
     - action: utter_goodbye
+    - action: action_log_all_messages
+
+# ── Out of scope then redirect ────────────────────────────────────────────
+- story: out of scope then redirect
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+    - action: action_log_all_messages
+    - intent: ask_help
+    - action: utter_help
+    - action: action_log_all_messages
+
 
 #---------------------- Fallback recovery -------------------
 
@@ -223,10 +258,3 @@ stories:
 #     - action: utter_help            
 #     - intent: goodbye
 #     - action: utter_goodbye
-
-- story: out of scope then redirect 
-  steps:
-    - intent: out_of_scope
-    - action: utter_out_of_scope
-    - intent: ask_help
-    - action: utter_help

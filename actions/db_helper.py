@@ -78,31 +78,23 @@ def close_session(session_id: str) -> None:
 #----------------- CHAT LOG -----------------
 def log_chat(
     session_id: str,
-    user_message: str = None,
-    bot_response: str = None,
+    message: str = None,
+    role: str = None,
     intent: str = None,
-    confidence: float = None,
-    role: str = None
-) -> None:
+    confidence: float = None
+):
     try:
         with get_conn() as (conn, cur):
             cur.execute(
                 """
                 INSERT INTO chat_logs
-                (session_id, user_message, bot_response, intent, confidence, role, timestamp)
-                VALUES (%s, %s, %s, %s, %s, %s, NOW())
+                (session_id, message, role, intent, confidence, timestamp)
+                VALUES (%s, %s, %s, %s, %s, NOW())
                 """,
-                (
-                    session_id,
-                    user_message,
-                    bot_response,
-                    intent,
-                    confidence,
-                    role
-                )
+                (session_id, message, role, intent, confidence)
             )
     except Exception as e:
-        logger.error("log_chat error: %s", e)
+        print("LOG ERROR:", e)   
         
 
 #----------------- TRACKING -----------------------

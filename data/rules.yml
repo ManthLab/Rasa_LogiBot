@@ -8,26 +8,31 @@ rules:
   steps:
     - intent: greet
     - action: utter_greet_bot
+    - action: action_log_all_messages
 
 - rule: Say goodbye
   steps:
     - intent: goodbye
     - action: utter_goodbye
+    - action: action_log_all_messages
 
 - rule: Say I am a bot
   steps:
     - intent: bot_challenge
     - action: utter_iamabot
+    - action: action_log_all_messages
 
 - rule: Help user
   steps:
     - intent: ask_help
     - action: utter_help
+    - action: action_log_all_messages
 
 - rule: Thank you response
   steps:
     - intent: thank_you
     - action: utter_thank_you
+    - action: action_log_all_messages
 
 # ── Track Shipment ────────────────────────────────────
 
@@ -45,6 +50,7 @@ rules:
     - action: tracking_form
     - active_loop: null
     - action: action_track_shipment
+    - action: action_log_all_messages
 
 - rule: Stop tracking form
   condition:
@@ -54,6 +60,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 - rule: Deny tracking form
   condition:
@@ -63,6 +70,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 # ── Book Shipment ───────────────────────────────────────
 
@@ -82,16 +90,19 @@ rules:
     - slot_was_set:
         - requested_slot: null
     - action: action_ask_confirm_booking
+    - action: action_log_all_messages
 
 - rule: confirm shipment booking
   steps:
     - intent: confirm_booking
     - action: action_book_shipment
+    - action: action_log_all_messages
 
 - rule: cancel shipment booking
   steps:
     - intent: cancel_booking
     - action: action_cancel_booking
+    - action: action_log_all_messages
 
 - rule: Stop booking form
   condition:
@@ -101,6 +112,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 - rule: Deny booking form
   condition:
@@ -110,6 +122,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 # ── Shipping Rates ─────────────────────────────────────
 
@@ -117,7 +130,8 @@ rules:
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
-    - action: action_prefill_rates   
+    - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
 
@@ -128,6 +142,7 @@ rules:
     - action: rates_form
     - active_loop: null
     - action: action_get_shipping_rates
+    - action: action_log_all_messages
 
 - rule: Cancel rates form with stop
   condition:
@@ -137,6 +152,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+    - action: action_log_all_messages
 
 - rule: Cancel rates form with deny
   condition:
@@ -146,6 +162,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+    - action: action_log_all_messages
 
 - rule: Cancel rates form with cancel_shipment intent
   condition:
@@ -155,12 +172,14 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_rates_form
+    - action: action_log_all_messages
 
 - rule: Force rates when rates keywords detected
   steps:
     - intent: check_rates
     - action: action_reset_logistics_slots
     - action: action_prefill_rates
+    - action: action_log_all_messages
     - action: rates_form
     - active_loop: rates_form
 
@@ -180,6 +199,7 @@ rules:
     - action: branch_form
     - active_loop: null
     - action: action_get_nearest_branch
+    - action: action_log_all_messages
 
 - rule: Stop branch form
   condition:
@@ -189,6 +209,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 - rule: Deny inside branch form
   condition:
@@ -198,6 +219,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 # ── Schedule Pickup ─────────────────────────────────────────
 
@@ -215,6 +237,7 @@ rules:
     - action: pickup_form
     - active_loop: null
     - action: action_schedule_pickup
+    - action: action_log_all_messages
 
 - rule: Stop pickup form
   condition:
@@ -224,6 +247,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 - rule: Deny pickup form
   condition:
@@ -233,6 +257,7 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: action_cancel_active_form
+    - action: action_log_all_messages
 
 # ── Offers ────────────────────────────────────────────────
 
@@ -240,6 +265,7 @@ rules:
   steps:
     - intent: ask_offers
     - action: utter_ask_offers
+    - action: action_log_all_messages
 
 # ── Contact Support ───────────────────────────────────────
 
@@ -247,6 +273,7 @@ rules:
   steps:
     - intent: contact_support
     - action: utter_contact_support
+    - action: action_log_all_messages
 
 # ── Fallback ──────────────────────────────────────────────
 
@@ -254,11 +281,13 @@ rules:
   steps:
     - intent: nlu_fallback
     - action: action_prefill_rates
+    - action: action_log_all_messages
 
 - rule: Handle out of scope
   steps:
     - intent: out_of_scope
     - action: utter_out_of_scope
+    - action: action_log_all_messages
 
 # ── Fallback inside active forms ──────────────────────────
 
@@ -268,6 +297,7 @@ rules:
   steps:
     - intent: nlu_fallback
     - action: utter_ask_rephrase
+    - action: action_log_all_messages
 
 - rule: Handle fallback inside tracking form
   condition:
@@ -275,6 +305,7 @@ rules:
   steps:
     - intent: nlu_fallback
     - action: utter_ask_rephrase
+    - action: action_log_all_messages
 
 - rule: Handle fallback inside rates form
   condition:
@@ -282,6 +313,7 @@ rules:
   steps:
     - intent: nlu_fallback
     - action: utter_ask_rephrase
+    - action: action_log_all_messages
 
 - rule: Handle fallback inside branch form
   condition:
@@ -289,6 +321,7 @@ rules:
   steps:
     - intent: nlu_fallback
     - action: utter_ask_rephrase
+    - action: action_log_all_messages
 
 - rule: Handle fallback inside pickup form
   condition:
@@ -296,6 +329,7 @@ rules:
   steps:
     - intent: nlu_fallback
     - action: utter_ask_rephrase
+    - action: action_log_all_messages
 
 # # ── Multi-intent rules ─────────────────────────────────────
 
@@ -368,7 +402,3 @@ rules:
 # #     - action: branch_form
 # #     - active_loop: branch_form
 
-#----------------- Log ---------------------
-- rule: Log every user message
-  steps:
-    - action: action_log_user_message
