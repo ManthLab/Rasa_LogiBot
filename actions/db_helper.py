@@ -65,16 +65,19 @@ def ensure_session(session_id: str) -> None:
 
 
 def close_session(session_id: str) -> None:
-    """Mark session as ended (call on ActionSessionStart for new convo)."""
     try:
         with get_conn() as (conn, cur):
-            cur.execute(
-                "UPDATE sessions SET end_time = %s WHERE session_id = %s AND end_time IS NULL",
-                (datetime.now(), session_id)
-            )
+            cur.execute("""
+                UPDATE sessions
+                SET end_time = NOW()
+                WHERE session_id = %s
+                AND end_time IS NULL
+            """, (session_id,))
+            
+            print("Closed session:", session_id)
+
     except Exception as e:
         logger.error("close_session error: %s", e)
-
 #----------------- CHAT LOG -----------------
 def log_chat(
     session_id: str,
@@ -96,7 +99,6 @@ def log_chat(
     except Exception as e:
         print("LOG ERROR:", e)   
         
-
 #----------------- TRACKING -----------------------
 
 def get_tracking(tracking_id: str) -> dict | None:

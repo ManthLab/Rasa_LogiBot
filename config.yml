@@ -24,7 +24,7 @@ pipeline:
     epochs: 100
     constrain_similarities: true
   - name: FallbackClassifier
-    threshold: 0.70                         
+    threshold: 0.60                         
     ambiguity_threshold: 0.10
 
 policies:

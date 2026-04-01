@@ -1090,6 +1090,459 @@
         }
       }
 
+      /* ══════════════════════════════════════════════════════════════════
+         ADMIN DASHBOARD  –  light theme matching chatbot palette
+         ══════════════════════════════════════════════════════════════════ */
+
+      /* Trigger button (bottom-left, subtle) */
+      #admin-trigger {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 8000;
+        transition: all 0.2s;
+        color: var(--text-dim);
+      }
+      #admin-trigger:hover {
+        background: #fff4ed;
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: scale(1.08);
+        box-shadow: 0 4px 16px var(--accent-glow);
+      }
+
+      /* Full-screen overlay */
+      #admin-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 20000;
+        background: #f8fafc;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        font-family: var(--font-body);
+        color: var(--text);
+      }
+      #admin-overlay.open { display: flex; }
+
+      /* Top bar — matches sidebar-header gradient */
+      .adm-topbar {
+        height: 58px;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .adm-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-head);
+        font-weight: 800;
+        font-size: 17px;
+        background: linear-gradient(135deg, #1e293b 0%, #64748b 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        flex-shrink: 0;
+      }
+      .adm-logo-icon {
+        width: 32px; height: 32px;
+        background: linear-gradient(135deg, var(--accent), #c2410c);
+        border-radius: 9px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 16px;
+        box-shadow: 0 3px 10px var(--accent-glow);
+        flex-shrink: 0;
+        -webkit-text-fill-color: initial;
+      }
+      .adm-tabs {
+        display: flex;
+        gap: 4px;
+        margin-left: 20px;
+        flex: 1;
+      }
+      .adm-tab {
+        padding: 7px 16px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        color: var(--text-muted);
+        border: 1px solid transparent;
+        background: transparent;
+        transition: all 0.15s;
+        white-space: nowrap;
+        font-family: var(--font-body);
+      }
+      .adm-tab:hover {
+        background: var(--surface2);
+        color: var(--text);
+        border-color: var(--border);
+      }
+      .adm-tab.active {
+        background: #fff4ed;
+        color: var(--accent);
+        border-color: rgba(249,115,22,0.3);
+        font-weight: 600;
+      }
+      .adm-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .adm-refresh-btn {
+        padding: 7px 16px;
+        background: linear-gradient(135deg, var(--accent), #c2410c);
+        border: none;
+        color: #fff;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-family: var(--font-body);
+        box-shadow: 0 2px 8px var(--accent-glow);
+      }
+      .adm-refresh-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px var(--accent-glow);
+      }
+      .adm-close-btn {
+        width: 34px; height: 34px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: var(--radius-sm);
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 17px;
+        transition: all 0.15s;
+      }
+      .adm-close-btn:hover {
+        background: #fee2e2;
+        color: #dc2626;
+        border-color: #fca5a5;
+      }
+
+      /* Content area */
+      .adm-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 28px 32px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+        background: #f8fafc;
+      }
+      .adm-panel { display: none; }
+      .adm-panel.active { display: block; }
+
+      /* Loading / error */
+      .adm-loading {
+        display: flex; align-items: center; justify-content: center;
+        height: 200px; color: var(--text-dim); font-size: 14px; gap: 10px;
+      }
+      .adm-spinner {
+        width: 20px; height: 20px;
+        border: 2px solid var(--accent-glow);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: adm-spin 0.7s linear infinite;
+      }
+      @keyframes adm-spin { to { transform: rotate(360deg); } }
+
+      /* ── STAT CARDS ── */
+      .adm-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .adm-stat {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .adm-stat:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-color: var(--stat-border, var(--accent));
+      }
+      .adm-stat::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--stat-color, var(--accent));
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+      .adm-stat-icon { font-size: 22px; margin-bottom: 4px; }
+      .adm-stat-val {
+        font-family: var(--font-head);
+        font-size: 30px;
+        font-weight: 800;
+        color: var(--text);
+        line-height: 1;
+      }
+      .adm-stat-label {
+        font-size: 11px;
+        color: var(--text-dim);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+      }
+      .adm-stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+      .adm-stat.orange { --stat-color: var(--accent);  --stat-border: rgba(249,115,22,0.35); }
+      .adm-stat.blue   { --stat-color: var(--blue);    --stat-border: rgba(37,99,235,0.3); }
+      .adm-stat.green  { --stat-color: var(--green);   --stat-border: rgba(22,163,74,0.3); }
+      .adm-stat.purple { --stat-color: #8b5cf6;        --stat-border: rgba(139,92,246,0.3); }
+      .adm-stat.rose   { --stat-color: #e11d48;        --stat-border: rgba(225,29,72,0.3); }
+      .adm-stat.teal   { --stat-color: #0d9488;        --stat-border: rgba(13,148,136,0.3); }
+
+      /* ── SECTION HEADER ── */
+      .adm-section-hd {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        margin-top: 8px;
+      }
+      .adm-section-hd h3 {
+        font-family: var(--font-head);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .adm-section-hd .count-badge {
+        padding: 2px 9px;
+        background: #fff4ed;
+        border: 1px solid rgba(249,115,22,0.3);
+        color: var(--accent);
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      /* ── CHART BAR ── */
+      .adm-chart {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .adm-chart-title {
+        font-family: var(--font-head);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 20px;
+      }
+      .adm-bar-group {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        height: 130px;
+      }
+      .adm-bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        height: 100%;
+        justify-content: flex-end;
+      }
+      .adm-bar-fill {
+        width: 100%;
+        border-radius: 6px 6px 0 0;
+        background: linear-gradient(180deg, var(--accent), #c2410c);
+        min-height: 4px;
+        transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1);
+        position: relative;
+        opacity: 0.85;
+      }
+      .adm-bar-fill:hover { opacity: 1; }
+      .adm-bar-fill:hover::after {
+        content: attr(data-val);
+        position: absolute;
+        top: -26px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 6px;
+        white-space: nowrap;
+        pointer-events: none;
+        box-shadow: 0 2px 8px var(--accent-glow);
+      }
+      .adm-bar-label {
+        font-size: 10px;
+        color: var(--text-dim);
+        text-align: center;
+        font-weight: 500;
+      }
+
+      /* Intent list */
+      .adm-intent-list { display: flex; flex-direction: column; gap: 12px; }
+      .adm-intent-row { display: flex; align-items: center; gap: 12px; }
+      .adm-intent-name {
+        font-size: 13px;
+        color: var(--text-muted);
+        width: 160px;
+        flex-shrink: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+      .adm-intent-bar-wrap {
+        flex: 1;
+        height: 8px;
+        background: var(--surface2);
+        border-radius: 4px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .adm-intent-bar {
+        height: 100%;
+        border-radius: 4px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        transition: width 0.7s ease;
+      }
+      .adm-intent-cnt {
+        font-size: 12px;
+        color: var(--text-dim);
+        width: 30px;
+        text-align: right;
+        flex-shrink: 0;
+        font-weight: 600;
+      }
+
+      /* ── TABLE ── */
+      .adm-table-wrap {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .adm-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .adm-table th {
+        background: var(--surface2);
+        color: var(--text-dim);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 11px;
+        padding: 13px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+        font-family: var(--font-body);
+      }
+      .adm-table td {
+        padding: 13px 16px;
+        color: var(--text-muted);
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+      }
+      .adm-table tr:last-child td { border-bottom: none; }
+      .adm-table tr:hover td {
+        background: #fff7ed;
+      }
+      .adm-table td.mono {
+        font-family: monospace;
+        font-size: 11px;
+        color: var(--text-dim);
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* Badges */
+      .adm-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .adm-badge.active {
+        background: var(--green-soft);
+        color: var(--green);
+        border: 1px solid rgba(22,163,74,0.25);
+      }
+      .adm-badge.closed {
+        background: var(--surface2);
+        color: var(--text-dim);
+        border: 1px solid var(--border);
+      }
+      .adm-badge.user {
+        background: var(--blue-soft);
+        color: var(--blue);
+        border: 1px solid rgba(37,99,235,0.2);
+      }
+      .adm-badge.bot {
+        background: #fff4ed;
+        color: var(--accent);
+        border: 1px solid rgba(249,115,22,0.25);
+      }
+
+      /* Two-column grid for overview */
+      .adm-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+      @media (max-width: 900px) { .adm-two-col { grid-template-columns: 1fr; } }
+
+      /* Empty state */
+      .adm-empty {
+        text-align: center;
+        padding: 48px;
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
       /* ── Mobile Responsive ───────────────────────────────────────────── */
       @media (max-width: 480px) {
         #chatbot-widget {
@@ -1620,6 +2073,11 @@
       }
 
       function clearChat() {
+          fetch("http://localhost:5050/end-session", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ session_id: SESSION_ID })
+          });
         if (!confirm("Clear all messages and start a new session?")) return;
 
         // delete session
@@ -1646,7 +2104,388 @@
           }
         });
       });
+
+      /* ══════════════════════════════════════════════════════════════════
+         ADMIN DASHBOARD  –  self-contained, no interference with chatbot
+         ══════════════════════════════════════════════════════════════════ */
+      const ADM_API = "http://localhost:5050";
+      let admCurrentTab = "overview";
+      let admDataCache  = {};
+
+      function adminOpen() {
+        document.getElementById("admin-overlay").classList.add("open");
+        admLoadTab("overview");
+      }
+      function adminClose() {
+        document.getElementById("admin-overlay").classList.remove("open");
+      }
+      // Also close with Escape key
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && document.getElementById("admin-overlay").classList.contains("open"))
+          adminClose();
+      });
+
+      function admTab(name) {
+        admCurrentTab = name;
+        document.querySelectorAll(".adm-tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".adm-panel").forEach(p => p.classList.remove("active"));
+        event.target.classList.add("active");
+        document.getElementById("adm-panel-" + name).classList.add("active");
+        admLoadTab(name);
+      }
+
+      function admRefresh() {
+        admDataCache = {};
+        admLoadTab(admCurrentTab);
+      }
+
+      async function admFetch(endpoint) {
+        if (admDataCache[endpoint]) return admDataCache[endpoint];
+        try {
+          const r = await fetch(ADM_API + endpoint);
+          if (!r.ok) throw new Error(r.status);
+          const data = await r.json();
+          admDataCache[endpoint] = data;
+          return data;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      async function admLoadTab(name) {
+        if (name === "overview")  await admLoadOverview();
+        if (name === "sessions")  await admLoadSessions();
+        if (name === "bookings")  await admLoadBookings();
+        if (name === "pickups")   await admLoadPickups();
+        if (name === "chatlogs")  await admLoadChatlogs();
+      }
+
+      /* ── helpers ── */
+      function fmtDT(iso) {
+        if (!iso) return "—";
+        const d = new Date(iso);
+        return d.toLocaleDateString("en-IN", { day:"2-digit", month:"short" })
+             + " " + d.toLocaleTimeString("en-IN", { hour:"2-digit", minute:"2-digit" });
+      }
+      function fmtDur(sec) {
+        if (!sec) return "—";
+        if (sec < 60) return sec + "s";
+        const m = Math.floor(sec / 60), s = sec % 60;
+        return m + "m " + s + "s";
+      }
+      function escH(s) {
+        return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      }
+
+      /* ── OVERVIEW ─────────────────────────────────────────────────────── */
+      async function admLoadOverview() {
+        const [stats, daily, intents] = await Promise.all([
+          admFetch("/api/stats"),
+          admFetch("/api/daily"),
+          admFetch("/api/intents"),
+        ]);
+
+        // Stat cards
+        const grid = document.getElementById("adm-stats-grid");
+        if (!stats) { grid.innerHTML = '<div class="adm-empty">⚠️ Could not connect to Admin API (localhost:5050)</div>'; return; }
+
+        const cards = [
+          { cls:"orange", icon:"🚚", val: stats.bookings,        label:"Total Bookings",    sub: `+${stats.bookings_today} today` },
+          { cls:"blue",   icon:"🔄", val: stats.pickups,         label:"Total Pickups",     sub: `+${stats.pickups_today} today` },
+          { cls:"green",  icon:"💬", val: stats.sessions,        label:"Total Sessions",    sub: `${stats.sessions_today} today` },
+          { cls:"purple", icon:"📨", val: stats.chat_logs,       label:"Total Messages",    sub: `${stats.messages_today} today` },
+          { cls:"rose",   icon:"🟢", val: stats.active_sessions, label:"Active Sessions",   sub: "currently open" },
+          { cls:"teal",   icon:"⏱️", val: fmtDur(stats.avg_session_sec), label:"Avg Session",  sub: "completed sessions" },
+        ];
+        grid.innerHTML = cards.map(c => `
+          <div class="adm-stat ${c.cls}">
+            <div class="adm-stat-icon">${c.icon}</div>
+            <div class="adm-stat-val">${c.val}</div>
+            <div class="adm-stat-label">${c.label}</div>
+            <div class="adm-stat-sub">${c.sub}</div>
+          </div>`).join("");
+
+        // Daily sessions bar chart
+        const dayChart = document.getElementById("adm-daily-chart");
+        if (daily && daily.length) {
+          const maxV = Math.max(...daily.map(r => r.sessions), 1);
+          const bars = daily.map(r => {
+            const pct = Math.round((r.sessions / maxV) * 100);
+            const label = r.day ? r.day.slice(5) : "";
+            return `<div class="adm-bar-col">
+              <div class="adm-bar-fill" style="height:${pct}%" data-val="${r.sessions}"></div>
+              <div class="adm-bar-label">${label}</div>
+            </div>`;
+          }).join("");
+          dayChart.innerHTML = `<div class="adm-chart-title">Sessions – Last 7 Days</div><div class="adm-bar-group">${bars}</div>`;
+        } else {
+          dayChart.innerHTML = `<div class="adm-chart-title">Sessions – Last 7 Days</div><div class="adm-empty">No data yet</div>`;
+        }
+
+        // Intents list
+        const intentChart = document.getElementById("adm-intent-chart");
+        if (intents && intents.length) {
+          const maxI = Math.max(...intents.map(r => r.cnt), 1);
+          const rows = intents.map(r => {
+            const pct = Math.round((r.cnt / maxI) * 100);
+            return `<div class="adm-intent-row">
+              <div class="adm-intent-name">${escH(r.intent)}</div>
+              <div class="adm-intent-bar-wrap"><div class="adm-intent-bar" style="width:${pct}%"></div></div>
+              <div class="adm-intent-cnt">${r.cnt}</div>
+            </div>`;
+          }).join("");
+          intentChart.innerHTML = `<div class="adm-chart-title">Top Intents</div><div class="adm-intent-list">${rows}</div>`;
+        } else {
+          intentChart.innerHTML = `<div class="adm-chart-title">Top Intents</div><div class="adm-empty">No intent data yet</div>`;
+        }
+      }
+
+      /* ── SESSIONS ─────────────────────────────────────────────────────── */
+      async function admLoadSessions() {
+        const data = await admFetch("/api/sessions");
+        const tbody = document.getElementById("adm-sessions-body");
+        const badge = document.getElementById("adm-sessions-count");
+        if (!data) { tbody.innerHTML = '<tr><td colspan="6"><div class="adm-empty">⚠️ API unavailable</div></td></tr>'; return; }
+        badge.textContent = data.length;
+        if (!data.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="adm-empty">No sessions yet</div></td></tr>'; return; }
+        tbody.innerHTML = data.map(r => `
+          <tr>
+            <td class="mono">${escH(r.session_id)}</td>
+            <td style="color:var(--text-muted);font-size:13px">${fmtDT(r.start_time)}</td>
+            <td style="color:var(--text-muted);font-size:13px">${r.end_time ? fmtDT(r.end_time) : '<span style="color:var(--text-dim)">—</span>'}</td>
+            <td style="color:var(--text);font-weight:500">${fmtDur(r.duration_sec)}</td>
+            <td style="text-align:center;color:var(--text-muted)">${r.message_count}</td>
+            <td>${r.end_time
+              ? '<span class="adm-badge closed">Closed</span>'
+              : '<span class="adm-badge active">● Active</span>'}</td>
+          </tr>`).join("");
+      }
+
+      /* ── BOOKINGS ─────────────────────────────────────────────────────── */
+      async function admLoadBookings() {
+        const data = await admFetch("/api/bookings");
+        const tbody = document.getElementById("adm-bookings-body");
+        const badge = document.getElementById("adm-bookings-count");
+        if (!data) { tbody.innerHTML = '<tr><td colspan="7"><div class="adm-empty">⚠️ API unavailable</div></td></tr>'; return; }
+        badge.textContent = data.length;
+        if (!data.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="adm-empty">No bookings yet</div></td></tr>'; return; }
+        tbody.innerHTML = data.map(r => `
+          <tr>
+            <td class="mono">${escH(r.booking_id)}</td>
+            <td>${escH(r.sender_name)}</td>
+            <td style="font-size:12px;color:var(--text-dim)">${escH(r.sender_number)}</td>
+            <td>${escH(r.receiver_name)}</td>
+            <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--text-dim)">${escH(r.delivery_address)}</td>
+            <td style="color:var(--green);font-weight:600">₹${r.cost.toLocaleString("en-IN")}</td>
+            <td style="font-size:12px;color:var(--text-dim)">${fmtDT(r.booked_at)}</td>
+          </tr>`).join("");
+      }
+
+      /* ── PICKUPS ──────────────────────────────────────────────────────── */
+      async function admLoadPickups() {
+        const data = await admFetch("/api/pickups");
+        const tbody = document.getElementById("adm-pickups-body");
+        const badge = document.getElementById("adm-pickups-count");
+        if (!data) { tbody.innerHTML = '<tr><td colspan="7"><div class="adm-empty">⚠️ API unavailable</div></td></tr>'; return; }
+        badge.textContent = data.length;
+        if (!data.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="adm-empty">No pickups yet</div></td></tr>'; return; }
+        tbody.innerHTML = data.map(r => `
+          <tr>
+            <td class="mono">${escH(r.pickup_id)}</td>
+            <td>${escH(r.name)}</td>
+            <td style="font-size:12px;color:var(--text-dim)">${escH(r.contact)}</td>
+            <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--text-dim)">${escH(r.address)}</td>
+            <td style="color:var(--accent);font-weight:600">${escH(r.pickup_date) || "—"}</td>
+            <td style="color:var(--text-muted)">${escH(r.pickup_time) || "—"}</td>
+            <td style="font-size:12px;color:var(--text-dim)">${fmtDT(r.scheduled_at)}</td>
+          </tr>`).join("");
+      }
+
+      /* ── CHAT LOGS ────────────────────────────────────────────────────── */
+      async function admLoadChatlogs() {
+        const data = await admFetch("/api/chatlogs");
+        const tbody = document.getElementById("adm-chatlogs-body");
+        const badge = document.getElementById("adm-chatlogs-count");
+        if (!data) { tbody.innerHTML = '<tr><td colspan="6"><div class="adm-empty">⚠️ API unavailable</div></td></tr>'; return; }
+        badge.textContent = data.length;
+        if (!data.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="adm-empty">No chat logs yet</div></td></tr>'; return; }
+        tbody.innerHTML = data.map(r => `
+          <tr>
+            <td style="font-size:11px;color:var(--text-dim);white-space:nowrap">${fmtDT(r.timestamp)}</td>
+            <td><span class="adm-badge ${r.role}">${r.role}</span></td>
+            <td class="mono">${escH((r.session_id || "").slice(0,16))}…</td>
+            <td style="font-size:12px;color:var(--blue);font-weight:500">${escH(r.intent) || "—"}</td>
+            <td style="font-size:12px;color:var(--text-dim)">${r.confidence ? (r.confidence * 100).toFixed(0) + "%" : "—"}</td>
+            <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted);font-size:12px">${escH(r.message)}</td>
+          </tr>`).join("");
+      }
+      window.addEventListener("beforeunload", function () {
+          navigator.sendBeacon(
+              "http://localhost:5050/end-session",
+              new Blob(
+                  [JSON.stringify({ session_id: SESSION_ID })],
+                  { type: "application/json" }
+              )
+          );
+      });
     </script>
+
+    <!-- ── ADMIN TRIGGER (subtle, bottom-left) ─────────────────────── -->
+    <div id="admin-trigger" title="Admin Dashboard" onclick="adminOpen()">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ADMIN DASHBOARD OVERLAY
+         ══════════════════════════════════════════════════════════════════ -->
+    <div id="admin-overlay">
+
+      <!-- Top bar -->
+      <div class="adm-topbar">
+        <div class="adm-logo">
+          <div class="adm-logo-icon">🚚</div>
+          LogiBot Admin
+        </div>
+        <div class="adm-tabs">
+          <button class="adm-tab active" onclick="admTab('overview')">Overview</button>
+          <button class="adm-tab" onclick="admTab('sessions')">Sessions</button>
+          <button class="adm-tab" onclick="admTab('bookings')">Bookings</button>
+          <button class="adm-tab" onclick="admTab('pickups')">Pickups</button>
+          <button class="adm-tab" onclick="admTab('chatlogs')">Chat Logs</button>
+        </div>
+        <div class="adm-actions">
+          <button class="adm-refresh-btn" onclick="admRefresh()">↻ Refresh</button>
+          <div class="adm-close-btn" onclick="adminClose()">✕</div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="adm-body">
+
+        <!-- ── OVERVIEW ─────────────────────────────────────────────── -->
+        <div class="adm-panel active" id="adm-panel-overview">
+          <div class="adm-stats-grid" id="adm-stats-grid">
+            <div class="adm-loading"><div class="adm-spinner"></div> Loading…</div>
+          </div>
+          <div class="adm-two-col">
+            <div class="adm-chart" id="adm-daily-chart">
+              <div class="adm-chart-title">Sessions – Last 7 Days</div>
+              <div class="adm-loading"><div class="adm-spinner"></div></div>
+            </div>
+            <!-- <div class="adm-chart" id="adm-intent-chart">
+              <div class="adm-chart-title">Top Intents</div>
+              <div class="adm-loading"><div class="adm-spinner"></div></div>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- ── SESSIONS ─────────────────────────────────────────────── -->
+        <div class="adm-panel" id="adm-panel-sessions">
+          <div class="adm-section-hd">
+            <h3>All Sessions</h3>
+            <span class="count-badge" id="adm-sessions-count">–</span>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>Session ID</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Duration</th>
+                  <th>Messages</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="adm-sessions-body">
+                <tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── BOOKINGS ─────────────────────────────────────────────── -->
+        <div class="adm-panel" id="adm-panel-bookings">
+          <div class="adm-section-hd">
+            <h3>Recent Bookings</h3>
+            <span class="count-badge" id="adm-bookings-count">–</span>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Sender</th>
+                  <th>Contact</th>
+                  <th>Receiver</th>
+                  <th>Delivery Address</th>
+                  <th>Cost (₹)</th>
+                  <th>Booked At</th>
+                </tr>
+              </thead>
+              <tbody id="adm-bookings-body">
+                <tr><td colspan="7"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── PICKUPS ──────────────────────────────────────────────── -->
+        <div class="adm-panel" id="adm-panel-pickups">
+          <div class="adm-section-hd">
+            <h3>Scheduled Pickups</h3>
+            <span class="count-badge" id="adm-pickups-count">–</span>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>Pickup ID</th>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Address</th>
+                  <th>Pickup Date</th>
+                  <th>Pickup Time</th>
+                  <th>Scheduled At</th>
+                </tr>
+              </thead>
+              <tbody id="adm-pickups-body">
+                <tr><td colspan="7"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── CHAT LOGS ────────────────────────────────────────────── -->
+        <div class="adm-panel" id="adm-panel-chatlogs">
+          <div class="adm-section-hd">
+            <h3>Chat Logs</h3>
+            <span class="count-badge" id="adm-chatlogs-count">–</span>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Role</th>
+                  <th>Session</th>
+                  <th>Intent</th>
+                  <th>Confidence</th>
+                  <th>Message</th>
+                </tr>
+              </thead>
+              <tbody id="adm-chatlogs-body">
+                <tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /.adm-body -->
+    </div><!-- /#admin-overlay -->
 
     <button id="chatbot-toggle">
       <svg
