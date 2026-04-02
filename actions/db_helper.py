@@ -52,14 +52,28 @@ class _get_conn_ctx:
 #------------------ SESSION HELPERS ------------------
 
 def ensure_session(session_id: str) -> None:
-    """Create session row if it doesn't exist yet.
-    Safe to call on every action — INSERT IGNORE skips duplicates."""
+    """Create session + assign user_id automatically"""
+
     try:
         with get_conn() as (conn, cur):
-            cur.execute(
-                "INSERT IGNORE INTO sessions (session_id) VALUES (%s)",
-                (session_id,)
-            )
+
+            # 1️⃣ Create a new user
+            cur.execute("""
+                INSERT INTO users (name, phone, email)
+                VALUES (%s, %s, %s)
+            """, ("Guest User", None, None))
+
+            user_id = cur.lastrowid   # 🔥 get auto increment id
+
+            # 2️⃣ Create session with user_id
+            cur.execute("""
+                INSERT INTO sessions (session_id, user_id)
+                VALUES (%s, %s)
+                ON DUPLICATE KEY UPDATE session_id = session_id
+            """, (session_id, user_id))
+
+            print(f"✅ Session created with user_id: {user_id}")
+
     except Exception as e:
         logger.error("ensure_session error: %s", e)
 

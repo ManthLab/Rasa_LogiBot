@@ -1057,10 +1057,8 @@ class ActionResetLogisticsSlots(Action):
 
 #         session_id = tracker.get_slot("session_id") or tracker.sender_id
 
-#         # ✅ Get latest user message
 #         user_text = tracker.latest_message.get("text")
 
-#         # ✅ Prevent duplicate user logging
 #         last_logged_user = tracker.get_slot("last_logged_user")
 
 #         if user_text and user_text != last_logged_user:
@@ -1072,14 +1070,12 @@ class ActionResetLogisticsSlots(Action):
 #                 confidence=tracker.latest_message.get("intent", {}).get("confidence")
 #             )
 
-#         # ✅ Get latest bot message safely
 #         bot_text = None
 #         for e in reversed(tracker.events):
 #             if e.get("event") == "bot" and e.get("text"):
 #                 bot_text = e.get("text")
 #                 break
-
-#         # ✅ Prevent duplicate bot logging
+#     
 #         last_logged_bot = tracker.get_slot("last_logged_bot")
 
 #         if bot_text and bot_text != last_logged_bot:
@@ -1094,70 +1090,5 @@ class ActionResetLogisticsSlots(Action):
 #             SlotSet("last_logged_bot", bot_text)
 #         ]
     
-# class ActionLogAllMessages(Action):
-#     def name(self):
-#         return "action_log_all_messages"
 
-#     def run(self, dispatcher, tracker, domain):
-
-#         session_id = tracker.get_slot("session_id") or tracker.sender_id
-
-#         # Log ONLY latest user message
-#         user_text = tracker.latest_message.get("text")
-#         if user_text:
-#             log_chat(
-#                 session_id=session_id,
-#                 message=user_text,
-#                 role="user",
-#                 intent=tracker.latest_message.get("intent", {}).get("name"),
-#                 confidence=tracker.latest_message.get("intent", {}).get("confidence")
-#             )
-
-#         # Log ONLY latest bot message (last event)
-#         if tracker.events:
-#             bot_text = None
-
-#             for e in reversed(tracker.events):
-#                 if e.get("event") == "bot" and e.get("text"):
-#                     bot_text = e.get("text")
-#                     break
-
-#             if bot_text:
-#                 log_chat(
-#                     session_id=session_id,
-#                     message=bot_text,
-#                     role="bot"
-#                 )
-
-#         return []
     
-# class ActionLogAllMessages(Action):
-#     def name(self):
-#         return "action_log_all_messages"
-
-#     def run(self, dispatcher, tracker, domain):
-
-#         session_id = tracker.get_slot("session_id") or tracker.sender_id
-
-#         if tracker.latest_message.get("text"):
-#             log_chat(
-#                 session_id=session_id,
-#                 message=tracker.latest_message.get("text"),
-#                 role="user",
-#                 intent=tracker.latest_message.get("intent", {}).get("name"),
-#                 confidence=tracker.latest_message.get("intent", {}).get("confidence")
-#             )
-
-#         last_bot_message = next(
-#             (e.get("text") for e in reversed(tracker.events) if e.get("event") == "bot"),
-#             None
-#         )
-
-#         if last_bot_message:
-#             log_chat(
-#                 session_id=session_id,
-#                 message=last_bot_message,
-#                 role="bot"
-#             )
-
-#         return []

@@ -2013,7 +2013,6 @@
       function sendMsg(text) {
         appendUser(text);
 
-        // ✅ LOG USER MESSAGE
         logToDB("user", text);
 
         showTyping();
@@ -2030,7 +2029,6 @@
 
         appendUser(msgText);
 
-        // ✅ LOG USER BUTTON CLICK
         logToDB("user", msgText);
 
         showTyping();
@@ -2059,7 +2057,6 @@
             return;
           }
 
-          // ✅ Combine all bot texts into ONE message
           let combinedText = "";
           let combinedButtons = [];
 
@@ -2075,11 +2072,9 @@
             }
           });
 
-          // ✅ Show only ONE bot message
           if (combinedText) {
             appendBot(combinedText, combinedButtons);
 
-            // ✅ LOG BOT MESSAGE
             logToDB("bot", combinedText);
           }
         } catch (err) {
