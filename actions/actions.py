@@ -109,21 +109,21 @@ class ActionTrackShipment(Action):
 
         dispatcher.utter_message(text=response)
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
 
         return [
             ActiveLoop(None),
@@ -298,21 +298,21 @@ class ActionBookShipment(Action):
                 {"title": "💰 Shipping Rates", "payload": "/check_rates"},
             ]
         )
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(BOOKING_SLOTS)
 
@@ -384,21 +384,21 @@ class ActionCancelBooking(Action):
             ]
         )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(BOOKING_SLOTS)
 
@@ -517,21 +517,21 @@ class ActionGetShippingRates(Action):
             ]
         )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
 
@@ -730,21 +730,21 @@ class ActionCancelRatesForm(Action):
     def run(self, dispatcher, tracker, domain):
         response = "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
         dispatcher.utter_message(text=response)
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
 
 #-------------------- NEAREST BRANCH --------------------------
@@ -792,21 +792,21 @@ class ActionNearestBranch(Action):
                 f"😔 Sorry, no branch found in *{city.strip().title()}* yet.\n"
                 f"We currently have branches in Mumbai, Delhi, Bangalore, and Ahmedabad."
             )
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
 
         return [
             ActiveLoop(None),
@@ -873,21 +873,21 @@ class ActionSchedulePickup(Action):
 
         dispatcher.utter_message(text=response)
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(PICKUP_SLOTS)
 
 
@@ -989,22 +989,22 @@ class ActionCancelActiveForm(Action):
                 {"title": "🔄 Schedule Pickup", "payload": "/schedule_pickup"},
             ]
         )
-        # Log USER message
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=tracker.latest_message.get("text"),
-            role="user",
-            intent=tracker.latest_message.get("intent", {}).get("name"),
-            confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        )
+        # # Log USER message
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=tracker.latest_message.get("text"),
+        #     role="user",
+        #     intent=tracker.latest_message.get("intent", {}).get("name"),
+        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
+        # )
 
-        log_chat(
-            session_id=tracker.get_slot("session_id") or tracker.sender_id,
-            message=response,
-            role="bot",
-            intent=None,
-            confidence=None,
-        )
+        # log_chat(
+        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
+        #     message=response,
+        #     role="bot",
+        #     intent=None,
+        #     confidence=None,
+        # )
         return (
             _clear(BOOKING_SLOTS)
             + _clear(PICKUP_SLOTS)
@@ -1023,7 +1023,7 @@ class ActionSessionStart(Action):
 
     async def run(self, dispatcher, tracker, domain):
 
-        session_id = tracker.sender_id   # ✅ SAME as frontend
+        session_id = tracker.sender_id   
 
         print("SESSION FROM FRONTEND:", session_id)
 
@@ -1048,34 +1048,116 @@ class ActionResetLogisticsSlots(Action):
             + [SlotSet("tracking_id", None), SlotSet("nearest_branch", None)]
         )
     
-#---------------- Log All msg -------------------
-class ActionLogAllMessages(Action):
-    def name(self):
-        return "action_log_all_messages"
+# #---------------- Log All msg -------------------
+# class ActionLogAllMessages(Action):
+#     def name(self):
+#         return "action_log_all_messages"
 
-    def run(self, dispatcher, tracker, domain):
+#     def run(self, dispatcher, tracker, domain):
 
-        session_id = tracker.get_slot("session_id") or tracker.sender_id
+#         session_id = tracker.get_slot("session_id") or tracker.sender_id
 
-        if tracker.latest_message.get("text"):
-            log_chat(
-                session_id=session_id,
-                message=tracker.latest_message.get("text"),
-                role="user",
-                intent=tracker.latest_message.get("intent", {}).get("name"),
-                confidence=tracker.latest_message.get("intent", {}).get("confidence")
-            )
+#         # ✅ Get latest user message
+#         user_text = tracker.latest_message.get("text")
 
-        last_bot_message = next(
-            (e.get("text") for e in reversed(tracker.events) if e.get("event") == "bot"),
-            None
-        )
+#         # ✅ Prevent duplicate user logging
+#         last_logged_user = tracker.get_slot("last_logged_user")
 
-        if last_bot_message:
-            log_chat(
-                session_id=session_id,
-                message=last_bot_message,
-                role="bot"
-            )
+#         if user_text and user_text != last_logged_user:
+#             log_chat(
+#                 session_id=session_id,
+#                 message=user_text,
+#                 role="user",
+#                 intent=tracker.latest_message.get("intent", {}).get("name"),
+#                 confidence=tracker.latest_message.get("intent", {}).get("confidence")
+#             )
 
-        return []
+#         # ✅ Get latest bot message safely
+#         bot_text = None
+#         for e in reversed(tracker.events):
+#             if e.get("event") == "bot" and e.get("text"):
+#                 bot_text = e.get("text")
+#                 break
+
+#         # ✅ Prevent duplicate bot logging
+#         last_logged_bot = tracker.get_slot("last_logged_bot")
+
+#         if bot_text and bot_text != last_logged_bot:
+#             log_chat(
+#                 session_id=session_id,
+#                 message=bot_text,
+#                 role="bot"
+#             )
+
+#         return [
+#             SlotSet("last_logged_user", user_text),
+#             SlotSet("last_logged_bot", bot_text)
+#         ]
+    
+# class ActionLogAllMessages(Action):
+#     def name(self):
+#         return "action_log_all_messages"
+
+#     def run(self, dispatcher, tracker, domain):
+
+#         session_id = tracker.get_slot("session_id") or tracker.sender_id
+
+#         # Log ONLY latest user message
+#         user_text = tracker.latest_message.get("text")
+#         if user_text:
+#             log_chat(
+#                 session_id=session_id,
+#                 message=user_text,
+#                 role="user",
+#                 intent=tracker.latest_message.get("intent", {}).get("name"),
+#                 confidence=tracker.latest_message.get("intent", {}).get("confidence")
+#             )
+
+#         # Log ONLY latest bot message (last event)
+#         if tracker.events:
+#             bot_text = None
+
+#             for e in reversed(tracker.events):
+#                 if e.get("event") == "bot" and e.get("text"):
+#                     bot_text = e.get("text")
+#                     break
+
+#             if bot_text:
+#                 log_chat(
+#                     session_id=session_id,
+#                     message=bot_text,
+#                     role="bot"
+#                 )
+
+#         return []
+    
+# class ActionLogAllMessages(Action):
+#     def name(self):
+#         return "action_log_all_messages"
+
+#     def run(self, dispatcher, tracker, domain):
+
+#         session_id = tracker.get_slot("session_id") or tracker.sender_id
+
+#         if tracker.latest_message.get("text"):
+#             log_chat(
+#                 session_id=session_id,
+#                 message=tracker.latest_message.get("text"),
+#                 role="user",
+#                 intent=tracker.latest_message.get("intent", {}).get("name"),
+#                 confidence=tracker.latest_message.get("intent", {}).get("confidence")
+#             )
+
+#         last_bot_message = next(
+#             (e.get("text") for e in reversed(tracker.events) if e.get("event") == "bot"),
+#             None
+#         )
+
+#         if last_bot_message:
+#             log_chat(
+#                 session_id=session_id,
+#                 message=last_bot_message,
+#                 role="bot"
+#             )
+
+#         return []

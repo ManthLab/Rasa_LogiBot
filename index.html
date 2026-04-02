@@ -2012,17 +2012,27 @@
 
       function sendMsg(text) {
         appendUser(text);
+
+        // ✅ LOG USER MESSAGE
+        logToDB("user", text);
+
         showTyping();
         callRasa(text);
-      }
+      } 
 
       function clickBtn(btn, payload, e) {
         if (e) {
           e.preventDefault();
           e.stopPropagation();
         }
+
         const msgText = btn.innerText;
+
         appendUser(msgText);
+
+        // ✅ LOG USER BUTTON CLICK
+        logToDB("user", msgText);
+
         showTyping();
         callRasa(payload);
       }
@@ -2049,13 +2059,28 @@
             return;
           }
 
-          for (let i = 0; i < responses.length; i++) {
-            const r = responses[i];
-            let messageText = r.text || r.custom?.text || "";
-            if (messageText) {
-              await delay(i * 300);
-              appendBot(messageText, r.buttons);
+          // ✅ Combine all bot texts into ONE message
+          let combinedText = "";
+          let combinedButtons = [];
+
+          responses.forEach((r) => {
+            let text = r.text || r.custom?.text || "";
+
+            if (text) {
+              combinedText += (combinedText ? "\n\n" : "") + text;
             }
+
+            if (r.buttons) {
+              combinedButtons = r.buttons;
+            }
+          });
+
+          // ✅ Show only ONE bot message
+          if (combinedText) {
+            appendBot(combinedText, combinedButtons);
+
+            // ✅ LOG BOT MESSAGE
+            logToDB("bot", combinedText);
           }
         } catch (err) {
           removeTyping();
@@ -2070,6 +2095,20 @@
 
       function delay(ms) {
         return new Promise((r) => setTimeout(r, ms));
+      }
+
+      function logToDB(role, message) {
+        fetch("http://localhost:5050/log_chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            session_id: SESSION_ID,
+            role: role,
+            message: message,
+          }),
+        }).catch((err) => console.error("Log error:", err));
       }
 
       function clearChat() {

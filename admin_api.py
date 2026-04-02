@@ -10,10 +10,31 @@ from actions.db_helper import get_conn
 from datetime import datetime, timedelta
 from flask import Flask, request, jsonify
 from actions.db_helper import close_session
+from actions.db_helper import log_chat
 
 app = Flask(__name__)
-CORS(app)   
+CORS(app, resources={r"/*": {"origins": "*"}})
 
+@app.route("/log_chat", methods=["POST", "OPTIONS"])
+def log_chat_api():
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
+    try:
+        data = request.get_json(force=True)
+
+        session_id = data.get("session_id")
+        message = data.get("message")
+        role = data.get("role")
+
+        if session_id and message:
+            log_chat(session_id, message, role)
+
+        return jsonify({"status": "logged"}), 200
+
+    except Exception as e:
+        print("❌ LOG CHAT ERROR:", e)
+        return jsonify({"error": str(e)}), 500
 
 def _q(sql, params=()):
     """Run a SELECT, return list-of-dicts."""
@@ -88,17 +109,17 @@ def sessions():
 @app.route("/end-session", methods=["POST"])
 def end_session():
     try:
-        print("🔥 END SESSION API HIT")  
+        # print("🔥 END SESSION API HIT")  
 
         data = request.get_json(force=True)
-        print("DATA:", data)
+        # print("DATA:", data)
 
         session_id = data.get("session_id")
-        print("SESSION ID:", session_id)
+        # print("SESSION ID:", session_id)
 
         if session_id:
             close_session(session_id)
-            print("✅ Session closed")
+            # print("✅ Session closed")
 
         return jsonify({"status": "closed"})
 

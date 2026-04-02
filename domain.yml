@@ -59,6 +59,19 @@ slots:
     mappings:
       - type: custom
 
+#--------- chat log -----------
+  last_logged_user:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_logged_bot:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
   # ── Tracking ──────────────────────────────
   tracking_id:
     type: text
