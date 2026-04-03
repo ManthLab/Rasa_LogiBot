@@ -109,22 +109,6 @@ class ActionTrackShipment(Action):
 
         dispatcher.utter_message(text=response)
 
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
-
         return [
             ActiveLoop(None),
             SlotSet("requested_slot", None),
@@ -298,22 +282,6 @@ class ActionBookShipment(Action):
                 {"title": "💰 Shipping Rates", "payload": "/check_rates"},
             ]
         )
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
-
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(BOOKING_SLOTS)
 
 
@@ -383,22 +351,6 @@ class ActionCancelBooking(Action):
                 {"title": "📍 Nearest Branch",  "payload": "/nearest_branch"},
             ]
         )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(BOOKING_SLOTS)
 
@@ -516,22 +468,6 @@ class ActionGetShippingRates(Action):
                 {"title": "🔙 Main Menu", "payload": "/greet"},
             ]
         )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
 
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
 
@@ -730,21 +666,7 @@ class ActionCancelRatesForm(Action):
     def run(self, dispatcher, tracker, domain):
         response = "No problem! 👋 Feel free to ask whenever you're ready to check shipping rates. I'm here to help! 🚚"
         dispatcher.utter_message(text=response)
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
+        
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(RATES_SLOTS)
 
 #-------------------- NEAREST BRANCH --------------------------
@@ -792,22 +714,7 @@ class ActionNearestBranch(Action):
                 f"😔 Sorry, no branch found in *{city.strip().title()}* yet.\n"
                 f"We currently have branches in Mumbai, Delhi, Bangalore, and Ahmedabad."
             )
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
-
+       
         return [
             ActiveLoop(None),
             SlotSet("requested_slot", None),
@@ -873,21 +780,6 @@ class ActionSchedulePickup(Action):
 
         dispatcher.utter_message(text=response)
 
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
         return [ActiveLoop(None), SlotSet("requested_slot", None)] + _clear(PICKUP_SLOTS)
 
 
@@ -989,22 +881,7 @@ class ActionCancelActiveForm(Action):
                 {"title": "🔄 Schedule Pickup", "payload": "/schedule_pickup"},
             ]
         )
-        # # Log USER message
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=tracker.latest_message.get("text"),
-        #     role="user",
-        #     intent=tracker.latest_message.get("intent", {}).get("name"),
-        #     confidence=tracker.latest_message.get("intent", {}).get("confidence"),
-        # )
-
-        # log_chat(
-        #     session_id=tracker.get_slot("session_id") or tracker.sender_id,
-        #     message=response,
-        #     role="bot",
-        #     intent=None,
-        #     confidence=None,
-        # )
+        
         return (
             _clear(BOOKING_SLOTS)
             + _clear(PICKUP_SLOTS)
