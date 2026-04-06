@@ -26,9 +26,11 @@ def log_chat_api():
         session_id = data.get("session_id")
         message = data.get("message")
         role = data.get("role")
+        intent = data.get("intent")
+        confidence = data.get("confidence")
 
         if session_id and message:
-            log_chat(session_id, message, role)
+            log_chat(session_id, message, role, intent, confidence)
 
         return jsonify({"status": "logged"}), 200
 
@@ -88,6 +90,7 @@ def sessions():
     rows = _q("""
         SELECT
             s.session_id,
+            s.user_id,
             s.start_time,
             s.end_time,
             TIMESTAMPDIFF(SECOND, s.start_time,

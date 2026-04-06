@@ -57,15 +57,13 @@ def ensure_session(session_id: str) -> None:
     try:
         with get_conn() as (conn, cur):
 
-            # 1️⃣ Create a new user
             cur.execute("""
                 INSERT INTO users (name, phone, email)
                 VALUES (%s, %s, %s)
             """, ("Guest User", None, None))
 
-            user_id = cur.lastrowid   # 🔥 get auto increment id
+            user_id = cur.lastrowid  
 
-            # 2️⃣ Create session with user_id
             cur.execute("""
                 INSERT INTO sessions (session_id, user_id)
                 VALUES (%s, %s)

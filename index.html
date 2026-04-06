@@ -1965,30 +1965,59 @@
         sendMsg(text);
       }
 
-      function sendMsg(text) {
+      async function sendMsg(text) {
         appendUser(text);
-
-        logToDB("user", text);
-
         showTyping();
+
+        let intent = null;
+        let confidence = null;
+        
+        try {
+          const parseRes = await fetch(`${SERVER}/model/parse`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: text }),
+          });
+          const parseData = await parseRes.json();
+          intent = parseData.intent?.name ?? null;
+          confidence = parseData.intent?.confidence ?? null;
+        } catch (err) {
+        console.error("NLU parse error:", err);
+        }
+
+        logToDB("user", text, intent, confidence);
         callRasa(text);
       } 
 
-      function clickBtn(btn, payload, e) {
+      async function clickBtn(btn, payload, e) {
         if (e) {
           e.preventDefault();
           e.stopPropagation();
         }
 
         const msgText = btn.innerText;
-
         appendUser(msgText);
-
-        logToDB("user", msgText);
-
         showTyping();
-        callRasa(payload);
+
+        let intent = null;
+        let confidence = null;
+
+        try {
+          const parseRes = await fetch(`${SERVER}/model/parse`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: msgText }),
+        });
+        const parseData = await parseRes.json();
+        intent = parseData.intent?.name ?? null;
+        confidence = parseData.intent?.confidence ?? null;
+      } catch (err) {
+        console.error("NLU parse error:", err);
       }
+
+      logToDB("user", msgText, intent, confidence);
+      callRasa(payload);
+    }
 
       async function callRasa(text) {
         try {
@@ -2047,16 +2076,16 @@
         return new Promise((r) => setTimeout(r, ms));
       }
 
-      function logToDB(role, message) {
+      function logToDB(role, message, intent = null, confidence = null) {
         fetch("http://localhost:5050/log_chat", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             session_id: SESSION_ID,
             role: role,
             message: message,
+            intent: intent,
+            confidence: confidence,
           }),
         }).catch((err) => console.error("Log error:", err));
       }
@@ -2264,6 +2293,7 @@
         return data.map(r =>
           '<tr>'
           + '<td><span class="adm-cell-id">' + admEsc((r.session_id||"").slice(0,24)) + '…</span></td>'
+          + '<td><span class="adm-cell-id">' + (r.user_id || "—") + '</span></td>'
           + '<td class="adm-cell-sm">' + admFmtDT(r.start_time) + '</td>'
           + '<td class="adm-cell-sm">' + (r.end_time ? admFmtDT(r.end_time) : '<span style="color:#10b981">Active</span>') + '</td>'
           + '<td class="adm-cell-bold">' + admFmtDur(r.duration_sec) + '</td>'
@@ -2283,14 +2313,14 @@
       function admRenderChatlogsRows(data) {
         if (!data.length) return '<tr><td colspan="6"><div class="adm-empty">No logs yet</div></td></tr>';
         return data.map(r => {
-          const conf = r.confidence ? Math.round(r.confidence * 100) : null;
-          const cls = conf >= 90 ? "high" : conf >= 70 ? "mid" : "low";
+          const conf = r.confidence ? parseFloat(r.confidence.toFixed(6)) : null;
+          const cls = conf >= 0.90 ? "high" : conf >= 0.70 ? "mid" : "low";
           return '<tr>'
             + '<td class="adm-cell-sm" style="white-space:nowrap">' + admFmtDT(r.timestamp) + '</td>'
             + '<td><span class="adm-role-pill ' + r.role + '">' + (r.role === "user" ? "User" : "Bot") + '</span></td>'
             + '<td><span class="adm-cell-id">' + admEsc((r.session_id||"").slice(0,8)) + '</span></td>'
             + '<td class="adm-cell-bold">' + (admEsc(r.intent) || "—") + '</td>'
-            + '<td>' + (conf !== null ? '<div class="adm-conf-wrap"><div class="adm-conf-bar"><div class="adm-conf-fill ' + cls + '" style="width:' + conf + '%"></div></div><span class="adm-conf-pct">' + conf + '%</span></div>' : "—") + '</td>'
+            + '<td>' + (conf !== null ? '<div class="adm-conf-wrap"><div class="adm-conf-fill ' + cls + '" style="width:' + (conf * 100).toFixed(0) + '%"></div></div><span class="adm-conf-pct">' + conf + '</span></div>' : "—") + '</td>'
             + '<td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111827">' + admEsc(r.message) + '</td>'
             + '</tr>';
         }).join("");
@@ -2566,7 +2596,7 @@
               </div>
               <div class="adm-table-wrap">
                 <table class="adm-table">
-                  <thead><tr><th>Session ID</th><th>Start Time</th><th>End Time</th><th>Duration</th><th>Messages</th><th>Status</th></tr></thead>
+                  <thead><tr><th>Session ID</th><th>User Id</th><th>Start Time</th><th>End Time</th><th>Duration</th><th>Messages</th><th>Status</th></tr></thead>
                   <tbody id="adm-sessions-tbody"><tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
                 </table>
               </div>
