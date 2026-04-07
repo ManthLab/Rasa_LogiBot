@@ -87,6 +87,11 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: sender_name
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
+          - cancel_shipment
 
   sender_contact_number:
     type: text
@@ -95,6 +100,10 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: sender_contact_number
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   sender_email:
     type: text
@@ -103,6 +112,10 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: sender_email
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   receiver_name:
     type: text
@@ -111,6 +124,11 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: receiver_name
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
+          - cancel_shipment
 
   receiver_contact_number:
     type: text
@@ -119,6 +137,10 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: receiver_contact_number
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   delivery_address:
     type: text
@@ -127,6 +149,10 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: delivery_address
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   delivery_city:
     type: text
@@ -135,6 +161,10 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: delivery_city
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   delivery_pincode:
     type: text
@@ -143,6 +173,10 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: delivery_pincode
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   # ── Shipping Rates ────────────────────────
   destination_country:
@@ -153,10 +187,6 @@ slots:
         conditions:
           - active_loop: rates_form
             requested_slot: destination_country
-        not_intent:
-          - stop
-          - deny
-          - cancel_shipment
 
   from_pincode:
     type: text
@@ -166,10 +196,6 @@ slots:
         conditions:
           - active_loop: rates_form
             requested_slot: from_pincode
-        not_intent:
-          - stop
-          - deny
-          - cancel_shipment
 
   to_pincode:
     type: text
@@ -270,6 +296,10 @@ slots:
         conditions:
           - active_loop: pickup_form
             requested_slot: pickup_name
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   pickup_contact:
     type: text
@@ -278,6 +308,10 @@ slots:
         conditions:
           - active_loop: pickup_form
             requested_slot: pickup_contact
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   pickup_address:
     type: text
@@ -286,6 +320,10 @@ slots:
         conditions:
           - active_loop: pickup_form
             requested_slot: pickup_address
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   pickup_date:
     type: text
@@ -294,6 +332,10 @@ slots:
         conditions:
           - active_loop: pickup_form
             requested_slot: pickup_date
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
   pickup_time:
     type: text
@@ -302,6 +344,10 @@ slots:
         conditions:
           - active_loop: pickup_form
             requested_slot: pickup_time
+        not_intent:
+          - stop
+          - deny
+          - cancel_booking
 
 # ── City context for rates ───────────────────
   from_city:

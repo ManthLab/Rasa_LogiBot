@@ -100,6 +100,13 @@ def log_chat(
 ):
     try:
         with get_conn() as (conn, cur):
+            cur.execute("""
+                SELECT session_id FROM sessions WHERE session_id = %s
+            """, (session_id,))
+            
+            if not cur.fetchone():
+                ensure_session(session_id)
+                
             cur.execute(
                 """
                 INSERT INTO chat_logs

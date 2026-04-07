@@ -2356,12 +2356,10 @@
 
       function admRenderPickupsRows(data) {
         if (!data.length) return '<tr><td colspan="7"><div class="adm-empty">No pickups yet</div></td></tr>';
-        const statuses = ["scheduled","completed","pending","completed","scheduled"];
         return data.map((r, i) => {
-          const status = statuses[i % statuses.length];
           const t1 = r.pickup_time ? r.pickup_time.slice(0,5) : "";
           const t2 = t1 ? admAddHours(t1, 2) : "";
-          const timeStr = t1 ? admFmtTime12(t1) + " - " + admFmtTime12(t2) : "—";
+          const timeStr = r.pickup_time ? admFmtTime12(r.pickup_time.slice(0,5)) : "—";
           return '<tr>'
             + '<td><span class="adm-cell-id orange">' + admEsc(r.pickup_id) + '</span></td>'
             + '<td class="adm-cell-bold">' + admEsc(r.name) + '</td>'
@@ -2369,7 +2367,6 @@
             + '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#6b7280">' + admEsc(r.address) + '</td>'
             + '<td class="adm-cell-sm">' + (r.pickup_date ? admFmtDate(r.pickup_date) : "—") + '</td>'
             + '<td class="adm-cell-sm">' + timeStr + '</td>'
-            + '<td><span class="adm-badge ' + status + '">' + status.charAt(0).toUpperCase() + status.slice(1) + '</span></td>'
             + '</tr>';
         }).join("");
       }
@@ -2670,8 +2667,8 @@
               </div>
               <div class="adm-table-wrap">
                 <table class="adm-table">
-                  <thead><tr><th>Pickup ID</th><th>Name</th><th>Contact</th><th>Address</th><th>Pickup Date</th><th>Pickup Time</th><th>Status</th></tr></thead>
-                  <tbody id="adm-pickups-tbody"><tr><td colspan="7"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
+                  <thead><tr><th>Pickup ID</th><th>Name</th><th>Contact</th><th>Address</th><th>Pickup Date</th><th>Pickup Time</th></tr></thead>
+                  <tbody id="adm-pickups-tbody"><tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
                 </table>
               </div>
               <div class="adm-table-footer">
