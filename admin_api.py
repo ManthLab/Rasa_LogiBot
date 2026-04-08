@@ -166,15 +166,27 @@ def pickups():
 # ── /api/chatlogs  ──────────────────────────────────────────────────────────
 @app.route("/api/chatlogs")
 def chatlogs():
-    rows = _q("""
-        SELECT log_id, session_id, role, message, intent, confidence, timestamp
-        FROM chat_logs
-        ORDER BY timestamp DESC
-        LIMIT 100
-    """)
+    session_id = request.args.get("session_id")  # ✅ ADD THIS
+
+    if session_id:
+        rows = _q("""
+            SELECT log_id, session_id, role, message, intent, confidence, timestamp
+            FROM chat_logs
+            WHERE session_id = %s
+            ORDER BY timestamp ASC
+        """, (session_id,))
+    else:
+        rows = _q("""
+            SELECT log_id, session_id, role, message, intent, confidence, timestamp
+            FROM chat_logs
+            ORDER BY timestamp DESC
+            LIMIT 100
+        """)
+
     for r in rows:
-        r["timestamp"]  = r["timestamp"].isoformat()  if r["timestamp"]  else None
+        r["timestamp"]  = r["timestamp"].isoformat() if r["timestamp"] else None
         r["confidence"] = float(r["confidence"]) if r["confidence"] else None
+
     return jsonify(rows)
 
 
