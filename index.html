@@ -2339,7 +2339,9 @@
           '<tr>'
           + '<td><span class="adm-cell-id orange">' + admEsc(r.booking_id) + '</span></td>'
           + '<td class="adm-cell-bold">' + admEsc(r.sender_name) + '</td>'
+          + '<td>' + admEsc(r.sender_number || '-') + '</td>' 
           + '<td>' + admEsc(r.receiver_name) + '</td>'
+          + '<td>' + admEsc(r.receiver_number || '-') + '</td>'
           + '<td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#6b7280">' + admEsc(r.delivery_address) + '</td>'
           + '<td class="adm-cell-bold">₹' + (r.cost||0).toLocaleString("en-IN") + '</td>'
           + '<td class="adm-cell-sm">' + admFmtDate(r.booked_at) + '</td>'
@@ -2642,8 +2644,8 @@
               </div>
               <div class="adm-table-wrap">
                 <table class="adm-table">
-                  <thead><tr><th>Booking ID</th><th>Sender Name</th><th>Receiver Name</th><th>Address</th><th>Cost</th><th>Date</th></tr></thead>
-                  <tbody id="adm-bookings-tbody"><tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
+                  <thead><tr><th>Booking ID</th><th>Sender Name</th><th>Sender Contact</th><th>Receiver Name</th><th>Receiver Contact</th><th>Address</th><th>Cost</th><th>Date</th></tr></thead>
+                  <tbody id="adm-bookings-tbody"><tr><td colspan="8"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
                 </table>
               </div>
               <div class="adm-table-footer">

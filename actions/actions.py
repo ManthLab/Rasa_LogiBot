@@ -603,7 +603,7 @@ def correct_country(name):
    
 CITY_TO_COUNTRY = {
     "berlin": "Germany",
-    "paris": "France",
+    "paris": "France",         
     "london": "United Kingdom",
     "dubai": "UAE",
 }
