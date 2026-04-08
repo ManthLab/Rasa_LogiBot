@@ -17,6 +17,10 @@ nlu:
     - howdy
     - hola
     - namaste
+    - hi
+    - hii
+    - hiii
+    - hiiii
 
 # ── Track Shipment ────────────────────────────────────────────────────────
 - intent: track_shipment

@@ -1486,6 +1486,69 @@
       .adm-conf-fill.low  { background: #ef4444; }
       .adm-conf-pct { font-size: 12px; font-weight: 500; color: #6b7280; }
 
+      /* ── ANALYTICS ── */
+      .anl-kpi-row {
+        display: grid; grid-template-columns: repeat(4,1fr);
+        gap: 14px; margin-bottom: 20px;
+      }
+      @media(max-width:900px){ .anl-kpi-row { grid-template-columns: repeat(2,1fr); } }
+
+      .anl-kpi { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:18px 20px;
+        display:flex; align-items:center; gap:14px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+      .anl-kpi-icon { width:42px;height:42px;border-radius:10px;display:flex;align-items:center;
+        justify-content:center;flex-shrink:0; }
+      .anl-kpi-icon svg { width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8; }
+      .anl-kpi-label { font-size:12px;color:#6b7280;font-weight:500;margin-bottom:4px; }
+      .anl-kpi-value { font-size:24px;font-weight:700;color:#111827;letter-spacing:-.02em;line-height:1; }
+      .anl-kpi-sub   { font-size:11px;margin-top:4px;font-weight:500; }
+      .anl-kpi-sub.g { color:#10b981; } .anl-kpi-sub.r { color:#ef4444; } .anl-kpi-sub.b { color:#3b82f6; }
+
+      /* pie chart */
+      .anl-pie-wrap { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+      .anl-pie-svg  { flex-shrink:0; }
+      .anl-pie-legend { display:flex; flex-direction:column; gap:8px; flex:1; min-width:0; }
+      .anl-pie-item { display:flex; align-items:center; gap:8px; font-size:12px; }
+      .anl-pie-dot  { width:10px;height:10px;border-radius:3px;flex-shrink:0; }
+      .anl-pie-name { color:#374151;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+      .anl-pie-pct  { color:#9ca3af;font-size:11px;font-weight:600; }
+
+      /* bar chart generic */
+      .anl-bar-chart { display:flex;align-items:flex-end;gap:6px;height:150px;position:relative;
+        border-left:1px solid #f3f4f6;border-bottom:1px solid #f3f4f6;padding-left:36px; }
+      .anl-bar-col  { flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end; }
+      .anl-bar-fill { width:100%;max-width:44px;border-radius:4px 4px 0 0;min-height:3px;
+        transition:height .5s cubic-bezier(.34,1.3,.64,1);cursor:default; }
+      .anl-bar-fill:hover { opacity:.8; }
+      .anl-bar-lbl  { font-size:10px;color:#9ca3af;margin-top:5px;white-space:nowrap;text-align:center; }
+      .anl-bar-ylbl { position:absolute;left:0;top:0;bottom:20px;display:flex;flex-direction:column;
+        justify-content:space-between;font-size:9px;color:#9ca3af;text-align:right;width:30px; }
+
+      /* horizontal bar (intents) */
+      .anl-hbar-list { display:flex;flex-direction:column;gap:10px; }
+      .anl-hbar-row  { display:flex;flex-direction:column;gap:4px; }
+      .anl-hbar-meta { display:flex;justify-content:space-between;font-size:12px; }
+      .anl-hbar-name { color:#374151;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px; }
+      .anl-hbar-cnt  { color:#9ca3af;font-weight:600; }
+      .anl-hbar-track{ height:7px;background:#f3f4f6;border-radius:4px;overflow:hidden; }
+      .anl-hbar-fill { height:100%;border-radius:4px;transition:width .6s ease; }
+
+      /* hourly heatmap */
+      .anl-heat-grid { display:grid;grid-template-columns:repeat(24,1fr);gap:3px;padding:4px 0; }
+      .anl-heat-cell { height:28px;border-radius:4px;transition:opacity .3s;cursor:default;position:relative; }
+      .anl-heat-cell:hover::after { content:attr(title);position:absolute;bottom:32px;left:50%;
+        transform:translateX(-50%);background:#111827;color:#fff;font-size:10px;padding:3px 7px;
+        border-radius:5px;white-space:nowrap;z-index:10;pointer-events:none; }
+      .anl-heat-xlbl { display:grid;grid-template-columns:repeat(24,1fr);gap:3px;margin-top:4px; }
+      .anl-heat-xlbl span { font-size:8px;color:#9ca3af;text-align:center; }
+
+      /* confidence gauge row */
+      .anl-conf-bands { display:flex;flex-direction:column;gap:10px; }
+      .anl-conf-band  { display:flex;align-items:center;gap:10px;font-size:12px; }
+      .anl-conf-label { width:80px;color:#374151;font-weight:500;flex-shrink:0; }
+      .anl-conf-track { flex:1;height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden; }
+      .anl-conf-fill  { height:100%;border-radius:4px;transition:width .6s ease; }
+      .anl-conf-count { width:36px;text-align:right;color:#6b7280;font-weight:600; }
+
       /* ── LOADING / EMPTY ── */
       .adm-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 48px; color: #6b7280; font-size: 13px; }
       .adm-spinner { width: 18px; height: 18px; border: 2px solid #e5e7eb; border-top-color: var(--accent); border-radius: 50%; animation: admSpin 0.7s linear infinite; }
@@ -2112,54 +2175,63 @@
         try {
           const controller = new AbortController();
           setTimeout(() => controller.abort(), 60000);
+
           const res = await fetch(`${SERVER}/webhooks/rest/webhook`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ sender: SESSION_ID, message: text }),
-          });
+            body: JSON.stringify({
+              sender: SESSION_ID,
+              message: text
+            }),
+            signal: controller.signal
+         });
 
-          if (!res.ok) throw new Error("Server error " + res.status);
-          const responses = await res.json();
+         if (!res.ok) throw new Error("Server error " + res.status);
 
-          console.log("Rasa raw response:", JSON.stringify(responses));
+         const responses = await res.json();
 
-          removeTyping();
+         console.log("Rasa raw response:", responses);
 
-          if (!responses || responses.length === 0) {
-            appendBot("🤔 I didn't quite understand that. Could you rephrase?");
-            return;
-          }
+         removeTyping();
 
-          let combinedText = "";
-          let combinedButtons = [];
+         if (!responses || responses.length === 0) {
+           appendBot("🤔 I didn't quite understand that. Could you rephrase?");
+           return;
+         }
 
-          responses.forEach((r) => {
-            let text = r.text || r.custom?.text || "";
+         let combinedText = "";
+         let combinedButtons = [];
 
-            if (text) {
-              combinedText += (combinedText ? "\n\n" : "") + text;
-            }
+         responses.forEach((r) => {
+           let text = r.text || r.custom?.text || "";
 
-            if (r.buttons) {
-              combinedButtons = r.buttons;
-            }
-          });
+           if (text) {
+             combinedText += (combinedText ? "\n\n" : "") + text;
+           }
 
-          if (combinedText) {
-            appendBot(combinedText, combinedButtons);
+           if (r.buttons) {
+             combinedButtons = r.buttons;
+           }
+         });
 
-            logToDB("bot", combinedText);
-          }
-        } catch (err) {
-          removeTyping();
-          appendBot(
-            "⚠️ Could not connect to LogiBot server.\n\nPlease make sure the Rasa server is running at:\n`" +
-              SERVER +
-              "`",
-          );
-          console.error("Rasa error:", err);
-        }
-      }
+         if (combinedText) {
+           appendBot(combinedText, combinedButtons);
+           logToDB("bot", combinedText);
+         }
+
+       } catch (err) {
+         removeTyping();
+
+         if (err.name === "AbortError") {
+           console.error("Request timed out");
+           appendBot("⚠️ Server is taking too long. Please try again.");
+         } else {
+           console.error("Fetch error:", err);
+           appendBot("⚠️ Could not connect to LogiBot server.");
+         }
+       }
+     }
+
 
       function delay(ms) {
         return new Promise((r) => setTimeout(r, ms));
@@ -2465,26 +2537,217 @@
 
       /* ── ANALYTICS ── */
       async function admLoadAnalytics() {
-        const weekData = [{label:"Week 1",val:280},{label:"Week 2",val:310},{label:"Week 3",val:295},{label:"Week 4",val:360}];
-        const wMax = Math.max(...weekData.map(d => d.val));
-        document.getElementById("adm-weekly-chart").innerHTML = weekData.map(d =>
-          '<div class="adm-week-col"><div class="adm-week-fill" style="height:' + (d.val/wMax*100) + '%;"></div><span class="adm-week-label">' + d.label + '</span></div>'
+        const [stats, intents, sessions, logs, daily] = await Promise.all([
+          admFetch("/api/stats"),
+          admFetch("/api/intents"),
+          admFetch("/api/sessions"),
+          admFetch("/api/chatlogs"),
+          admFetch("/api/daily")
+        ]);
+
+        const S = stats  || {};
+        const I = intents|| [];
+        const SE= sessions|| [];
+        const L = logs   || [];
+        const D = daily  || [];
+
+        /* ── KPI Row ── */
+        const totalMsgs   = S.chat_logs || L.length || 0;
+        const totalSess   = S.sessions  || SE.length || 0;
+        const userMsgs    = L.filter(r => r.role === "user").length;
+        const botMsgs     = L.filter(r => r.role !== "user").length;
+        const avgMsgsPerSess = totalSess ? (totalMsgs / totalSess).toFixed(1) : "—";
+        const uniqueIntents  = new Set(L.map(r => r.intent).filter(Boolean)).size;
+        const highConf    = L.filter(r => r.role==="user" && r.confidence != null && r.confidence >= 0.9).length;
+        const confRate    = userMsgs ? Math.round(highConf / userMsgs * 100) : 0;
+
+        document.getElementById("anl-kpi-row").innerHTML = [
+          { icon:'<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
+            bg:"#fff7ed", col:"var(--accent)", label:"Total Sessions", val: totalSess.toLocaleString("en-IN"),
+            sub:"<span class='anl-kpi-sub g'>+" + (S.sessions_today||0) + " today</span>" },
+          { icon:'<svg viewBox="0 0 24 24"><path d="M8 9h8M8 13h6M3 5a2 2 0 012-2h14a2 2 0 012 2v14l-4-4H5a2 2 0 01-2-2V5z"/></svg>',
+            bg:"#eff6ff", col:"#3b82f6", label:"Total Messages", val: totalMsgs.toLocaleString("en-IN"),
+            sub:"<span class='anl-kpi-sub b'>" + avgMsgsPerSess + " msgs / session</span>" },
+          { icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+            bg:"#f0fdf4", col:"#10b981", label:"Avg Session Duration", val: admFmtDur(S.avg_session_sec),
+            sub:"<span class='anl-kpi-sub g'>across all sessions</span>" },
+          { icon:'<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+            bg:"#fdf4ff", col:"#a855f7", label:"High Confidence Rate", val: confRate + "%",
+            sub:"<span class='anl-kpi-sub " + (confRate>=80?"g":"r") + "'>≥90% confidence msgs</span>" },
+        ].map(k =>
+          '<div class="anl-kpi">'
+          + '<div class="anl-kpi-icon" style="background:' + k.bg + ';color:' + k.col + '">' + k.icon + '</div>'
+          + '<div><div class="anl-kpi-label">' + k.label + '</div>'
+          + '<div class="anl-kpi-value">' + k.val + '</div>' + k.sub + '</div></div>'
         ).join("");
 
-        const months = ["Oct","Nov","Dec","Jan","Feb","Mar"];
-        const vals   = [45000,52000,48000,61000,57000,70000];
-        const W=400, H=140, pL=50, pT=10, pR=10, pB=30;
-        const cW=W-pL-pR, cH=H-pT-pB, minV=20000, maxV=80000;
-        const pts = vals.map((v,i) => ({ x: pL+(i/(vals.length-1))*cW, y: pT+cH-((v-minV)/(maxV-minV))*cH }));
-        const pathD = pts.map((p,i) => (i===0?"M":"L")+p.x.toFixed(1)+","+p.y.toFixed(1)).join(" ");
-        const areaD = pathD + " L" + pts[pts.length-1].x.toFixed(1) + "," + (pT+cH) + " L" + pL + "," + (pT+cH) + " Z";
-        const yG = [80000,60000,40000,20000];
-        document.getElementById("adm-revenue-chart").innerHTML =
-          yG.map(v => { const y=(pT+cH-((v-minV)/(maxV-minV))*cH).toFixed(1); return '<line x1="'+pL+'" y1="'+y+'" x2="'+(W-pR)+'" y2="'+y+'" stroke="#f3f4f6" stroke-width="1"/><text x="'+(pL-6)+'" y="'+y+'" text-anchor="end" font-size="9" fill="#9ca3af" dominant-baseline="middle">'+(v/1000)+'k</text>'; }).join("")
-          + '<path d="'+areaD+'" fill="rgba(249,115,22,0.08)"/>'
-          + '<path d="'+pathD+'" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'
-          + pts.map(p => '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" fill="var(--accent)" stroke="#fff" stroke-width="2"/>').join("")
-          + pts.map((p,i) => '<text x="'+p.x.toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle" font-size="9" fill="#9ca3af">'+months[i]+'</text>').join("");
+        /* ── Messages per Day bar chart ── */
+        const msgsDayEl = document.getElementById("anl-msgs-day");
+        // build day→count from chatlogs timestamps
+        const dayMap = {};
+        L.forEach(r => {
+          if (!r.timestamp) return;
+          const d = new Date(r.timestamp);
+          const key = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+          dayMap[key] = (dayMap[key]||0) + 1;
+        });
+        // last 14 days
+        const days14 = [];
+        for (let i=13; i>=0; i--) {
+          const dt = new Date(); dt.setDate(dt.getDate()-i);
+          const key = dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+          days14.push({ label: dt.toLocaleDateString("en-IN",{month:"short",day:"numeric"}), key, cnt: dayMap[key]||0 });
+        }
+        const dMax = Math.max(...days14.map(d=>d.cnt), 1);
+        const yVals = [dMax, Math.round(dMax*.66), Math.round(dMax*.33), 0];
+        msgsDayEl.innerHTML =
+          '<div style="position:relative">'
+          + '<div class="anl-bar-ylbl">' + yVals.map(v=>'<span>'+v+'</span>').join("") + '</div>'
+          + '<div class="anl-bar-chart">'
+          + days14.map(d =>
+              '<div class="anl-bar-col">'
+              + '<div class="anl-bar-fill" style="height:'+Math.max(d.cnt/dMax*100,d.cnt?2:0)+'%;background:var(--accent);opacity:.85" title="'+d.label+': '+d.cnt+' msgs"></div>'
+              + '<div class="anl-bar-lbl">' + d.label.split(" ")[0] + "<br>" + d.label.split(" ")[1] + '</div>'
+              + '</div>'
+            ).join("")
+          + '</div></div>';
+
+        /* ── Intent Pie Chart (SVG) ── */
+        const pieEl = document.getElementById("anl-intent-pie");
+        const PIE_COLORS = ["#f97316","#3b82f6","#10b981","#a855f7","#f59e0b","#ef4444","#06b6d4","#84cc16","#ec4899","#64748b"];
+        if (!I.length) {
+          pieEl.innerHTML = '<div class="adm-empty">No intent data yet</div>';
+        } else {
+          const top = I.slice(0,8);
+          const total = top.reduce((s,r)=>s+r.cnt,0);
+          const R=70, cx=80, cy=80;
+          let angle = -Math.PI/2;
+          let slices = "";
+          top.forEach((r,i) => {
+            const frac = r.cnt / total;
+            const a1 = angle, a2 = angle + frac * 2 * Math.PI;
+            const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+            const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+            const large = frac > 0.5 ? 1 : 0;
+            slices += '<path d="M'+cx+','+cy+' L'+x1.toFixed(2)+','+y1.toFixed(2)+' A'+R+','+R+' 0 '+large+',1 '+x2.toFixed(2)+','+y2.toFixed(2)+' Z" fill="'+PIE_COLORS[i%PIE_COLORS.length]+'" stroke="#fff" stroke-width="2"><title>'+r.intent+': '+r.cnt+'</title></path>';
+            angle = a2;
+          });
+          const legend = top.map((r,i)=>
+            '<div class="anl-pie-item">'
+            +'<div class="anl-pie-dot" style="background:'+PIE_COLORS[i%PIE_COLORS.length]+'"></div>'
+            +'<span class="anl-pie-name">'+admEsc(r.intent)+'</span>'
+            +'<span class="anl-pie-pct">'+Math.round(r.cnt/total*100)+'%</span>'
+            +'</div>'
+          ).join("");
+          pieEl.innerHTML =
+            '<svg class="anl-pie-svg" width="160" height="160" viewBox="0 0 160 160">'+slices
+            +'<circle cx="'+cx+'" cy="'+cy+'" r="28" fill="#fff"/>'
+            +'<text x="'+cx+'" y="'+(cy-6)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">'+total+'</text>'
+            +'<text x="'+cx+'" y="'+(cy+9)+'" text-anchor="middle" font-size="9" fill="#9ca3af">intents</text>'
+            +'</svg>'
+            +'<div class="anl-pie-legend">'+legend+'</div>';
+        }
+
+        /* ── Top Intents horizontal bar ── */
+        const intentsEl = document.getElementById("anl-top-intents");
+        if (!I.length) {
+          intentsEl.innerHTML = '<div class="adm-empty">No intent data yet</div>';
+        } else {
+          const top10 = I.slice(0,10);
+          const iMax = Math.max(...top10.map(r=>r.cnt),1);
+          intentsEl.innerHTML = '<div class="anl-hbar-list">'
+            + top10.map((r,i) =>
+                '<div class="anl-hbar-row">'
+                +'<div class="anl-hbar-meta"><span class="anl-hbar-name">'+admEsc(r.intent)+'</span><span class="anl-hbar-cnt">'+r.cnt+'</span></div>'
+                +'<div class="anl-hbar-track"><div class="anl-hbar-fill" style="width:'+Math.round(r.cnt/iMax*100)+'%;background:'+PIE_COLORS[i%PIE_COLORS.length]+'"></div></div>'
+                +'</div>'
+              ).join("")
+            + '</div>';
+        }
+
+        /* ── Confidence Score Distribution ── */
+        const confEl = document.getElementById("anl-confidence");
+        const userLogs = L.filter(r => r.role === "user" && r.confidence != null);
+        const bands = [
+          { label:"Very High", min:.95, max:1.01,  color:"#10b981" },
+          { label:"High",      min:.80, max:.95,   color:"#3b82f6" },
+          { label:"Medium",    min:.60, max:.80,   color:"#f59e0b" },
+          { label:"Low",       min:.0,  max:.60,   color:"#ef4444" },
+        ];
+        const bandCounts = bands.map(b => ({
+          ...b, cnt: userLogs.filter(r => r.confidence >= b.min && r.confidence < b.max).length
+        }));
+        const bMax = Math.max(...bandCounts.map(b=>b.cnt),1);
+        if (!userLogs.length) {
+          confEl.innerHTML = '<div class="adm-empty">No confidence data yet</div>';
+        } else {
+          confEl.innerHTML = '<div class="anl-conf-bands">'
+            + bandCounts.map(b =>
+                '<div class="anl-conf-band">'
+                +'<span class="anl-conf-label">'+b.label+'</span>'
+                +'<div class="anl-conf-track"><div class="anl-conf-fill" style="width:'+Math.round(b.cnt/bMax*100)+'%;background:'+b.color+'"></div></div>'
+                +'<span class="anl-conf-count">'+b.cnt+'</span>'
+                +'</div>'
+              ).join("")
+            + '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #f3f4f6;display:flex;gap:20px;font-size:12px;">'
+            + '<span style="color:#6b7280">Avg confidence: <strong style="color:#111827">'+(userLogs.reduce((s,r)=>s+r.confidence,0)/userLogs.length*100).toFixed(1)+'%</strong></span>'
+            + '<span style="color:#6b7280">Samples: <strong style="color:#111827">'+userLogs.length+'</strong></span>'
+            + '</div>'
+            + '</div>';
+        }
+
+        /* ── Hourly Activity Heatmap ── */
+        const hourEl = document.getElementById("anl-hourly");
+        const hourCounts = Array(24).fill(0);
+        L.forEach(r => {
+          if (!r.timestamp) return;
+          hourCounts[new Date(r.timestamp).getHours()]++;
+        });
+        const hMax = Math.max(...hourCounts, 1);
+        const accentRGB = "249,115,22";
+        hourEl.innerHTML =
+          '<div class="anl-heat-grid">'
+          + hourCounts.map((c,h) => {
+              const op = c===0 ? 0.06 : 0.12 + (c/hMax)*0.88;
+              return '<div class="anl-heat-cell" style="background:rgba('+accentRGB+','+op.toFixed(2)+')" title="'+h+':00 – '+c+' msgs"></div>';
+            }).join("")
+          + '</div>'
+          + '<div class="anl-heat-xlbl">'
+          + Array.from({length:24},(_,h)=>'<span>'+(h%6===0?h+"h":"")+'</span>').join("")
+          + '</div>'
+          + '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:#9ca3af;">'
+          + '<span>Less</span>'
+          + '<div style="display:flex;gap:3px">'
+          + [.06,.25,.45,.65,.85].map(o=>'<div style="width:16px;height:10px;border-radius:2px;background:rgba('+accentRGB+','+o+')"></div>').join("")
+          + '</div><span>More</span></div>';
+
+        /* ── Session Duration Breakdown ── */
+        const durEl = document.getElementById("anl-duration");
+        const durBands = [
+          { label:"<1 min",   min:0,   max:60   },
+          { label:"1–3 min",  min:60,  max:180  },
+          { label:"3–5 min",  min:180, max:300  },
+          { label:"5–10 min", min:300, max:600  },
+          { label:">10 min",  min:600, max:Infinity },
+        ];
+        const durCounts = durBands.map(b => ({
+          ...b, cnt: SE.filter(s => (s.duration_sec||0) >= b.min && (s.duration_sec||0) < b.max).length
+        }));
+        const durMax = Math.max(...durCounts.map(d=>d.cnt), 1);
+        const durColors = ["#3b82f6","#10b981","var(--accent)","#f59e0b","#a855f7"];
+        durEl.innerHTML =
+          '<div style="position:relative">'
+          + '<div class="anl-bar-ylbl">'
+          + [durMax, Math.round(durMax*.66), Math.round(durMax*.33), 0].map(v=>'<span>'+v+'</span>').join("")
+          + '</div>'
+          + '<div class="anl-bar-chart">'
+          + durCounts.map((d,i) =>
+              '<div class="anl-bar-col">'
+              + '<div class="anl-bar-fill" style="height:'+Math.max(d.cnt/durMax*100,d.cnt?3:0)+'%;background:'+durColors[i]+'" title="'+d.label+': '+d.cnt+' sessions"></div>'
+              + '<div class="anl-bar-lbl">'+d.label+'</div>'
+              + '</div>'
+            ).join("")
+          + '</div></div>';
       }
 
       /* ── GENERIC TABLE RENDERER ── */
@@ -2687,7 +2950,7 @@
           <div class="adm-admin-avatar">A</div>
           <div>
             <div class="adm-admin-name">Admin User</div>
-            <div class="adm-admin-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0766636a6e69476b68606e6568732964686a">[email&#160;protected]</a></div>
+            <!-- <div class="adm-admin-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0766636a6e69476b68606e6568732964686a"></a></div> -->
           </div>
         </div>
       </aside>
@@ -2814,31 +3077,49 @@
 
           <!-- ANALYTICS -->
           <div class="adm-panel" id="adm-panel-analytics">
-            <div class="adm-page-hd"><h1>Analytics</h1><p>Detailed insights and performance metrics</p></div>
-            <div class="adm-kpi-grid" style="margin-bottom:20px;">
-              <div class="adm-kpi-card">
-                <div class="adm-kpi-left"><div class="adm-kpi-label">Total Revenue</div><div class="adm-kpi-value">₹3.2L</div><span class="adm-kpi-sub green">+18% from last month</span></div>
-                <div class="adm-kpi-icon" style="background:#fff7ed;color:var(--accent)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-              </div>
-              <div class="adm-kpi-card">
-                <div class="adm-kpi-left"><div class="adm-kpi-label">Avg Response Time</div><div class="adm-kpi-value">2.3s</div><span class="adm-kpi-sub green">-0.5s improvement</span></div>
-                <div class="adm-kpi-icon" style="background:#fff7ed;color:var(--accent)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              </div>
-              <div class="adm-kpi-card">
-                <div class="adm-kpi-left"><div class="adm-kpi-label">User Satisfaction</div><div class="adm-kpi-value">94%</div><span class="adm-kpi-sub green">+3% from last month</span></div>
-                <div class="adm-kpi-icon" style="background:#fff7ed;color:var(--accent)"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-              </div>
+            <div class="adm-page-hd"><h1>Chatbot Analytics</h1><p>Real-time performance insights from your LogiBot conversations</p></div>
+
+            <!-- KPI Row -->
+            <div class="anl-kpi-row" id="anl-kpi-row">
+              <div class="adm-loading"><div class="adm-spinner"></div></div>
             </div>
+
+            <!-- Row 1: Messages per Day + Intent Distribution -->
             <div class="adm-two-col">
               <div class="adm-card">
-                <div class="adm-card-hd"><h3>Weekly Performance</h3><p>Operations overview for the last 4 weeks</p></div>
-                <div class="adm-chart-body"><div class="adm-week-chart" id="adm-weekly-chart"></div></div>
+                <div class="adm-card-hd"><h3>Messages per Day</h3><p>Daily chatbot message volume (last 14 days)</p></div>
+                <div class="adm-chart-body" id="anl-msgs-day"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
               </div>
               <div class="adm-card">
-                <div class="adm-card-hd"><h3>Revenue Trend</h3><p>Monthly revenue over 6 months</p></div>
-                <div class="adm-chart-body"><svg style="width:100%;height:160px;" viewBox="0 0 400 140" preserveAspectRatio="none" id="adm-revenue-chart"></svg></div>
+                <div class="adm-card-hd"><h3>Intent Distribution</h3><p>Breakdown of what users ask LogiBot</p></div>
+                <div class="adm-chart-body anl-pie-wrap" id="anl-intent-pie"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
               </div>
             </div>
+
+            <!-- Row 2: Top Intents Bar + User vs Bot ratio -->
+            <div class="adm-two-col">
+              <div class="adm-card">
+                <div class="adm-card-hd"><h3>Top Intents</h3><p>Most frequently triggered chatbot intents</p></div>
+                <div class="adm-chart-body" id="anl-top-intents"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
+              </div>
+              <div class="adm-card">
+                <div class="adm-card-hd"><h3>Confidence Score Distribution</h3><p>NLU model confidence across all user messages</p></div>
+                <div class="adm-chart-body" id="anl-confidence"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
+              </div>
+            </div>
+
+            <!-- Row 3: Hourly Activity + Session Duration -->
+            <div class="adm-two-col">
+              <div class="adm-card">
+                <div class="adm-card-hd"><h3>Hourly Activity Heatmap</h3><p>When users are most active throughout the day</p></div>
+                <div class="adm-chart-body" id="anl-hourly"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
+              </div>
+              <div class="adm-card">
+                <div class="adm-card-hd"><h3>Session Duration Breakdown</h3><p>How long users spend talking to LogiBot</p></div>
+                <div class="adm-chart-body" id="anl-duration"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
+              </div>
+            </div>
+
           </div>
 
           <!-- SETTINGS -->
