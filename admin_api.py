@@ -112,17 +112,13 @@ def sessions():
 @app.route("/end-session", methods=["POST"])
 def end_session():
     try:
-        # print("🔥 END SESSION API HIT")  
 
         data = request.get_json(force=True)
-        # print("DATA:", data)
 
         session_id = data.get("session_id")
-        # print("SESSION ID:", session_id)
 
         if session_id:
             close_session(session_id)
-            # print("✅ Session closed")
 
         return jsonify({"status": "closed"})
 
@@ -166,7 +162,7 @@ def pickups():
 # ── /api/chatlogs  ──────────────────────────────────────────────────────────
 @app.route("/api/chatlogs")
 def chatlogs():
-    session_id = request.args.get("session_id")  # ✅ ADD THIS
+    session_id = request.args.get("session_id")  
 
     if session_id:
         rows = _q("""

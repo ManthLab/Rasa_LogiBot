@@ -3729,18 +3729,19 @@
 
         /* ── Messages per Day bar chart ── */
         const msgsDayEl = document.getElementById("anl-msgs-day");
-        // build day→count from chatlogs timestamps
+        // build day→count from sessions (each has start_time + message_count)
+        // sessions data is historical and already aggregated — no double counting
         const dayMap = {};
-        L.forEach((r) => {
-          if (!r.timestamp) return;
-          const d = new Date(r.timestamp);
+        SE.forEach((r) => {
+          if (!r.start_time) return;
+          const d = new Date(r.start_time);
           const key =
             d.getFullYear() +
             "-" +
             String(d.getMonth() + 1).padStart(2, "0") +
             "-" +
             String(d.getDate()).padStart(2, "0");
-          dayMap[key] = (dayMap[key] || 0) + 1;
+          dayMap[key] = (dayMap[key] || 0) + (parseInt(r.message_count) || 0);
         });
         // last 14 days
         const days14 = [];
