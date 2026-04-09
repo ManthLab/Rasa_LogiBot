@@ -451,11 +451,18 @@ nlu:
     - Robert Jr
     - cgqyvqbwhvqni
     - 14fvuy1bynvu34hf
+    - asdf1234asdf
+    - qwer1234asdf
+    - bchbWVBVmvsoi
     - xkqpwzmvty
     - aabbccdd1234
     - qwertyuiop
     - zxcvbnmasdf
     - hjklqwerty123
+    - Can you help me plan a iternary for my trip to Europe?
+    - What is the best way to learn a new language?
+    - Can you recommend a good book to read?
+    - How do I start a successful blog?
 
   #------------------------------------------------ Multi Intent ------------------------------------------
 

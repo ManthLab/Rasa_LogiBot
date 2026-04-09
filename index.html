@@ -1128,10 +1128,17 @@
         display: none;
         font-family: "Inter", "DM Sans", sans-serif;
       }
-      #admin-overlay.open { display: flex; }
+      #admin-overlay.open {
+        display: flex;
+      }
 
       /* ── ADMIN SHELL ── */
-      .adm-shell { display: flex; height: 100vh; width: 100%; background: #f8f9fa; }
+      .adm-shell {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        background: #f8f9fa;
+      }
 
       /* ── SIDEBAR ── */
       .adm-sidebar {
@@ -1155,19 +1162,33 @@
       }
 
       .adm-brand-icon {
-        width: 36px; height: 36px;
+        width: 36px;
+        height: 36px;
         background: var(--accent);
         border-radius: 9px;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #fff;
         font-size: 18px;
         flex-shrink: 0;
       }
 
-      .adm-brand-name { font-size: 16px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
+      .adm-brand-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.01em;
+      }
 
-      .adm-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
-      .adm-nav::-webkit-scrollbar { width: 0; }
+      .adm-nav {
+        flex: 1;
+        padding: 16px 12px;
+        overflow-y: auto;
+      }
+      .adm-nav::-webkit-scrollbar {
+        width: 0;
+      }
 
       .adm-nav-item {
         display: flex;
@@ -1187,13 +1208,25 @@
         margin-bottom: 2px;
         font-family: inherit;
       }
-      .adm-nav-item:hover { background: #f8f9fa; color: #111827; }
-      .adm-nav-item.active { background: #fff7ed; color: var(--accent); font-weight: 600; }
+      .adm-nav-item:hover {
+        background: #f8f9fa;
+        color: #111827;
+      }
+      .adm-nav-item.active {
+        background: #fff7ed;
+        color: var(--accent);
+        font-weight: 600;
+      }
 
       .adm-nav-icon {
-        width: 18px; height: 18px; flex-shrink: 0;
-        stroke: currentColor; fill: none;
-        stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .adm-sidebar-footer {
@@ -1206,19 +1239,37 @@
       }
 
       .adm-admin-avatar {
-        width: 36px; height: 36px;
+        width: 36px;
+        height: 36px;
         background: var(--accent);
         border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 14px; font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
         flex-shrink: 0;
       }
 
-      .adm-admin-name  { font-size: 13px; font-weight: 600; color: #111827; }
-      .adm-admin-email { font-size: 11px; color: #6b7280; }
+      .adm-admin-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #111827;
+      }
+      .adm-admin-email {
+        font-size: 11px;
+        color: #6b7280;
+      }
 
       /* ── MAIN ── */
-      .adm-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+      .adm-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-width: 0;
+      }
 
       /* ── TOPBAR ── */
       .adm-topbar {
@@ -1232,62 +1283,153 @@
         gap: 12px;
       }
 
-      .adm-search-wrap { flex: 1; max-width: 400px; position: relative; }
+      .adm-search-wrap {
+        flex: 1;
+        max-width: 400px;
+        position: relative;
+      }
       .adm-search-wrap svg {
-        position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-        width: 16px; height: 16px; stroke: #9ca3af; fill: none; stroke-width: 2; stroke-linecap: round;
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        stroke: #9ca3af;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
       }
       .adm-search-input {
-        width: 100%; height: 36px; padding: 0 12px 0 36px;
-        background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: 8px;
-        font-size: 13px; color: #111827; outline: none; transition: border-color 0.15s;
+        width: 100%;
+        height: 36px;
+        padding: 0 12px 0 36px;
+        background: #f8f9fa;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #111827;
+        outline: none;
+        transition: border-color 0.15s;
         font-family: inherit;
       }
-      .adm-search-input::placeholder { color: #9ca3af; }
-      .adm-search-input:focus { border-color: var(--accent); background: #fff; }
+      .adm-search-input::placeholder {
+        color: #9ca3af;
+      }
+      .adm-search-input:focus {
+        border-color: var(--accent);
+        background: #fff;
+      }
 
-      .adm-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+      .adm-topbar-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
       .adm-icon-btn {
-        width: 36px; height: 36px; border-radius: 8px;
-        border: 1px solid #e5e7eb; background: #fff;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; color: #6b7280; position: relative; transition: all 0.15s;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #6b7280;
+        position: relative;
+        transition: all 0.15s;
       }
-      .adm-icon-btn:hover { border-color: var(--accent); color: var(--accent); }
-      .adm-icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+      .adm-icon-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .adm-icon-btn svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.8;
+      }
 
       .adm-notif-dot {
-        position: absolute; top: 6px; right: 6px;
-        width: 7px; height: 7px;
-        background: var(--accent); border-radius: 50%; border: 1.5px solid #fff;
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 7px;
+        height: 7px;
+        background: var(--accent);
+        border-radius: 50%;
+        border: 1.5px solid #fff;
       }
 
       .adm-topbar-avatar {
-        width: 36px; height: 36px; background: var(--accent); border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+        width: 36px;
+        height: 36px;
+        background: var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
       }
 
       /* ── CONTENT ── */
       .adm-content {
-        flex: 1; overflow-y: auto;
+        flex: 1;
+        overflow-y: auto;
         padding: 28px 28px 40px;
         background: #f8f9fa;
-        scrollbar-width: thin; scrollbar-color: #e5e7eb transparent;
+        scrollbar-width: thin;
+        scrollbar-color: #e5e7eb transparent;
       }
-      .adm-content::-webkit-scrollbar { width: 5px; }
-      .adm-content::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 3px; }
+      .adm-content::-webkit-scrollbar {
+        width: 5px;
+      }
+      .adm-content::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 3px;
+      }
 
       /* ── PANELS ── */
-      .adm-panel { display: none; animation: admFade 0.2s ease; }
-      .adm-panel.active { display: block; }
-      @keyframes admFade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+      .adm-panel {
+        display: none;
+        animation: admFade 0.2s ease;
+      }
+      .adm-panel.active {
+        display: block;
+      }
+      @keyframes admFade {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
       /* ── PAGE HEADER ── */
-      .adm-page-hd { margin-bottom: 24px; }
-      .adm-page-hd h1 { font-size: 22px; font-weight: 700; color: #111827; letter-spacing: -0.02em; }
-      .adm-page-hd p  { font-size: 14px; color: #6b7280; margin-top: 3px; }
+      .adm-page-hd {
+        margin-bottom: 24px;
+      }
+      .adm-page-hd h1 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.02em;
+      }
+      .adm-page-hd p {
+        font-size: 14px;
+        color: #6b7280;
+        margin-top: 3px;
+      }
 
       /* ── KPI GRID ── */
       .adm-kpi-grid {
@@ -1305,261 +1447,841 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         transition: box-shadow 0.2s;
       }
-      .adm-kpi-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+      .adm-kpi-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
 
-      .adm-kpi-left   { flex: 1; min-width: 0; }
-      .adm-kpi-label  { font-size: 13px; color: #6b7280; font-weight: 500; margin-bottom: 8px; }
-      .adm-kpi-value  { font-size: 28px; font-weight: 700; color: #111827; letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
-      .adm-kpi-sub    { font-size: 12px; font-weight: 500; }
-      .adm-kpi-sub.green { color: #10b981; }
-      .adm-kpi-sub.red   { color: #ef4444; }
+      .adm-kpi-left {
+        flex: 1;
+        min-width: 0;
+      }
+      .adm-kpi-label {
+        font-size: 13px;
+        color: #6b7280;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .adm-kpi-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .adm-kpi-sub {
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .adm-kpi-sub.green {
+        color: #10b981;
+      }
+      .adm-kpi-sub.red {
+        color: #ef4444;
+      }
 
       .adm-kpi-icon {
-        width: 44px; height: 44px; border-radius: 10px;
-        display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0; margin-left: 12px;
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-left: 12px;
       }
-      .adm-kpi-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+      .adm-kpi-icon svg {
+        width: 22px;
+        height: 22px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.8;
+      }
 
       /* ── TWO COL ── */
-      .adm-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-      @media (max-width: 900px) { .adm-two-col { grid-template-columns: 1fr; } }
+      .adm-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 900px) {
+        .adm-two-col {
+          grid-template-columns: 1fr;
+        }
+      }
 
       /* ── CARD ── */
       .adm-card {
-        background: #fff; border: 1px solid #e5e7eb;
-        border-radius: 12px; overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
       }
 
       .adm-card-hd {
         padding: 18px 20px 14px;
         border-bottom: 1px solid #f3f4f6;
       }
-      .adm-card-hd h3 { font-size: 15px; font-weight: 700; color: #111827; letter-spacing: -0.01em; }
-      .adm-card-hd p  { font-size: 12px; color: #6b7280; margin-top: 2px; }
+      .adm-card-hd h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.01em;
+      }
+      .adm-card-hd p {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 2px;
+      }
 
       /* ── BAR CHART ── */
-      .adm-chart-body { padding: 16px 20px 20px; }
-      .adm-bar-chart-wrap { position: relative; }
+      .adm-chart-body {
+        padding: 16px 20px 20px;
+      }
+      .adm-bar-chart-wrap {
+        position: relative;
+      }
       .adm-bar-y-labels {
-        position: absolute; left: 0; top: 0; bottom: 24px;
-        display: flex; flex-direction: column; justify-content: space-between;
-        font-size: 10px; color: #9ca3af; text-align: right; width: 28px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 10px;
+        color: #9ca3af;
+        text-align: right;
+        width: 28px;
       }
       .adm-bar-chart {
-        display: flex; align-items: flex-end; gap: 6px;
-        height: 160px; padding-left: 36px;
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 160px;
+        padding-left: 36px;
         border-left: 1px solid #f3f4f6;
         border-bottom: 1px solid #f3f4f6;
       }
-      .adm-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
-      .adm-bar-fill {
-        width: 100%; max-width: 40px; border-radius: 4px 4px 0 0;
-        background: var(--accent); min-height: 4px;
-        transition: height 0.6s cubic-bezier(0.34,1.3,0.64,1);
-        cursor: pointer; opacity: 0.85;
+      .adm-bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
       }
-      .adm-bar-fill:hover { opacity: 1; }
-      .adm-bar-x-label { font-size: 10px; color: #9ca3af; white-space: nowrap; text-align: center; margin-top: 6px; }
+      .adm-bar-fill {
+        width: 100%;
+        max-width: 40px;
+        border-radius: 4px 4px 0 0;
+        background: var(--accent);
+        min-height: 4px;
+        transition: height 0.6s cubic-bezier(0.34, 1.3, 0.64, 1);
+        cursor: pointer;
+        opacity: 0.85;
+      }
+      .adm-bar-fill:hover {
+        opacity: 1;
+      }
+      .adm-bar-x-label {
+        font-size: 10px;
+        color: #9ca3af;
+        white-space: nowrap;
+        text-align: center;
+        margin-top: 6px;
+      }
 
       /* ── INTENT LIST ── */
-      .adm-intent-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
-      .adm-intent-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-      .adm-intent-name  { font-size: 13px; color: #111827; font-weight: 500; }
-      .adm-intent-count { font-size: 13px; color: #6b7280; font-weight: 600; }
-      .adm-intent-track { height: 6px; background: #f3f4f6; border-radius: 3px; overflow: hidden; }
-      .adm-intent-fill  { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.7s ease; }
+      .adm-intent-body {
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .adm-intent-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+      .adm-intent-name {
+        font-size: 13px;
+        color: #111827;
+        font-weight: 500;
+      }
+      .adm-intent-count {
+        font-size: 13px;
+        color: #6b7280;
+        font-weight: 600;
+      }
+      .adm-intent-track {
+        height: 6px;
+        background: #f3f4f6;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .adm-intent-fill {
+        height: 100%;
+        border-radius: 3px;
+        background: var(--accent);
+        transition: width 0.7s ease;
+      }
 
       /* ── TABLE TOOLBAR ── */
       .adm-table-toolbar {
-        display: flex; align-items: center; gap: 10px;
-        padding: 14px 20px; border-bottom: 1px solid #f3f4f6;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 20px;
+        border-bottom: 1px solid #f3f4f6;
       }
-      .adm-table-search-wrap { flex: 1; position: relative; }
+      .adm-table-search-wrap {
+        flex: 1;
+        position: relative;
+      }
       .adm-table-search-wrap svg {
-        position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-        width: 14px; height: 14px; stroke: #9ca3af; fill: none; stroke-width: 2; stroke-linecap: round;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        stroke: #9ca3af;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
       }
       .adm-table-search {
-        width: 100%; height: 34px; padding: 0 10px 0 30px;
-        border: 1px solid #e5e7eb; border-radius: 8px; background: #f8f9fa;
-        font-size: 13px; color: #111827; outline: none; transition: border-color 0.15s;
+        width: 100%;
+        height: 34px;
+        padding: 0 10px 0 30px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #f8f9fa;
+        font-size: 13px;
+        color: #111827;
+        outline: none;
+        transition: border-color 0.15s;
         font-family: inherit;
       }
-      .adm-table-search::placeholder { color: #9ca3af; }
-      .adm-table-search:focus { border-color: var(--accent); background: #fff; }
+      .adm-table-search::placeholder {
+        color: #9ca3af;
+      }
+      .adm-table-search:focus {
+        border-color: var(--accent);
+        background: #fff;
+      }
 
       .adm-filter-btn {
-        height: 34px; padding: 0 14px;
-        border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;
-        font-size: 13px; font-weight: 500; color: #6b7280;
-        cursor: pointer; display: flex; align-items: center; gap: 6px;
-        white-space: nowrap; transition: all 0.15s; font-family: inherit;
+        height: 34px;
+        padding: 0 14px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b7280;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        transition: all 0.15s;
+        font-family: inherit;
       }
-      .adm-filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-      .adm-filter-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+      .adm-filter-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .adm-filter-btn svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+      }
 
       .adm-export-btn {
-        height: 34px; padding: 0 14px;
-        border: none; border-radius: 8px; background: var(--accent);
-        font-size: 13px; font-weight: 600; color: #fff;
-        cursor: pointer; display: flex; align-items: center; gap: 6px;
-        white-space: nowrap; transition: background 0.15s; font-family: inherit;
+        height: 34px;
+        padding: 0 14px;
+        border: none;
+        border-radius: 8px;
+        background: var(--accent);
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        transition: background 0.15s;
+        font-family: inherit;
       }
-      .adm-export-btn:hover { background: #ea6c0a; }
-      .adm-export-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+      .adm-export-btn:hover {
+        background: #ea6c0a;
+      }
+      .adm-export-btn svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+      }
 
       /* ── TABLE ── */
       .adm-table-wrap {
-        overflow-x: auto; overflow-y: auto;
+        overflow-x: auto;
+        overflow-y: auto;
         max-height: calc(100vh - 280px);
-        scrollbar-width: thin; scrollbar-color: #e5e7eb transparent;
+        scrollbar-width: thin;
+        scrollbar-color: #e5e7eb transparent;
       }
-      .adm-table-wrap::-webkit-scrollbar { height: 4px; width: 4px; }
-      .adm-table-wrap::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
+      .adm-table-wrap::-webkit-scrollbar {
+        height: 4px;
+        width: 4px;
+      }
+      .adm-table-wrap::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 2px;
+      }
 
-      .adm-table { width: 100%; border-collapse: collapse; min-width: 560px; }
-      .adm-table thead { position: sticky; top: 0; z-index: 2; }
+      .adm-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 560px;
+      }
+      .adm-table thead {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
       .adm-table th {
-        padding: 11px 20px; font-size: 11px; font-weight: 600;
-        letter-spacing: 0.06em; text-transform: uppercase;
-        color: #9ca3af; background: #f8f9fa;
-        border-bottom: 1px solid #f3f4f6; text-align: left; white-space: nowrap;
+        padding: 11px 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9ca3af;
+        background: #f8f9fa;
+        border-bottom: 1px solid #f3f4f6;
+        text-align: left;
+        white-space: nowrap;
       }
       .adm-table td {
-        padding: 14px 20px; font-size: 13px; color: #6b7280;
-        border-bottom: 1px solid #f3f4f6; vertical-align: middle;
+        padding: 14px 20px;
+        font-size: 13px;
+        color: #6b7280;
+        border-bottom: 1px solid #f3f4f6;
+        vertical-align: middle;
       }
-      .adm-table tr:last-child td { border-bottom: none; }
-      .adm-table tr:hover td { background: #fafafa; }
+      .adm-table tr:last-child td {
+        border-bottom: none;
+      }
+      .adm-table tr:hover td {
+        background: #fafafa;
+      }
 
       /* ── TABLE FOOTER / PAGINATION ── */
       .adm-table-footer {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 14px 20px; border-top: 1px solid #f3f4f6;
-        font-size: 13px; color: #6b7280;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-top: 1px solid #f3f4f6;
+        font-size: 13px;
+        color: #6b7280;
       }
-      .adm-pagination { display: flex; align-items: center; gap: 6px; }
+      .adm-pagination {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
       .adm-page-btn {
-        min-width: 32px; height: 32px; padding: 0 8px;
-        border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;
-        font-size: 13px; font-weight: 500; color: #6b7280;
-        cursor: pointer; display: flex; align-items: center; justify-content: center;
-        transition: all 0.15s; font-family: inherit;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6b7280;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        font-family: inherit;
       }
-      .adm-page-btn:hover { border-color: var(--accent); color: var(--accent); }
-      .adm-page-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+      .adm-page-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .adm-page-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
 
       /* ── CELL HELPERS ── */
-      .adm-cell-id { font-family: monospace; font-size: 12px; color: #6b7280; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; }
-      .adm-cell-id.orange { color: var(--accent); font-weight: 600; font-family: inherit; font-size: 13px; cursor: pointer; }
-      .adm-cell-bold { color: #111827; font-weight: 500; }
-      .adm-cell-sm { font-size: 12px; }
+      .adm-cell-id {
+        font-family: monospace;
+        font-size: 12px;
+        color: #6b7280;
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+      }
+      .adm-cell-id.orange {
+        color: var(--accent);
+        font-weight: 600;
+        font-family: inherit;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .adm-cell-bold {
+        color: #111827;
+        font-weight: 500;
+      }
+      .adm-cell-sm {
+        font-size: 12px;
+      }
 
       /* ── BADGES ── */
       .adm-badge {
-        display: inline-flex; align-items: center;
-        padding: 3px 10px; border-radius: 20px;
-        font-size: 12px; font-weight: 500; white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
       }
-      .adm-badge.active    { background: #ecfdf5; color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
-      .adm-badge.closed    { background: #f8f9fa; color: #6b7280; border: 1px solid #e5e7eb; }
-      .adm-badge.scheduled { background: #eff6ff; color: #3b82f6; border: 1px solid rgba(59,130,246,0.2); }
-      .adm-badge.completed { background: #ecfdf5; color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
-      .adm-badge.pending   { background: #fffbeb; color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+      .adm-badge.active {
+        background: #ecfdf5;
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+      .adm-badge.closed {
+        background: #f8f9fa;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+      }
+      .adm-badge.scheduled {
+        background: #eff6ff;
+        color: #3b82f6;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+      }
+      .adm-badge.completed {
+        background: #ecfdf5;
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+      .adm-badge.pending {
+        background: #fffbeb;
+        color: #f59e0b;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+      }
 
       /* ── ROLE PILLS ── */
-      .adm-role-pill { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-      .adm-role-pill.user { background: #eef2ff; color: #6366f1; border: 1px solid rgba(99,102,241,0.2); }
-      .adm-role-pill.bot  { background: #fff7ed; color: var(--accent); border: 1px solid rgba(249,115,22,0.2); }
+      .adm-role-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .adm-role-pill.user {
+        background: #eef2ff;
+        color: #6366f1;
+        border: 1px solid rgba(99, 102, 241, 0.2);
+      }
+      .adm-role-pill.bot {
+        background: #fff7ed;
+        color: var(--accent);
+        border: 1px solid rgba(249, 115, 22, 0.2);
+      }
 
       /* ── CONFIDENCE BAR ── */
-      .adm-conf-wrap { display: flex; align-items: center; gap: 8px; }
-      .adm-conf-bar  { width: 60px; height: 5px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
-      .adm-conf-fill { height: 100%; border-radius: 3px; }
-      .adm-conf-fill.high { background: #10b981; }
-      .adm-conf-fill.mid  { background: #f59e0b; }
-      .adm-conf-fill.low  { background: #ef4444; }
-      .adm-conf-pct { font-size: 12px; font-weight: 500; color: #6b7280; }
+      .adm-conf-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .adm-conf-bar {
+        width: 60px;
+        height: 5px;
+        background: #e5e7eb;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .adm-conf-fill {
+        height: 100%;
+        border-radius: 3px;
+      }
+      .adm-conf-fill.high {
+        background: #10b981;
+      }
+      .adm-conf-fill.mid {
+        background: #f59e0b;
+      }
+      .adm-conf-fill.low {
+        background: #ef4444;
+      }
+      .adm-conf-pct {
+        font-size: 12px;
+        font-weight: 500;
+        color: #6b7280;
+      }
 
       /* ── ANALYTICS ── */
       .anl-kpi-row {
-        display: grid; grid-template-columns: repeat(4,1fr);
-        gap: 14px; margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 20px;
       }
-      @media(max-width:900px){ .anl-kpi-row { grid-template-columns: repeat(2,1fr); } }
+      @media (max-width: 900px) {
+        .anl-kpi-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
-      .anl-kpi { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:18px 20px;
-        display:flex; align-items:center; gap:14px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
-      .anl-kpi-icon { width:42px;height:42px;border-radius:10px;display:flex;align-items:center;
-        justify-content:center;flex-shrink:0; }
-      .anl-kpi-icon svg { width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8; }
-      .anl-kpi-label { font-size:12px;color:#6b7280;font-weight:500;margin-bottom:4px; }
-      .anl-kpi-value { font-size:24px;font-weight:700;color:#111827;letter-spacing:-.02em;line-height:1; }
-      .anl-kpi-sub   { font-size:11px;margin-top:4px;font-weight:500; }
-      .anl-kpi-sub.g { color:#10b981; } .anl-kpi-sub.r { color:#ef4444; } .anl-kpi-sub.b { color:#3b82f6; }
+      .anl-kpi {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      }
+      .anl-kpi-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .anl-kpi-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.8;
+      }
+      .anl-kpi-label {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .anl-kpi-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .anl-kpi-sub {
+        font-size: 11px;
+        margin-top: 4px;
+        font-weight: 500;
+      }
+      .anl-kpi-sub.g {
+        color: #10b981;
+      }
+      .anl-kpi-sub.r {
+        color: #ef4444;
+      }
+      .anl-kpi-sub.b {
+        color: #3b82f6;
+      }
 
       /* pie chart */
-      .anl-pie-wrap { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
-      .anl-pie-svg  { flex-shrink:0; }
-      .anl-pie-legend { display:flex; flex-direction:column; gap:8px; flex:1; min-width:0; }
-      .anl-pie-item { display:flex; align-items:center; gap:8px; font-size:12px; }
-      .anl-pie-dot  { width:10px;height:10px;border-radius:3px;flex-shrink:0; }
-      .anl-pie-name { color:#374151;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
-      .anl-pie-pct  { color:#9ca3af;font-size:11px;font-weight:600; }
+      .anl-pie-wrap {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .anl-pie-svg {
+        flex-shrink: 0;
+      }
+      .anl-pie-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+      }
+      .anl-pie-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+      }
+      .anl-pie-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .anl-pie-name {
+        color: #374151;
+        font-weight: 500;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .anl-pie-pct {
+        color: #9ca3af;
+        font-size: 11px;
+        font-weight: 600;
+      }
 
       /* bar chart generic */
-      .anl-bar-chart { display:flex;align-items:flex-end;gap:6px;height:150px;position:relative;
-        border-left:1px solid #f3f4f6;border-bottom:1px solid #f3f4f6;padding-left:36px; }
-      .anl-bar-col  { flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end; }
-      .anl-bar-fill { width:100%;max-width:44px;border-radius:4px 4px 0 0;min-height:3px;
-        transition:height .5s cubic-bezier(.34,1.3,.64,1);cursor:default; }
-      .anl-bar-fill:hover { opacity:.8; }
-      .anl-bar-lbl  { font-size:10px;color:#9ca3af;margin-top:5px;white-space:nowrap;text-align:center; }
-      .anl-bar-ylbl { position:absolute;left:0;top:0;bottom:20px;display:flex;flex-direction:column;
-        justify-content:space-between;font-size:9px;color:#9ca3af;text-align:right;width:30px; }
+      .anl-bar-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 150px;
+        position: relative;
+        border-left: 1px solid #f3f4f6;
+        border-bottom: 1px solid #f3f4f6;
+        padding-left: 36px;
+      }
+      .anl-bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
+      }
+      .anl-bar-fill {
+        width: 100%;
+        max-width: 44px;
+        border-radius: 4px 4px 0 0;
+        min-height: 3px;
+        transition: height 0.5s cubic-bezier(0.34, 1.3, 0.64, 1);
+        cursor: default;
+      }
+      .anl-bar-fill:hover {
+        opacity: 0.8;
+      }
+      .anl-bar-lbl {
+        font-size: 10px;
+        color: #9ca3af;
+        margin-top: 5px;
+        white-space: nowrap;
+        text-align: center;
+      }
+      .anl-bar-ylbl {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 9px;
+        color: #9ca3af;
+        text-align: right;
+        width: 30px;
+      }
 
       /* horizontal bar (intents) */
-      .anl-hbar-list { display:flex;flex-direction:column;gap:10px; }
-      .anl-hbar-row  { display:flex;flex-direction:column;gap:4px; }
-      .anl-hbar-meta { display:flex;justify-content:space-between;font-size:12px; }
-      .anl-hbar-name { color:#374151;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px; }
-      .anl-hbar-cnt  { color:#9ca3af;font-weight:600; }
-      .anl-hbar-track{ height:7px;background:#f3f4f6;border-radius:4px;overflow:hidden; }
-      .anl-hbar-fill { height:100%;border-radius:4px;transition:width .6s ease; }
+      .anl-hbar-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .anl-hbar-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .anl-hbar-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+      }
+      .anl-hbar-name {
+        color: #374151;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 180px;
+      }
+      .anl-hbar-cnt {
+        color: #9ca3af;
+        font-weight: 600;
+      }
+      .anl-hbar-track {
+        height: 7px;
+        background: #f3f4f6;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .anl-hbar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.6s ease;
+      }
 
       /* hourly heatmap */
-      .anl-heat-grid { display:grid;grid-template-columns:repeat(24,1fr);gap:3px;padding:4px 0; }
-      .anl-heat-cell { height:28px;border-radius:4px;transition:opacity .3s;cursor:default;position:relative; }
-      .anl-heat-cell:hover::after { content:attr(title);position:absolute;bottom:32px;left:50%;
-        transform:translateX(-50%);background:#111827;color:#fff;font-size:10px;padding:3px 7px;
-        border-radius:5px;white-space:nowrap;z-index:10;pointer-events:none; }
-      .anl-heat-xlbl { display:grid;grid-template-columns:repeat(24,1fr);gap:3px;margin-top:4px; }
-      .anl-heat-xlbl span { font-size:8px;color:#9ca3af;text-align:center; }
+      .anl-heat-grid {
+        display: grid;
+        grid-template-columns: repeat(24, 1fr);
+        gap: 3px;
+        padding: 4px 0;
+      }
+      .anl-heat-cell {
+        height: 28px;
+        border-radius: 4px;
+        transition: opacity 0.3s;
+        cursor: default;
+        position: relative;
+      }
+      .anl-heat-cell:hover::after {
+        content: attr(title);
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #111827;
+        color: #fff;
+        font-size: 10px;
+        padding: 3px 7px;
+        border-radius: 5px;
+        white-space: nowrap;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .anl-heat-xlbl {
+        display: grid;
+        grid-template-columns: repeat(24, 1fr);
+        gap: 3px;
+        margin-top: 4px;
+      }
+      .anl-heat-xlbl span {
+        font-size: 8px;
+        color: #9ca3af;
+        text-align: center;
+      }
 
       /* confidence gauge row */
-      .anl-conf-bands { display:flex;flex-direction:column;gap:10px; }
-      .anl-conf-band  { display:flex;align-items:center;gap:10px;font-size:12px; }
-      .anl-conf-label { width:80px;color:#374151;font-weight:500;flex-shrink:0; }
-      .anl-conf-track { flex:1;height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden; }
-      .anl-conf-fill  { height:100%;border-radius:4px;transition:width .6s ease; }
-      .anl-conf-count { width:36px;text-align:right;color:#6b7280;font-weight:600; }
+      .anl-conf-bands {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .anl-conf-band {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+      }
+      .anl-conf-label {
+        width: 80px;
+        color: #374151;
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+      .anl-conf-track {
+        flex: 1;
+        height: 8px;
+        background: #f3f4f6;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .anl-conf-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.6s ease;
+      }
+      .anl-conf-count {
+        width: 36px;
+        text-align: right;
+        color: #6b7280;
+        font-weight: 600;
+      }
 
       /* ── LOADING / EMPTY ── */
-      .adm-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 48px; color: #6b7280; font-size: 13px; }
-      .adm-spinner { width: 18px; height: 18px; border: 2px solid #e5e7eb; border-top-color: var(--accent); border-radius: 50%; animation: admSpin 0.7s linear infinite; }
-      @keyframes admSpin { to { transform: rotate(360deg); } }
-      .adm-empty { text-align: center; padding: 48px; color: #9ca3af; font-size: 13px; }
+      .adm-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 48px;
+        color: #6b7280;
+        font-size: 13px;
+      }
+      .adm-spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #e5e7eb;
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: admSpin 0.7s linear infinite;
+      }
+      @keyframes admSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .adm-empty {
+        text-align: center;
+        padding: 48px;
+        color: #9ca3af;
+        font-size: 13px;
+      }
 
       /* ── ANALYTICS WEEK BARS ── */
-      .adm-week-chart { display: flex; align-items: flex-end; gap: 12px; height: 200px; padding: 0 4px; }
-      .adm-week-col   { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
-      .adm-week-fill  { width: 100%; max-width: 60px; border-radius: 6px 6px 0 0; background: #3b82f6; min-height: 4px; transition: height 0.6s ease; }
-      .adm-week-label { font-size: 11px; color: #9ca3af; margin-top: 8px; }
+      .adm-week-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        height: 200px;
+        padding: 0 4px;
+      }
+      .adm-week-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
+      }
+      .adm-week-fill {
+        width: 100%;
+        max-width: 60px;
+        border-radius: 6px 6px 0 0;
+        background: #3b82f6;
+        min-height: 4px;
+        transition: height 0.6s ease;
+      }
+      .adm-week-label {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 8px;
+      }
 
       /* ── Mobile Responsive ───────────────────────────────────────────── */
       @media (max-width: 480px) {
@@ -1622,92 +2344,246 @@
       }
       /* ── VIEW TRANSCRIPT BUTTON ── */
       .adm-view-transcript-btn {
-        display: inline-flex; align-items: center; gap: 5px;
-        padding: 5px 12px; border-radius: 8px;
-        border: 1px solid var(--accent); background: #fff7ed;
-        color: var(--accent); font-size: 12px; font-weight: 600;
-        cursor: pointer; font-family: inherit; transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--accent);
+        background: #fff7ed;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.15s;
         white-space: nowrap;
       }
-      .adm-view-transcript-btn:hover { background: var(--accent); color: #fff; }
+      .adm-view-transcript-btn:hover {
+        background: var(--accent);
+        color: #fff;
+      }
 
       /* ── TRANSCRIPT MODAL ── */
       #adm-transcript-modal {
-        display: none; position: fixed; inset: 0; z-index: 30000;
-        background: rgba(0,0,0,0.45); backdrop-filter: blur(2px);
-        align-items: center; justify-content: center;
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 30000;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(2px);
+        align-items: center;
+        justify-content: center;
       }
-      #adm-transcript-modal.open { display: flex; }
+      #adm-transcript-modal.open {
+        display: flex;
+      }
 
       .adm-transcript-dialog {
-        background: #fff; border-radius: 16px;
-        width: min(680px, 95vw); max-height: 80vh;
-        display: flex; flex-direction: column;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        background: #fff;
+        border-radius: 16px;
+        width: min(680px, 95vw);
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
         animation: admFade 0.2s ease;
+      }
+
+      /* ── DATE FILTER (Sessions) ── */
+      .adm-date-filter-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        height: 34px;
+        padding: 0 10px 0 32px;
+        transition: border-color 0.15s;
+      }
+      .adm-date-filter-wrap:focus-within {
+        border-color: var(--accent);
+      }
+      .adm-date-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        stroke: #9ca3af;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        pointer-events: none;
+      }
+      .adm-date-input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 13px;
+        color: #111827;
+        font-family: inherit;
+        cursor: pointer;
+        width: 130px;
+      }
+      .adm-date-input::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+      }
+      .adm-date-clear {
+        margin-left: 6px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: none;
+        background: #e5e7eb;
+        color: #6b7280;
+        font-size: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.15s;
+        padding: 0;
+      }
+      .adm-date-clear:hover {
+        background: #ef4444;
+        color: #fff;
       }
 
       .adm-transcript-header {
         padding: 20px 24px 16px;
         border-bottom: 1px solid #f3f4f6;
-        display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
       }
-      .adm-transcript-header h2 { font-size: 16px; font-weight: 700; color: #111827; }
-      .adm-transcript-header p  { font-size: 12px; color: #6b7280; margin-top: 2px; font-family: monospace; }
+      .adm-transcript-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+      }
+      .adm-transcript-header p {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 2px;
+        font-family: monospace;
+      }
 
       .adm-transcript-close {
-        width: 32px; height: 32px; border-radius: 8px; border: 1px solid #e5e7eb;
-        background: #f8f9fa; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        color: #6b7280; flex-shrink: 0; font-size: 16px; transition: all 0.15s;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        background: #f8f9fa;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b7280;
+        flex-shrink: 0;
+        font-size: 16px;
+        transition: all 0.15s;
       }
-      .adm-transcript-close:hover { border-color: #ef4444; color: #ef4444; background: #fff; }
+      .adm-transcript-close:hover {
+        border-color: #ef4444;
+        color: #ef4444;
+        background: #fff;
+      }
 
       .adm-transcript-body {
         max-height: 400px;
         overflow-y: auto;
         padding: 12px;
         background: #fff;
-        flex: 1; overflow-y: auto; padding: 20px 24px;
-        display: flex; flex-direction: column; gap: 14px;
-        scrollbar-width: thin; scrollbar-color: #e5e7eb transparent;
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        scrollbar-width: thin;
+        scrollbar-color: #e5e7eb transparent;
       }
-      .adm-transcript-body::-webkit-scrollbar { width: 4px; }
-      .adm-transcript-body::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
+      .adm-transcript-body::-webkit-scrollbar {
+        width: 4px;
+      }
+      .adm-transcript-body::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 2px;
+      }
 
-      .adm-tx-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 48px; color: #9ca3af; font-size: 13px; }
+      .adm-tx-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 48px;
+        color: #9ca3af;
+        font-size: 13px;
+      }
 
-      .adm-tx-msg      { margin-bottom: 10px; display: flex; flex-direction: column; gap: 3px; }
-      .adm-tx-msg.user { align-items: flex-end; }
-      .adm-tx-msg.bot  { align-items: flex-start; }
+      .adm-tx-msg {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .adm-tx-msg.user {
+        align-items: flex-end;
+      }
+      .adm-tx-msg.bot {
+        align-items: flex-start;
+      }
 
       .adm-tx-meta {
-        font-size: 10px; color: #9ca3af;
-        display: flex; align-items: center; gap: 6px;
+        font-size: 10px;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        gap: 6px;
       }
 
       .adm-tx-bubble {
-        max-width: 75%; padding: 10px 14px;
-        border-radius: 14px; font-size: 13px; line-height: 1.55;
+        max-width: 75%;
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-size: 13px;
+        line-height: 1.55;
         word-break: break-word;
       }
       .adm-tx-msg.user .adm-tx-bubble {
         background: linear-gradient(135deg, var(--accent), #c2410c);
-        color: #fff; border-bottom-right-radius: 4px;
+        color: #fff;
+        border-bottom-right-radius: 4px;
       }
       .adm-tx-msg.bot .adm-tx-bubble {
-        background: #f6f8fb; color: #111827;
-        border: 1px solid #e5e7eb; border-bottom-left-radius: 4px;
+        background: #f6f8fb;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        border-bottom-left-radius: 4px;
       }
 
       .adm-tx-intent {
-        font-size: 10px; padding: 2px 8px; border-radius: 20px;
-        background: #fff7ed; color: var(--accent);
-        border: 1px solid rgba(249,115,22,0.2); font-weight: 500;
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: #fff7ed;
+        color: var(--accent);
+        border: 1px solid rgba(249, 115, 22, 0.2);
+        font-weight: 500;
       }
 
       .adm-transcript-footer {
-        padding: 14px 24px; border-top: 1px solid #f3f4f6;
-        font-size: 12px; color: #9ca3af; text-align: center;
+        padding: 14px 24px;
+        border-top: 1px solid #f3f4f6;
+        font-size: 12px;
+        color: #9ca3af;
+        text-align: center;
       }
     </style>
   </head>
@@ -2123,7 +2999,7 @@
 
         let intent = null;
         let confidence = null;
-        
+
         try {
           const parseRes = await fetch(`${SERVER}/model/parse`, {
             method: "POST",
@@ -2134,12 +3010,12 @@
           intent = parseData.intent?.name ?? null;
           confidence = parseData.intent?.confidence ?? null;
         } catch (err) {
-        console.error("NLU parse error:", err);
+          console.error("NLU parse error:", err);
         }
 
         logToDB("user", text, intent, confidence);
         callRasa(text);
-      } 
+      }
 
       async function clickBtn(btn, payload, e) {
         if (e) {
@@ -2156,20 +3032,20 @@
 
         try {
           const parseRes = await fetch(`${SERVER}/model/parse`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: msgText }),
-        });
-        const parseData = await parseRes.json();
-        intent = parseData.intent?.name ?? null;
-        confidence = parseData.intent?.confidence ?? null;
-      } catch (err) {
-        console.error("NLU parse error:", err);
-      }
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: msgText }),
+          });
+          const parseData = await parseRes.json();
+          intent = parseData.intent?.name ?? null;
+          confidence = parseData.intent?.confidence ?? null;
+        } catch (err) {
+          console.error("NLU parse error:", err);
+        }
 
-      logToDB("user", msgText, intent, confidence);
-      callRasa(payload);
-    }
+        logToDB("user", msgText, intent, confidence);
+        callRasa(payload);
+      }
 
       async function callRasa(text) {
         try {
@@ -2181,57 +3057,55 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               sender: SESSION_ID,
-              message: text
+              message: text,
             }),
-            signal: controller.signal
-         });
+            signal: controller.signal,
+          });
 
-         if (!res.ok) throw new Error("Server error " + res.status);
+          if (!res.ok) throw new Error("Server error " + res.status);
 
-         const responses = await res.json();
+          const responses = await res.json();
 
-         console.log("Rasa raw response:", responses);
+          console.log("Rasa raw response:", responses);
 
-         removeTyping();
+          removeTyping();
 
-         if (!responses || responses.length === 0) {
-           appendBot("🤔 I didn't quite understand that. Could you rephrase?");
-           return;
-         }
+          if (!responses || responses.length === 0) {
+            appendBot("🤔 I didn't quite understand that. Could you rephrase?");
+            return;
+          }
 
-         let combinedText = "";
-         let combinedButtons = [];
+          let combinedText = "";
+          let combinedButtons = [];
 
-         responses.forEach((r) => {
-           let text = r.text || r.custom?.text || "";
+          responses.forEach((r) => {
+            let text = r.text || r.custom?.text || "";
 
-           if (text) {
-             combinedText += (combinedText ? "\n\n" : "") + text;
-           }
+            if (text) {
+              combinedText += (combinedText ? "\n\n" : "") + text;
+            }
 
-           if (r.buttons) {
-             combinedButtons = r.buttons;
-           }
-         });
+            if (r.buttons) {
+              combinedButtons = r.buttons;
+            }
+          });
 
-         if (combinedText) {
-           appendBot(combinedText, combinedButtons);
-           logToDB("bot", combinedText);
-         }
+          if (combinedText) {
+            appendBot(combinedText, combinedButtons);
+            logToDB("bot", combinedText);
+          }
+        } catch (err) {
+          removeTyping();
 
-       } catch (err) {
-         removeTyping();
-
-         if (err.name === "AbortError") {
-           console.error("Request timed out");
-           appendBot("⚠️ Server is taking too long. Please try again.");
-         } else {
-           console.error("Fetch error:", err);
-           appendBot("⚠️ Could not connect to LogiBot server.");
-         }
-       }
-     }
-
+          if (err.name === "AbortError") {
+            console.error("Request timed out");
+            appendBot("⚠️ Server is taking too long. Please try again.");
+          } else {
+            console.error("Fetch error:", err);
+            appendBot("⚠️ Could not connect to LogiBot server.");
+          }
+        }
+      }
 
       function delay(ms) {
         return new Promise((r) => setTimeout(r, ms));
@@ -2252,11 +3126,11 @@
       }
 
       function clearChat() {
-          fetch("http://localhost:5050/end-session", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ session_id: SESSION_ID })
-          });
+        fetch("http://localhost:5050/end-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: SESSION_ID }),
+        });
         if (!confirm("Clear all messages and start a new session?")) return;
 
         // delete session
@@ -2284,7 +3158,6 @@
         });
       });
 
-
       /* ══════════════════════════════════════════════════════════════════
          ADMIN DASHBOARD  –  self-contained, no interference with chatbot
          ══════════════════════════════════════════════════════════════════ */
@@ -2301,14 +3174,21 @@
       function adminClose() {
         document.getElementById("admin-overlay").classList.remove("open");
       }
-      document.addEventListener("keydown", e => {
-        if (e.key === "Escape" && document.getElementById("admin-overlay").classList.contains("open"))
+      document.addEventListener("keydown", (e) => {
+        if (
+          e.key === "Escape" &&
+          document.getElementById("admin-overlay").classList.contains("open")
+        )
           adminClose();
       });
 
       function admNavTo(page, el) {
-        document.querySelectorAll(".adm-panel").forEach(p => p.classList.remove("active"));
-        document.querySelectorAll(".adm-nav-item").forEach(n => n.classList.remove("active"));
+        document
+          .querySelectorAll(".adm-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".adm-nav-item")
+          .forEach((n) => n.classList.remove("active"));
         document.getElementById("adm-panel-" + page).classList.add("active");
         if (el) el.classList.add("active");
         admLoadPanel(page);
@@ -2319,126 +3199,250 @@
           const r = await fetch(ADM_API + path);
           if (!r.ok) return null;
           return r.json();
-        } catch { return null; }
+        } catch {
+          return null;
+        }
       }
 
       function admEsc(s) {
-        return String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        return String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
       }
 
       function admFmtDT(iso) {
         if (!iso) return "—";
         const d = new Date(iso);
-        return d.toLocaleDateString("en-IN", { month:"short", day:"numeric", year:"numeric" }) + " " +
-               d.toLocaleTimeString("en-IN", { hour:"2-digit", minute:"2-digit" });
+        return (
+          d.toLocaleDateString("en-IN", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          }) +
+          " " +
+          d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })
+        );
       }
 
       function admFmtDate(iso) {
         if (!iso) return "—";
-        return new Date(iso).toLocaleDateString("en-IN", { month:"short", day:"numeric", year:"numeric" });
+        return new Date(iso).toLocaleDateString("en-IN", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
       }
 
       function admFmtDur(sec) {
         if (!sec) return "—";
-        const m = Math.floor(sec / 60), s = sec % 60;
-        return m === 0 ? s + "s" : m + "m " + String(s).padStart(2,"0") + "s";
+        const m = Math.floor(sec / 60),
+          s = sec % 60;
+        return m === 0 ? s + "s" : m + "m " + String(s).padStart(2, "0") + "s";
       }
 
       function admAddHours(t, h) {
         const [hh, mm] = t.split(":").map(Number);
-        return String((hh + h) % 24).padStart(2,"0") + ":" + String(mm).padStart(2,"0");
+        return (
+          String((hh + h) % 24).padStart(2, "0") +
+          ":" +
+          String(mm).padStart(2, "0")
+        );
       }
 
       function admFmtTime12(t) {
         if (!t) return "";
         const [hh, mm] = t.split(":").map(Number);
-        return (hh % 12 || 12) + ":" + String(mm).padStart(2,"0") + " " + (hh < 12 ? "AM" : "PM");
+        return (
+          (hh % 12 || 12) +
+          ":" +
+          String(mm).padStart(2, "0") +
+          " " +
+          (hh < 12 ? "AM" : "PM")
+        );
       }
 
       /* ── KPI definitions ── */
       const ADM_KPI_DEFS = [
-        { key:"bookings",        label:"Total Bookings",      todayKey:"bookings_today",
-          iconBg:"#fff7ed", color:"var(--accent)",
-          icon:'<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg>' },
-        { key:"pickups",         label:"Total Pickups",       todayKey:"pickups_today",
-          iconBg:"#fff7ed", color:"var(--accent)",
-          icon:'<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>' },
-        { key:"sessions",        label:"Total Sessions",      todayKey:"sessions_today",
-          iconBg:"#fff7ed", color:"var(--accent)",
-          icon:'<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' },
-        { key:"chat_logs",       label:"Total Messages",      todayKey:"messages_today",
-          iconBg:"#fff7ed", color:"var(--accent)",
-          icon:'<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M8 9h8M8 13h6M3 5a2 2 0 012-2h14a2 2 0 012 2v14l-4-4H5a2 2 0 01-2-2V5z"/></svg>' },
-        { key:"active_sessions", label:"Active Sessions",
-          subHtml:'<span style="display:inline-flex;align-items:center;gap:4px;color:#10b981;font-size:12px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 6px #10b981"></span> Live now</span>',
-          iconBg:"#fff7ed", color:"var(--accent)",
-          icon:'<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' },
-        { key:"avg_session_sec", label:"Avg Session Duration", fmt: v => admFmtDur(v),
-          subHtml:'<span style="color:#ef4444;font-size:12px;font-weight:500">-1m 12s vs yesterday</span>',
-          iconBg:"#fff7ed", color:"var(--accent)",
-          icon:'<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' },
+        {
+          key: "bookings",
+          label: "Total Bookings",
+          todayKey: "bookings_today",
+          iconBg: "#fff7ed",
+          color: "var(--accent)",
+          icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg>',
+        },
+        {
+          key: "pickups",
+          label: "Total Pickups",
+          todayKey: "pickups_today",
+          iconBg: "#fff7ed",
+          color: "var(--accent)",
+          icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
+        },
+        {
+          key: "sessions",
+          label: "Total Sessions",
+          todayKey: "sessions_today",
+          iconBg: "#fff7ed",
+          color: "var(--accent)",
+          icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
+        },
+        {
+          key: "chat_logs",
+          label: "Total Messages",
+          todayKey: "messages_today",
+          iconBg: "#fff7ed",
+          color: "var(--accent)",
+          icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M8 9h8M8 13h6M3 5a2 2 0 012-2h14a2 2 0 012 2v14l-4-4H5a2 2 0 01-2-2V5z"/></svg>',
+        },
+        // {
+        //   key: "active_sessions",
+        //   label: "Active Sessions",
+        //   subHtml:
+        //     '<span style="display:inline-flex;align-items:center;gap:4px;color:#10b981;font-size:12px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 6px #10b981"></span> Live now</span>',
+        //   iconBg: "#fff7ed",
+        //   color: "var(--accent)",
+        //   icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+        // },
+        // {
+        //   key: "avg_session_sec",
+        //   label: "Avg Session Duration",
+        //   fmt: (v) => admFmtDur(v),
+        //   subHtml:
+        //     '<span style="color:#ef4444;font-size:12px;font-weight:500">-1m 12s vs yesterday</span>',
+        //   iconBg: "#fff7ed",
+        //   color: "var(--accent)",
+        //   icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        // },
       ];
 
       function admBuildKPI(def, stats) {
         const raw = stats[def.key];
-        const val = def.fmt ? def.fmt(raw) : (raw != null ? raw.toLocaleString("en-IN") : "—");
+        const val = def.fmt
+          ? def.fmt(raw)
+          : raw != null
+            ? raw.toLocaleString("en-IN")
+            : "—";
         let sub = def.subHtml || "";
         if (!sub && def.todayKey) {
           const t = stats[def.todayKey] ?? 0;
-          sub = '<span style="color:#10b981;font-size:12px;font-weight:500">+' + t + ' today</span>';
+          sub =
+            '<span style="color:#10b981;font-size:12px;font-weight:500">+' +
+            t +
+            " today</span>";
         }
-        return '<div class="adm-kpi-card">'
-          + '<div class="adm-kpi-left">'
-          + '<div class="adm-kpi-label">' + def.label + '</div>'
-          + '<div class="adm-kpi-value">' + val + '</div>'
-          + sub
-          + '</div>'
-          + '<div class="adm-kpi-icon" style="background:' + def.iconBg + ';color:' + def.color + '">' + def.icon + '</div>'
-          + '</div>';
+        return (
+          '<div class="adm-kpi-card">' +
+          '<div class="adm-kpi-left">' +
+          '<div class="adm-kpi-label">' +
+          def.label +
+          "</div>" +
+          '<div class="adm-kpi-value">' +
+          val +
+          "</div>" +
+          sub +
+          "</div>" +
+          '<div class="adm-kpi-icon" style="background:' +
+          def.iconBg +
+          ";color:" +
+          def.color +
+          '">' +
+          def.icon +
+          "</div>" +
+          "</div>"
+        );
       }
 
       /* ── OVERVIEW ── */
       async function admLoadOverview() {
         const [stats, daily, intents] = await Promise.all([
-          admFetch("/api/stats"), admFetch("/api/daily"), admFetch("/api/intents")
+          admFetch("/api/stats"),
+          admFetch("/api/daily"),
+          admFetch("/api/intents"),
         ]);
 
         const grid = document.getElementById("adm-kpi-grid");
         if (!stats) {
-          grid.innerHTML = '<div class="adm-empty" style="grid-column:1/-1">⚠️ Cannot reach API at ' + ADM_API + '</div>';
+          grid.innerHTML =
+            '<div class="adm-empty" style="grid-column:1/-1">⚠️ Cannot reach API at ' +
+            ADM_API +
+            "</div>";
         } else {
-          grid.innerHTML = ADM_KPI_DEFS.map(d => admBuildKPI(d, stats)).join("");
+          grid.innerHTML = ADM_KPI_DEFS.map((d) => admBuildKPI(d, stats)).join(
+            "",
+          );
         }
 
         // Sessions chart
         const chartEl = document.getElementById("adm-sessions-chart");
         if (!daily || !daily.length) {
-          chartEl.innerHTML = '<div class="adm-empty">No session data yet</div>';
+          chartEl.innerHTML =
+            '<div class="adm-empty">No session data yet</div>';
         } else {
-          const max = Math.max(...daily.map(r => r.sessions), 1);
-          const yVals = [max, Math.round(max*0.75), Math.round(max*0.5), Math.round(max*0.25), 0];
-          chartEl.innerHTML = '<div class="adm-bar-chart-wrap">'
-            + '<div class="adm-bar-y-labels">' + yVals.map(v => '<span>' + v + '</span>').join("") + '</div>'
-            + '<div class="adm-bar-chart">'
-            + daily.map(r => '<div class="adm-bar-col"><div class="adm-bar-fill" style="height:' + Math.max((r.sessions/max)*100,3) + '%" title="' + r.day + ': ' + r.sessions + ' sessions"></div></div>').join("")
-            + '</div>'
-            + '<div style="display:flex;gap:6px;padding-left:36px;margin-top:4px;">'
-            + daily.map(r => '<div class="adm-bar-x-label" style="flex:1;text-align:center">' + new Date(r.day).toLocaleDateString("en-IN",{weekday:"short"}) + '</div>').join("")
-            + '</div></div>';
+          const max = Math.max(...daily.map((r) => r.sessions), 1);
+          const yVals = [
+            max,
+            Math.round(max * 0.75),
+            Math.round(max * 0.5),
+            Math.round(max * 0.25),
+            0,
+          ];
+          chartEl.innerHTML =
+            '<div class="adm-bar-chart-wrap">' +
+            '<div class="adm-bar-y-labels">' +
+            yVals.map((v) => "<span>" + v + "</span>").join("") +
+            "</div>" +
+            '<div class="adm-bar-chart">' +
+            daily
+              .map(
+                (r) =>
+                  '<div class="adm-bar-col"><div class="adm-bar-fill" style="height:' +
+                  Math.max((r.sessions / max) * 100, 3) +
+                  '%" title="' +
+                  r.day +
+                  ": " +
+                  r.sessions +
+                  ' sessions"></div></div>',
+              )
+              .join("") +
+            "</div>" +
+            '<div style="display:flex;gap:6px;padding-left:36px;margin-top:4px;">' +
+            daily
+              .map(
+                (r) =>
+                  '<div class="adm-bar-x-label" style="flex:1;text-align:center">' +
+                  new Date(r.day).toLocaleDateString("en-IN", {
+                    weekday: "short",
+                  }) +
+                  "</div>",
+              )
+              .join("") +
+            "</div></div>";
         }
 
         // Intents
         const intentEl = document.getElementById("adm-intent-list");
         if (!intents || !intents.length) {
-          intentEl.innerHTML = '<div class="adm-empty">No intent data yet</div>';
+          intentEl.innerHTML =
+            '<div class="adm-empty">No intent data yet</div>';
         } else {
-          const max2 = Math.max(...intents.map(r => r.cnt), 1);
-          intentEl.innerHTML = intents.map(r =>
-            '<div class="adm-intent-row">'
-            + '<div class="adm-intent-header"><span class="adm-intent-name">' + admEsc(r.intent) + '</span><span class="adm-intent-count">' + r.cnt + '</span></div>'
-            + '<div class="adm-intent-track"><div class="adm-intent-fill" style="width:' + (r.cnt/max2*100).toFixed(0) + '%"></div></div>'
-            + '</div>'
-          ).join("");
+          const max2 = Math.max(...intents.map((r) => r.cnt), 1);
+          intentEl.innerHTML = intents
+            .map(
+              (r) =>
+                '<div class="adm-intent-row">' +
+                '<div class="adm-intent-header"><span class="adm-intent-name">' +
+                admEsc(r.intent) +
+                '</span><span class="adm-intent-count">' +
+                r.cnt +
+                "</span></div>" +
+                '<div class="adm-intent-track"><div class="adm-intent-fill" style="width:' +
+                ((r.cnt / max2) * 100).toFixed(0) +
+                '%"></div></div>' +
+                "</div>",
+            )
+            .join("");
         }
       }
 
@@ -2450,19 +3454,43 @@
       }
 
       function admRenderSessionsRows(data) {
-        if (!data.length) return '<tr><td colspan="8"><div class="adm-empty">No sessions yet</div></td></tr>';
-        return data.map(r =>
-          '<tr>'
-          + '<td><span class="adm-cell-id">' + admEsc((r.session_id||"").slice(0,24)) + '…</span></td>'
-          + '<td><span class="adm-cell-id">' + (r.user_id || "—") + '</span></td>'
-          + '<td class="adm-cell-sm">' + admFmtDT(r.start_time) + '</td>'
-          + '<td class="adm-cell-sm">' + (r.end_time ? admFmtDT(r.end_time) : '<span style="color:#10b981">Active</span>') + '</td>'
-          + '<td class="adm-cell-bold">' + admFmtDur(r.duration_sec) + '</td>'
-          + '<td>' + r.message_count + '</td>'
-          + '<td><span class="adm-badge ' + (r.end_time ? "closed" : "active") + '">' + (r.end_time ? "Closed" : "Active") + '</span></td>'
-          + '<td><button class="adm-view-transcript-btn" data-sid="' + admEsc(r.session_id) + '"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View</button></td>'
-          + '</tr>'
-        ).join("");
+        if (!data.length)
+          return '<tr><td colspan="8"><div class="adm-empty">No sessions yet</div></td></tr>';
+        return data
+          .map(
+            (r) =>
+              "<tr>" +
+              '<td><span class="adm-cell-id">' +
+              admEsc((r.session_id || "").slice(0, 24)) +
+              "…</span></td>" +
+              '<td><span class="adm-cell-id">' +
+              (r.user_id || "—") +
+              "</span></td>" +
+              '<td class="adm-cell-sm">' +
+              admFmtDT(r.start_time) +
+              "</td>" +
+              '<td class="adm-cell-sm">' +
+              (r.end_time
+                ? admFmtDT(r.end_time)
+                : '<span style="color:#10b981">Active</span>') +
+              "</td>" +
+              '<td class="adm-cell-bold">' +
+              admFmtDur(r.duration_sec) +
+              "</td>" +
+              "<td>" +
+              r.message_count +
+              "</td>" +
+              '<td><span class="adm-badge ' +
+              (r.end_time ? "closed" : "active") +
+              '">' +
+              (r.end_time ? "Closed" : "Active") +
+              "</span></td>" +
+              '<td><button class="adm-view-transcript-btn" data-sid="' +
+              admEsc(r.session_id) +
+              '"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View</button></td>' +
+              "</tr>",
+          )
+          .join("");
       }
 
       /* ── CHAT LOGS ── */
@@ -2473,19 +3501,48 @@
       }
 
       function admRenderChatlogsRows(data) {
-        if (!data.length) return '<tr><td colspan="6"><div class="adm-empty">No logs yet</div></td></tr>';
-        return data.map(r => {
-          const conf = r.confidence ? parseFloat(r.confidence.toFixed(6)) : null;
-          const cls = conf >= 0.90 ? "high" : conf >= 0.70 ? "mid" : "low";
-          return '<tr>'
-            + '<td class="adm-cell-sm" style="white-space:nowrap">' + admFmtDT(r.timestamp) + '</td>'
-            + '<td><span class="adm-role-pill ' + r.role + '">' + (r.role === "user" ? "User" : "Bot") + '</span></td>'
-            + '<td><span class="adm-cell-id">' + admEsc((r.session_id||"").slice(0,8)) + '</span></td>'
-            + '<td class="adm-cell-bold">' + (admEsc(r.intent) || "—") + '</td>'
-            + '<td>' + (conf !== null ? '<div class="adm-conf-wrap"><div class="adm-conf-fill ' + cls + '" style="width:' + (conf * 100).toFixed(0) + '%"></div></div><span class="adm-conf-pct">' + conf + '</span></div>' : "—") + '</td>'
-            + '<td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111827">' + admEsc(r.message) + '</td>'
-            + '</tr>';
-        }).join("");
+        if (!data.length)
+          return '<tr><td colspan="6"><div class="adm-empty">No logs yet</div></td></tr>';
+        return data
+          .map((r) => {
+            const conf = r.confidence
+              ? parseFloat(r.confidence.toFixed(6))
+              : null;
+            const cls = conf >= 0.9 ? "high" : conf >= 0.7 ? "mid" : "low";
+            return (
+              "<tr>" +
+              '<td class="adm-cell-sm" style="white-space:nowrap">' +
+              admFmtDT(r.timestamp) +
+              "</td>" +
+              '<td><span class="adm-role-pill ' +
+              r.role +
+              '">' +
+              (r.role === "user" ? "User" : "Bot") +
+              "</span></td>" +
+              '<td><span class="adm-cell-id">' +
+              admEsc((r.session_id || "").slice(0, 8)) +
+              "</span></td>" +
+              '<td class="adm-cell-bold">' +
+              (admEsc(r.intent) || "—") +
+              "</td>" +
+              "<td>" +
+              (conf !== null
+                ? '<div class="adm-conf-wrap"><div class="adm-conf-fill ' +
+                  cls +
+                  '" style="width:' +
+                  (conf * 100).toFixed(0) +
+                  '%"></div></div><span class="adm-conf-pct">' +
+                  conf +
+                  "</span></div>"
+                : "—") +
+              "</td>" +
+              '<td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111827">' +
+              admEsc(r.message) +
+              "</td>" +
+              "</tr>"
+            );
+          })
+          .join("");
       }
 
       /* ── BOOKINGS ── */
@@ -2496,19 +3553,39 @@
       }
 
       function admRenderBookingsRows(data) {
-        if (!data.length) return '<tr><td colspan="6"><div class="adm-empty">No bookings yet</div></td></tr>';
-        return data.map(r =>
-          '<tr>'
-          + '<td><span class="adm-cell-id orange">' + admEsc(r.booking_id) + '</span></td>'
-          + '<td class="adm-cell-bold">' + admEsc(r.sender_name) + '</td>'
-          + '<td>' + admEsc(r.sender_number || '-') + '</td>' 
-          + '<td>' + admEsc(r.receiver_name) + '</td>'
-          + '<td>' + admEsc(r.receiver_number || '-') + '</td>'
-          + '<td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#6b7280">' + admEsc(r.delivery_address) + '</td>'
-          + '<td class="adm-cell-bold">₹' + (r.cost||0).toLocaleString("en-IN") + '</td>'
-          + '<td class="adm-cell-sm">' + admFmtDate(r.booked_at) + '</td>'
-          + '</tr>'
-        ).join("");
+        if (!data.length)
+          return '<tr><td colspan="6"><div class="adm-empty">No bookings yet</div></td></tr>';
+        return data
+          .map(
+            (r) =>
+              "<tr>" +
+              '<td><span class="adm-cell-id orange">' +
+              admEsc(r.booking_id) +
+              "</span></td>" +
+              '<td class="adm-cell-bold">' +
+              admEsc(r.sender_name) +
+              "</td>" +
+              "<td>" +
+              admEsc(r.sender_number || "-") +
+              "</td>" +
+              "<td>" +
+              admEsc(r.receiver_name) +
+              "</td>" +
+              "<td>" +
+              admEsc(r.receiver_number || "-") +
+              "</td>" +
+              '<td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#6b7280">' +
+              admEsc(r.delivery_address) +
+              "</td>" +
+              '<td class="adm-cell-bold">₹' +
+              (r.cost || 0).toLocaleString("en-IN") +
+              "</td>" +
+              '<td class="adm-cell-sm">' +
+              admFmtDate(r.booked_at) +
+              "</td>" +
+              "</tr>",
+          )
+          .join("");
       }
 
       /* ── PICKUPS ── */
@@ -2519,20 +3596,39 @@
       }
 
       function admRenderPickupsRows(data) {
-        if (!data.length) return '<tr><td colspan="7"><div class="adm-empty">No pickups yet</div></td></tr>';
-        return data.map((r, i) => {
-          const t1 = r.pickup_time ? r.pickup_time.slice(0,5) : "";
-          const t2 = t1 ? admAddHours(t1, 2) : "";
-          const timeStr = r.pickup_time ? admFmtTime12(r.pickup_time.slice(0,5)) : "—";
-          return '<tr>'
-            + '<td><span class="adm-cell-id orange">' + admEsc(r.pickup_id) + '</span></td>'
-            + '<td class="adm-cell-bold">' + admEsc(r.name) + '</td>'
-            + '<td class="adm-cell-sm">' + admEsc(r.contact) + '</td>'
-            + '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#6b7280">' + admEsc(r.address) + '</td>'
-            + '<td class="adm-cell-sm">' + (r.pickup_date ? admFmtDate(r.pickup_date) : "—") + '</td>'
-            + '<td class="adm-cell-sm">' + timeStr + '</td>'
-            + '</tr>';
-        }).join("");
+        if (!data.length)
+          return '<tr><td colspan="7"><div class="adm-empty">No pickups yet</div></td></tr>';
+        return data
+          .map((r, i) => {
+            const t1 = r.pickup_time ? r.pickup_time.slice(0, 5) : "";
+            const t2 = t1 ? admAddHours(t1, 2) : "";
+            const timeStr = r.pickup_time
+              ? admFmtTime12(r.pickup_time.slice(0, 5))
+              : "—";
+            return (
+              "<tr>" +
+              '<td><span class="adm-cell-id orange">' +
+              admEsc(r.pickup_id) +
+              "</span></td>" +
+              '<td class="adm-cell-bold">' +
+              admEsc(r.name) +
+              "</td>" +
+              '<td class="adm-cell-sm">' +
+              admEsc(r.contact) +
+              "</td>" +
+              '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#6b7280">' +
+              admEsc(r.address) +
+              "</td>" +
+              '<td class="adm-cell-sm">' +
+              (r.pickup_date ? admFmtDate(r.pickup_date) : "—") +
+              "</td>" +
+              '<td class="adm-cell-sm">' +
+              timeStr +
+              "</td>" +
+              "</tr>"
+            );
+          })
+          .join("");
       }
 
       /* ── ANALYTICS ── */
@@ -2542,212 +3638,455 @@
           admFetch("/api/intents"),
           admFetch("/api/sessions"),
           admFetch("/api/chatlogs"),
-          admFetch("/api/daily")
+          admFetch("/api/daily"),
         ]);
 
-        const S = stats  || {};
-        const I = intents|| [];
-        const SE= sessions|| [];
-        const L = logs   || [];
-        const D = daily  || [];
+        const S = stats || {};
+        const I = intents || [];
+        const SE = sessions || [];
+        const L = logs || [];
+        const D = daily || [];
 
         /* ── KPI Row ── */
-        const totalMsgs   = S.chat_logs || L.length || 0;
-        const totalSess   = S.sessions  || SE.length || 0;
-        const userMsgs    = L.filter(r => r.role === "user").length;
-        const botMsgs     = L.filter(r => r.role !== "user").length;
-        const avgMsgsPerSess = totalSess ? (totalMsgs / totalSess).toFixed(1) : "—";
-        const uniqueIntents  = new Set(L.map(r => r.intent).filter(Boolean)).size;
-        const highConf    = L.filter(r => r.role==="user" && r.confidence != null && r.confidence >= 0.9).length;
-        const confRate    = userMsgs ? Math.round(highConf / userMsgs * 100) : 0;
+        const totalMsgs = S.chat_logs || L.length || 0;
+        const totalSess = S.sessions || SE.length || 0;
+        const userMsgs = L.filter((r) => r.role === "user").length;
+        const botMsgs = L.filter((r) => r.role !== "user").length;
+        const avgMsgsPerSess = totalSess
+          ? (totalMsgs / totalSess).toFixed(1)
+          : "—";
+        const uniqueIntents = new Set(L.map((r) => r.intent).filter(Boolean))
+          .size;
+        const highConf = L.filter(
+          (r) =>
+            r.role === "user" && r.confidence != null && r.confidence >= 0.9,
+        ).length;
+        const confRate = userMsgs ? Math.round((highConf / userMsgs) * 100) : 0;
 
         document.getElementById("anl-kpi-row").innerHTML = [
-          { icon:'<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
-            bg:"#fff7ed", col:"var(--accent)", label:"Total Sessions", val: totalSess.toLocaleString("en-IN"),
-            sub:"<span class='anl-kpi-sub g'>+" + (S.sessions_today||0) + " today</span>" },
-          { icon:'<svg viewBox="0 0 24 24"><path d="M8 9h8M8 13h6M3 5a2 2 0 012-2h14a2 2 0 012 2v14l-4-4H5a2 2 0 01-2-2V5z"/></svg>',
-            bg:"#eff6ff", col:"#3b82f6", label:"Total Messages", val: totalMsgs.toLocaleString("en-IN"),
-            sub:"<span class='anl-kpi-sub b'>" + avgMsgsPerSess + " msgs / session</span>" },
-          { icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-            bg:"#f0fdf4", col:"#10b981", label:"Avg Session Duration", val: admFmtDur(S.avg_session_sec),
-            sub:"<span class='anl-kpi-sub g'>across all sessions</span>" },
-          { icon:'<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
-            bg:"#fdf4ff", col:"#a855f7", label:"High Confidence Rate", val: confRate + "%",
-            sub:"<span class='anl-kpi-sub " + (confRate>=80?"g":"r") + "'>≥90% confidence msgs</span>" },
-        ].map(k =>
-          '<div class="anl-kpi">'
-          + '<div class="anl-kpi-icon" style="background:' + k.bg + ';color:' + k.col + '">' + k.icon + '</div>'
-          + '<div><div class="anl-kpi-label">' + k.label + '</div>'
-          + '<div class="anl-kpi-value">' + k.val + '</div>' + k.sub + '</div></div>'
-        ).join("");
+          // {
+          //   icon: '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
+          //   bg: "#fff7ed",
+          //   col: "var(--accent)",
+          //   label: "Total Sessions",
+          //   val: totalSess.toLocaleString("en-IN"),
+          //   sub:
+          //     "<span class='anl-kpi-sub g'>+" +
+          //     (S.sessions_today || 0) +
+          //     " today</span>",
+          // },
+          // {
+          //   icon: '<svg viewBox="0 0 24 24"><path d="M8 9h8M8 13h6M3 5a2 2 0 012-2h14a2 2 0 012 2v14l-4-4H5a2 2 0 01-2-2V5z"/></svg>',
+          //   bg: "#eff6ff",
+          //   col: "#3b82f6",
+          //   label: "Total Messages",
+          //   val: totalMsgs.toLocaleString("en-IN"),
+          //   sub:
+          //     "<span class='anl-kpi-sub b'>" +
+          //     avgMsgsPerSess +
+          //     " msgs / session</span>",
+          // },
+          // {
+          //   icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+          //   bg: "#f0fdf4",
+          //   col: "#10b981",
+          //   label: "Avg Session Duration",
+          //   val: admFmtDur(S.avg_session_sec),
+          //   sub: "<span class='anl-kpi-sub g'>across all sessions</span>",
+          // },
+          // {
+          //   icon: '<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+          //   bg: "#fdf4ff",
+          //   col: "#a855f7",
+          //   label: "High Confidence Rate",
+          //   val: confRate + "%",
+          //   sub:
+          //     "<span class='anl-kpi-sub " +
+          //     (confRate >= 80 ? "g" : "r") +
+          //     "'>≥90% confidence msgs</span>",
+          // },
+        ]
+          .map(
+            (k) =>
+              '<div class="anl-kpi">' +
+              '<div class="anl-kpi-icon" style="background:' +
+              k.bg +
+              ";color:" +
+              k.col +
+              '">' +
+              k.icon +
+              "</div>" +
+              '<div><div class="anl-kpi-label">' +
+              k.label +
+              "</div>" +
+              '<div class="anl-kpi-value">' +
+              k.val +
+              "</div>" +
+              k.sub +
+              "</div></div>",
+          )
+          .join("");
 
         /* ── Messages per Day bar chart ── */
         const msgsDayEl = document.getElementById("anl-msgs-day");
         // build day→count from chatlogs timestamps
         const dayMap = {};
-        L.forEach(r => {
+        L.forEach((r) => {
           if (!r.timestamp) return;
           const d = new Date(r.timestamp);
-          const key = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
-          dayMap[key] = (dayMap[key]||0) + 1;
+          const key =
+            d.getFullYear() +
+            "-" +
+            String(d.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(d.getDate()).padStart(2, "0");
+          dayMap[key] = (dayMap[key] || 0) + 1;
         });
         // last 14 days
         const days14 = [];
-        for (let i=13; i>=0; i--) {
-          const dt = new Date(); dt.setDate(dt.getDate()-i);
-          const key = dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
-          days14.push({ label: dt.toLocaleDateString("en-IN",{month:"short",day:"numeric"}), key, cnt: dayMap[key]||0 });
+        for (let i = 13; i >= 0; i--) {
+          const dt = new Date();
+          dt.setDate(dt.getDate() - i);
+          const key =
+            dt.getFullYear() +
+            "-" +
+            String(dt.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(dt.getDate()).padStart(2, "0");
+          days14.push({
+            label: dt.toLocaleDateString("en-IN", {
+              month: "short",
+              day: "numeric",
+            }),
+            key,
+            cnt: dayMap[key] || 0,
+          });
         }
-        const dMax = Math.max(...days14.map(d=>d.cnt), 1);
-        const yVals = [dMax, Math.round(dMax*.66), Math.round(dMax*.33), 0];
+        const dMax = Math.max(...days14.map((d) => d.cnt), 1);
+        const yVals = [
+          dMax,
+          Math.round(dMax * 0.66),
+          Math.round(dMax * 0.33),
+          0,
+        ];
         msgsDayEl.innerHTML =
-          '<div style="position:relative">'
-          + '<div class="anl-bar-ylbl">' + yVals.map(v=>'<span>'+v+'</span>').join("") + '</div>'
-          + '<div class="anl-bar-chart">'
-          + days14.map(d =>
-              '<div class="anl-bar-col">'
-              + '<div class="anl-bar-fill" style="height:'+Math.max(d.cnt/dMax*100,d.cnt?2:0)+'%;background:var(--accent);opacity:.85" title="'+d.label+': '+d.cnt+' msgs"></div>'
-              + '<div class="anl-bar-lbl">' + d.label.split(" ")[0] + "<br>" + d.label.split(" ")[1] + '</div>'
-              + '</div>'
-            ).join("")
-          + '</div></div>';
+          '<div style="position:relative">' +
+          '<div class="anl-bar-ylbl">' +
+          yVals.map((v) => "<span>" + v + "</span>").join("") +
+          "</div>" +
+          '<div class="anl-bar-chart">' +
+          days14
+            .map(
+              (d) =>
+                '<div class="anl-bar-col">' +
+                '<div class="anl-bar-fill" style="height:' +
+                Math.max((d.cnt / dMax) * 100, d.cnt ? 2 : 0) +
+                '%;background:var(--accent);opacity:.85" title="' +
+                d.label +
+                ": " +
+                d.cnt +
+                ' msgs"></div>' +
+                '<div class="anl-bar-lbl">' +
+                d.label.split(" ")[0] +
+                "<br>" +
+                d.label.split(" ")[1] +
+                "</div>" +
+                "</div>",
+            )
+            .join("") +
+          "</div></div>";
 
         /* ── Intent Pie Chart (SVG) ── */
         const pieEl = document.getElementById("anl-intent-pie");
-        const PIE_COLORS = ["#f97316","#3b82f6","#10b981","#a855f7","#f59e0b","#ef4444","#06b6d4","#84cc16","#ec4899","#64748b"];
+        const PIE_COLORS = [
+          "#f97316",
+          "#3b82f6",
+          "#10b981",
+          "#a855f7",
+          "#f59e0b",
+          "#ef4444",
+          "#06b6d4",
+          "#84cc16",
+          "#ec4899",
+          "#64748b",
+        ];
         if (!I.length) {
           pieEl.innerHTML = '<div class="adm-empty">No intent data yet</div>';
         } else {
-          const top = I.slice(0,8);
-          const total = top.reduce((s,r)=>s+r.cnt,0);
-          const R=70, cx=80, cy=80;
-          let angle = -Math.PI/2;
+          const top = I.slice(0, 8);
+          const total = top.reduce((s, r) => s + r.cnt, 0);
+          const R = 70,
+            cx = 80,
+            cy = 80;
+          let angle = -Math.PI / 2;
           let slices = "";
-          top.forEach((r,i) => {
+          top.forEach((r, i) => {
             const frac = r.cnt / total;
-            const a1 = angle, a2 = angle + frac * 2 * Math.PI;
-            const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
-            const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+            const a1 = angle,
+              a2 = angle + frac * 2 * Math.PI;
+            const x1 = cx + R * Math.cos(a1),
+              y1 = cy + R * Math.sin(a1);
+            const x2 = cx + R * Math.cos(a2),
+              y2 = cy + R * Math.sin(a2);
             const large = frac > 0.5 ? 1 : 0;
-            slices += '<path d="M'+cx+','+cy+' L'+x1.toFixed(2)+','+y1.toFixed(2)+' A'+R+','+R+' 0 '+large+',1 '+x2.toFixed(2)+','+y2.toFixed(2)+' Z" fill="'+PIE_COLORS[i%PIE_COLORS.length]+'" stroke="#fff" stroke-width="2"><title>'+r.intent+': '+r.cnt+'</title></path>';
+            slices +=
+              '<path d="M' +
+              cx +
+              "," +
+              cy +
+              " L" +
+              x1.toFixed(2) +
+              "," +
+              y1.toFixed(2) +
+              " A" +
+              R +
+              "," +
+              R +
+              " 0 " +
+              large +
+              ",1 " +
+              x2.toFixed(2) +
+              "," +
+              y2.toFixed(2) +
+              ' Z" fill="' +
+              PIE_COLORS[i % PIE_COLORS.length] +
+              '" stroke="#fff" stroke-width="2"><title>' +
+              r.intent +
+              ": " +
+              r.cnt +
+              "</title></path>";
             angle = a2;
           });
-          const legend = top.map((r,i)=>
-            '<div class="anl-pie-item">'
-            +'<div class="anl-pie-dot" style="background:'+PIE_COLORS[i%PIE_COLORS.length]+'"></div>'
-            +'<span class="anl-pie-name">'+admEsc(r.intent)+'</span>'
-            +'<span class="anl-pie-pct">'+Math.round(r.cnt/total*100)+'%</span>'
-            +'</div>'
-          ).join("");
+          const legend = top
+            .map(
+              (r, i) =>
+                '<div class="anl-pie-item">' +
+                '<div class="anl-pie-dot" style="background:' +
+                PIE_COLORS[i % PIE_COLORS.length] +
+                '"></div>' +
+                '<span class="anl-pie-name">' +
+                admEsc(r.intent) +
+                "</span>" +
+                '<span class="anl-pie-pct">' +
+                Math.round((r.cnt / total) * 100) +
+                "%</span>" +
+                "</div>",
+            )
+            .join("");
           pieEl.innerHTML =
-            '<svg class="anl-pie-svg" width="160" height="160" viewBox="0 0 160 160">'+slices
-            +'<circle cx="'+cx+'" cy="'+cy+'" r="28" fill="#fff"/>'
-            +'<text x="'+cx+'" y="'+(cy-6)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">'+total+'</text>'
-            +'<text x="'+cx+'" y="'+(cy+9)+'" text-anchor="middle" font-size="9" fill="#9ca3af">intents</text>'
-            +'</svg>'
-            +'<div class="anl-pie-legend">'+legend+'</div>';
+            '<svg class="anl-pie-svg" width="160" height="160" viewBox="0 0 160 160">' +
+            slices +
+            '<circle cx="' +
+            cx +
+            '" cy="' +
+            cy +
+            '" r="28" fill="#fff"/>' +
+            '<text x="' +
+            cx +
+            '" y="' +
+            (cy - 6) +
+            '" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">' +
+            total +
+            "</text>" +
+            '<text x="' +
+            cx +
+            '" y="' +
+            (cy + 9) +
+            '" text-anchor="middle" font-size="9" fill="#9ca3af">intents</text>' +
+            "</svg>" +
+            '<div class="anl-pie-legend">' +
+            legend +
+            "</div>";
         }
 
         /* ── Top Intents horizontal bar ── */
         const intentsEl = document.getElementById("anl-top-intents");
         if (!I.length) {
-          intentsEl.innerHTML = '<div class="adm-empty">No intent data yet</div>';
+          intentsEl.innerHTML =
+            '<div class="adm-empty">No intent data yet</div>';
         } else {
-          const top10 = I.slice(0,10);
-          const iMax = Math.max(...top10.map(r=>r.cnt),1);
-          intentsEl.innerHTML = '<div class="anl-hbar-list">'
-            + top10.map((r,i) =>
-                '<div class="anl-hbar-row">'
-                +'<div class="anl-hbar-meta"><span class="anl-hbar-name">'+admEsc(r.intent)+'</span><span class="anl-hbar-cnt">'+r.cnt+'</span></div>'
-                +'<div class="anl-hbar-track"><div class="anl-hbar-fill" style="width:'+Math.round(r.cnt/iMax*100)+'%;background:'+PIE_COLORS[i%PIE_COLORS.length]+'"></div></div>'
-                +'</div>'
-              ).join("")
-            + '</div>';
+          const top10 = I.slice(0, 10);
+          const iMax = Math.max(...top10.map((r) => r.cnt), 1);
+          intentsEl.innerHTML =
+            '<div class="anl-hbar-list">' +
+            top10
+              .map(
+                (r, i) =>
+                  '<div class="anl-hbar-row">' +
+                  '<div class="anl-hbar-meta"><span class="anl-hbar-name">' +
+                  admEsc(r.intent) +
+                  '</span><span class="anl-hbar-cnt">' +
+                  r.cnt +
+                  "</span></div>" +
+                  '<div class="anl-hbar-track"><div class="anl-hbar-fill" style="width:' +
+                  Math.round((r.cnt / iMax) * 100) +
+                  "%;background:" +
+                  PIE_COLORS[i % PIE_COLORS.length] +
+                  '"></div></div>' +
+                  "</div>",
+              )
+              .join("") +
+            "</div>";
         }
 
         /* ── Confidence Score Distribution ── */
         const confEl = document.getElementById("anl-confidence");
-        const userLogs = L.filter(r => r.role === "user" && r.confidence != null);
+        const userLogs = L.filter(
+          (r) => r.role === "user" && r.confidence != null,
+        );
         const bands = [
-          { label:"Very High", min:.95, max:1.01,  color:"#10b981" },
-          { label:"High",      min:.80, max:.95,   color:"#3b82f6" },
-          { label:"Medium",    min:.60, max:.80,   color:"#f59e0b" },
-          { label:"Low",       min:.0,  max:.60,   color:"#ef4444" },
+          { label: "Very High", min: 0.95, max: 1.01, color: "#10b981" },
+          { label: "High", min: 0.8, max: 0.95, color: "#3b82f6" },
+          { label: "Medium", min: 0.6, max: 0.8, color: "#f59e0b" },
+          { label: "Low", min: 0.0, max: 0.6, color: "#ef4444" },
         ];
-        const bandCounts = bands.map(b => ({
-          ...b, cnt: userLogs.filter(r => r.confidence >= b.min && r.confidence < b.max).length
+        const bandCounts = bands.map((b) => ({
+          ...b,
+          cnt: userLogs.filter(
+            (r) => r.confidence >= b.min && r.confidence < b.max,
+          ).length,
         }));
-        const bMax = Math.max(...bandCounts.map(b=>b.cnt),1);
+        const bMax = Math.max(...bandCounts.map((b) => b.cnt), 1);
         if (!userLogs.length) {
-          confEl.innerHTML = '<div class="adm-empty">No confidence data yet</div>';
+          confEl.innerHTML =
+            '<div class="adm-empty">No confidence data yet</div>';
         } else {
-          confEl.innerHTML = '<div class="anl-conf-bands">'
-            + bandCounts.map(b =>
-                '<div class="anl-conf-band">'
-                +'<span class="anl-conf-label">'+b.label+'</span>'
-                +'<div class="anl-conf-track"><div class="anl-conf-fill" style="width:'+Math.round(b.cnt/bMax*100)+'%;background:'+b.color+'"></div></div>'
-                +'<span class="anl-conf-count">'+b.cnt+'</span>'
-                +'</div>'
-              ).join("")
-            + '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #f3f4f6;display:flex;gap:20px;font-size:12px;">'
-            + '<span style="color:#6b7280">Avg confidence: <strong style="color:#111827">'+(userLogs.reduce((s,r)=>s+r.confidence,0)/userLogs.length*100).toFixed(1)+'%</strong></span>'
-            + '<span style="color:#6b7280">Samples: <strong style="color:#111827">'+userLogs.length+'</strong></span>'
-            + '</div>'
-            + '</div>';
+          confEl.innerHTML =
+            '<div class="anl-conf-bands">' +
+            bandCounts
+              .map(
+                (b) =>
+                  '<div class="anl-conf-band">' +
+                  '<span class="anl-conf-label">' +
+                  b.label +
+                  "</span>" +
+                  '<div class="anl-conf-track"><div class="anl-conf-fill" style="width:' +
+                  Math.round((b.cnt / bMax) * 100) +
+                  "%;background:" +
+                  b.color +
+                  '"></div></div>' +
+                  '<span class="anl-conf-count">' +
+                  b.cnt +
+                  "</span>" +
+                  "</div>",
+              )
+              .join("") +
+            '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #f3f4f6;display:flex;gap:20px;font-size:12px;">' +
+            '<span style="color:#6b7280">Avg confidence: <strong style="color:#111827">' +
+            (
+              (userLogs.reduce((s, r) => s + r.confidence, 0) /
+                userLogs.length) *
+              100
+            ).toFixed(1) +
+            "%</strong></span>" +
+            '<span style="color:#6b7280">Samples: <strong style="color:#111827">' +
+            userLogs.length +
+            "</strong></span>" +
+            "</div>" +
+            "</div>";
         }
 
         /* ── Hourly Activity Heatmap ── */
         const hourEl = document.getElementById("anl-hourly");
         const hourCounts = Array(24).fill(0);
-        L.forEach(r => {
+        L.forEach((r) => {
           if (!r.timestamp) return;
           hourCounts[new Date(r.timestamp).getHours()]++;
         });
         const hMax = Math.max(...hourCounts, 1);
         const accentRGB = "249,115,22";
         hourEl.innerHTML =
-          '<div class="anl-heat-grid">'
-          + hourCounts.map((c,h) => {
-              const op = c===0 ? 0.06 : 0.12 + (c/hMax)*0.88;
-              return '<div class="anl-heat-cell" style="background:rgba('+accentRGB+','+op.toFixed(2)+')" title="'+h+':00 – '+c+' msgs"></div>';
-            }).join("")
-          + '</div>'
-          + '<div class="anl-heat-xlbl">'
-          + Array.from({length:24},(_,h)=>'<span>'+(h%6===0?h+"h":"")+'</span>').join("")
-          + '</div>'
-          + '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:#9ca3af;">'
-          + '<span>Less</span>'
-          + '<div style="display:flex;gap:3px">'
-          + [.06,.25,.45,.65,.85].map(o=>'<div style="width:16px;height:10px;border-radius:2px;background:rgba('+accentRGB+','+o+')"></div>').join("")
-          + '</div><span>More</span></div>';
+          '<div class="anl-heat-grid">' +
+          hourCounts
+            .map((c, h) => {
+              const op = c === 0 ? 0.06 : 0.12 + (c / hMax) * 0.88;
+              return (
+                '<div class="anl-heat-cell" style="background:rgba(' +
+                accentRGB +
+                "," +
+                op.toFixed(2) +
+                ')" title="' +
+                h +
+                ":00 – " +
+                c +
+                ' msgs"></div>'
+              );
+            })
+            .join("") +
+          "</div>" +
+          '<div class="anl-heat-xlbl">' +
+          Array.from(
+            { length: 24 },
+            (_, h) => "<span>" + (h % 6 === 0 ? h + "h" : "") + "</span>",
+          ).join("") +
+          "</div>" +
+          '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:#9ca3af;">' +
+          "<span>Less</span>" +
+          '<div style="display:flex;gap:3px">' +
+          [0.06, 0.25, 0.45, 0.65, 0.85]
+            .map(
+              (o) =>
+                '<div style="width:16px;height:10px;border-radius:2px;background:rgba(' +
+                accentRGB +
+                "," +
+                o +
+                ')"></div>',
+            )
+            .join("") +
+          "</div><span>More</span></div>";
 
         /* ── Session Duration Breakdown ── */
         const durEl = document.getElementById("anl-duration");
         const durBands = [
-          { label:"<1 min",   min:0,   max:60   },
-          { label:"1–3 min",  min:60,  max:180  },
-          { label:"3–5 min",  min:180, max:300  },
-          { label:"5–10 min", min:300, max:600  },
-          { label:">10 min",  min:600, max:Infinity },
+          { label: "<1 min", min: 0, max: 60 },
+          { label: "1–3 min", min: 60, max: 180 },
+          { label: "3–5 min", min: 180, max: 300 },
+          { label: "5–10 min", min: 300, max: 600 },
+          { label: ">10 min", min: 600, max: Infinity },
         ];
-        const durCounts = durBands.map(b => ({
-          ...b, cnt: SE.filter(s => (s.duration_sec||0) >= b.min && (s.duration_sec||0) < b.max).length
+        const durCounts = durBands.map((b) => ({
+          ...b,
+          cnt: SE.filter(
+            (s) =>
+              (s.duration_sec || 0) >= b.min && (s.duration_sec || 0) < b.max,
+          ).length,
         }));
-        const durMax = Math.max(...durCounts.map(d=>d.cnt), 1);
-        const durColors = ["#3b82f6","#10b981","var(--accent)","#f59e0b","#a855f7"];
+        const durMax = Math.max(...durCounts.map((d) => d.cnt), 1);
+        const durColors = [
+          "#3b82f6",
+          "#10b981",
+          "var(--accent)",
+          "#f59e0b",
+          "#a855f7",
+        ];
         durEl.innerHTML =
-          '<div style="position:relative">'
-          + '<div class="anl-bar-ylbl">'
-          + [durMax, Math.round(durMax*.66), Math.round(durMax*.33), 0].map(v=>'<span>'+v+'</span>').join("")
-          + '</div>'
-          + '<div class="anl-bar-chart">'
-          + durCounts.map((d,i) =>
-              '<div class="anl-bar-col">'
-              + '<div class="anl-bar-fill" style="height:'+Math.max(d.cnt/durMax*100,d.cnt?3:0)+'%;background:'+durColors[i]+'" title="'+d.label+': '+d.cnt+' sessions"></div>'
-              + '<div class="anl-bar-lbl">'+d.label+'</div>'
-              + '</div>'
-            ).join("")
-          + '</div></div>';
+          '<div style="position:relative">' +
+          '<div class="anl-bar-ylbl">' +
+          [durMax, Math.round(durMax * 0.66), Math.round(durMax * 0.33), 0]
+            .map((v) => "<span>" + v + "</span>")
+            .join("") +
+          "</div>" +
+          '<div class="anl-bar-chart">' +
+          durCounts
+            .map(
+              (d, i) =>
+                '<div class="anl-bar-col">' +
+                '<div class="anl-bar-fill" style="height:' +
+                Math.max((d.cnt / durMax) * 100, d.cnt ? 3 : 0) +
+                "%;background:" +
+                durColors[i] +
+                '" title="' +
+                d.label +
+                ": " +
+                d.cnt +
+                ' sessions"></div>' +
+                '<div class="anl-bar-lbl">' +
+                d.label +
+                "</div>" +
+                "</div>",
+            )
+            .join("") +
+          "</div></div>";
       }
 
       /* ── GENERIC TABLE RENDERER ── */
@@ -2756,7 +4095,7 @@
         page = page || admCurrentPage[name] || 1;
         admCurrentPage[name] = page;
 
-        const tbody   = document.getElementById("adm-" + name + "-tbody");
+        const tbody = document.getElementById("adm-" + name + "-tbody");
         const countEl = document.getElementById("adm-" + name + "-count-label");
         const pagesEl = document.getElementById("adm-" + name + "-pages");
 
@@ -2764,23 +4103,61 @@
         const start = (page - 1) * ADM_PAGE_SIZE;
         const slice = data.slice(start, start + ADM_PAGE_SIZE);
 
-        if (countEl) countEl.textContent = "Showing " + (start+1) + " to " + Math.min(start+ADM_PAGE_SIZE, total) + " of " + total.toLocaleString() + " results";
+        if (countEl)
+          countEl.textContent =
+            "Showing " +
+            (start + 1) +
+            " to " +
+            Math.min(start + ADM_PAGE_SIZE, total) +
+            " of " +
+            total.toLocaleString() +
+            " results";
 
-        if (name === "sessions")  tbody.innerHTML = admRenderSessionsRows(slice);
-        if (name === "chatlogs")  tbody.innerHTML = admRenderChatlogsRows(slice);
-        if (name === "bookings")  tbody.innerHTML = admRenderBookingsRows(slice);
-        if (name === "pickups")   tbody.innerHTML = admRenderPickupsRows(slice);
+        if (name === "sessions") tbody.innerHTML = admRenderSessionsRows(slice);
+        if (name === "chatlogs") tbody.innerHTML = admRenderChatlogsRows(slice);
+        if (name === "bookings") tbody.innerHTML = admRenderBookingsRows(slice);
+        if (name === "pickups") tbody.innerHTML = admRenderPickupsRows(slice);
 
         if (pagesEl) {
           const totalPages = Math.ceil(total / ADM_PAGE_SIZE);
           const showPages = [];
-          for (let i = Math.max(1,page-1); i <= Math.min(totalPages,page+2); i++) showPages.push(i);
+          for (
+            let i = Math.max(1, page - 1);
+            i <= Math.min(totalPages, page + 2);
+            i++
+          )
+            showPages.push(i);
           pagesEl.innerHTML =
-            '<button class="adm-page-btn" onclick="admGoPage(\'' + name + '\',' + (page - 1) + ')" ' + (page === 1 ? 'disabled style="opacity:.4;cursor:default"' : '') + '>Previous</button>'
-            + showPages.map(p =>
-                '<button class="adm-page-btn ' + (p === page ? "active" : "") + '" onclick="admGoPage(\'' + name + '\',' + p + ')">' + p + '</button>'
-              ).join("")
-            + '<button class="adm-page-btn" onclick="admGoPage(\'' + name + '\',' + (page + 1) + ')" ' + (page === totalPages ? 'disabled style="opacity:.4;cursor:default"' : '') + '>Next</button>';
+            '<button class="adm-page-btn" onclick="admGoPage(\'' +
+            name +
+            "'," +
+            (page - 1) +
+            ')" ' +
+            (page === 1 ? 'disabled style="opacity:.4;cursor:default"' : "") +
+            ">Previous</button>" +
+            showPages
+              .map(
+                (p) =>
+                  '<button class="adm-page-btn ' +
+                  (p === page ? "active" : "") +
+                  '" onclick="admGoPage(\'' +
+                  name +
+                  "'," +
+                  p +
+                  ')">' +
+                  p +
+                  "</button>",
+              )
+              .join("") +
+            '<button class="adm-page-btn" onclick="admGoPage(\'' +
+            name +
+            "'," +
+            (page + 1) +
+            ')" ' +
+            (page === totalPages
+              ? 'disabled style="opacity:.4;cursor:default"'
+              : "") +
+            ">Next</button>";
         }
       }
 
@@ -2792,9 +4169,39 @@
       }
 
       function admFilterTable(name, query) {
-        if (!query.trim()) { admRenderTable(name, admRaw[name], 1); return; }
-        const q = query.toLowerCase();
-        const filtered = (admRaw[name] || []).filter(row => Object.values(row).join(" ").toLowerCase().includes(q));
+        if (!query.trim()) {
+          admRenderTable(name, admRaw[name], 1);
+          return;
+        }
+        const q = query.toLowerCase().trim();
+
+        // For sessions: also try to match against the human-readable date of start_time
+        if (name === "sessions") {
+          const filtered = (admRaw[name] || []).filter((row) => {
+            // Standard field match
+            if (Object.values(row).join(" ").toLowerCase().includes(q)) return true;
+            // Date match: parse start_time and check against query
+            if (row.start_time) {
+              const d = new Date(row.start_time);
+              // Generate several readable forms to match against
+              const forms = [
+                d.toLocaleDateString("en-IN", { day:"numeric", month:"long", year:"numeric" }), // "5 April 2025"
+                d.toLocaleDateString("en-IN", { day:"numeric", month:"long" }),                 // "5 April"
+                d.toLocaleDateString("en-IN", { day:"numeric", month:"short" }),                // "5 Apr"
+                d.toLocaleDateString("en-GB",  { day:"numeric", month:"long" }),                // "5 April"
+                d.toISOString().slice(0, 10),                                                   // "2025-04-05"
+              ];
+              if (forms.some(f => f.toLowerCase().includes(q))) return true;
+            }
+            return false;
+          });
+          admRenderTable(name, filtered, 1);
+          return;
+        }
+
+        const filtered = (admRaw[name] || []).filter((row) =>
+          Object.values(row).join(" ").toLowerCase().includes(q),
+        );
         admRenderTable(name, filtered, 1);
       }
 
@@ -2802,10 +4209,16 @@
         const data = admRaw[name];
         if (!data || !data.length) return alert("No data to export.");
         const keys = Object.keys(data[0]);
-        const csv = [keys.join(","), ...data.map(r => keys.map(k => JSON.stringify(r[k] ?? "")).join(","))].join("\n");
+        const csv = [
+          keys.join(","),
+          ...data.map((r) =>
+            keys.map((k) => JSON.stringify(r[k] ?? "")).join(","),
+          ),
+        ].join("\n");
         const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([csv], { type:"text/csv" }));
-        a.download = name + "_" + new Date().toISOString().slice(0,10) + ".csv";
+        a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+        a.download =
+          name + "_" + new Date().toISOString().slice(0, 10) + ".csv";
         a.click();
       }
 
@@ -2813,15 +4226,15 @@
       async function admLoadPanel(page) {
         if (admLoaded[page]) return;
         admLoaded[page] = true;
-        if (page === "overview")  await admLoadOverview();
-        if (page === "sessions")  await admLoadSessions();
-        if (page === "bookings")  await admLoadBookings();
-        if (page === "pickups")   await admLoadPickups();
+        if (page === "overview") await admLoadOverview();
+        if (page === "sessions") await admLoadSessions();
+        if (page === "bookings") await admLoadBookings();
+        if (page === "pickups") await admLoadPickups();
         if (page === "analytics") await admLoadAnalytics();
       }
 
       /* ── delegated listener for transcript view buttons ── */
-      document.addEventListener("click", function(e) {
+      document.addEventListener("click", function (e) {
         const btn = e.target.closest(".adm-view-transcript-btn");
         if (btn) {
           console.log("CLICKED SESSION:", btn.dataset.sid); // ✅ DEBUG
@@ -2833,18 +4246,21 @@
       async function admViewTranscript(sessionId) {
         if (!sessionId) return;
 
-        const modal  = document.getElementById("adm-transcript-modal");
-        const body   = document.getElementById("adm-transcript-body");
+        const modal = document.getElementById("adm-transcript-modal");
+        const body = document.getElementById("adm-transcript-body");
         const footer = document.getElementById("adm-transcript-footer");
 
-        document.getElementById("adm-transcript-session-id").textContent = sessionId;
+        document.getElementById("adm-transcript-session-id").textContent =
+          sessionId;
 
-        body.innerHTML = '<div class="adm-tx-loading"><div class="adm-spinner"></div> Loading transcript…</div>';
+        body.innerHTML =
+          '<div class="adm-tx-loading"><div class="adm-spinner"></div> Loading transcript…</div>';
         footer.textContent = "";
         modal.classList.add("open");
 
         try {
-          const msgs = await admFetch(`/api/chatlogs?session_id=${sessionId}`) || [];
+          const msgs =
+            (await admFetch(`/api/chatlogs?session_id=${sessionId}`)) || [];
 
           console.log("Session ID:", sessionId);
           console.log("Fetched msgs:", msgs);
@@ -2852,58 +4268,95 @@
           msgs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
           if (!msgs || msgs.length === 0) {
-            body.innerHTML = '<div class="adm-empty">No messages found for this session.</div>';
+            body.innerHTML =
+              '<div class="adm-empty">No messages found for this session.</div>';
             footer.textContent = "Session ID: " + sessionId;
             return;
           }
 
-          body.innerHTML = msgs.map(function(r) {
-            var role  = (r.role || r.sender) === "user" ? "user" : "bot";
-            var label = role === "user" ? "User" : "LogiBot";
-            var conf  = (r.confidence != null) ? parseFloat(r.confidence.toFixed(2)) : null;
+          body.innerHTML = msgs
+            .map(function (r) {
+              var role = (r.role || r.sender) === "user" ? "user" : "bot";
+              var label = role === "user" ? "User" : "LogiBot";
+              var conf =
+                r.confidence != null
+                  ? parseFloat(r.confidence.toFixed(2))
+                  : null;
 
-            var intentTag = r.intent
-              ? '<span class="adm-tx-intent">' + admEsc(r.intent) + (conf !== null ? " · " + conf : "") + "</span>"
-              : "";
+              var intentTag = r.intent
+                ? '<span class="adm-tx-intent">' +
+                  admEsc(r.intent) +
+                  (conf !== null ? " · " + conf : "") +
+                  "</span>"
+                : "";
 
-            return '<div class="adm-tx-msg ' + role + '">'
-              + '<div class="adm-tx-meta">'
-              + '<strong style="color:#374151">' + label + "</strong>"
-              + "<span>" + admFmtDT(r.timestamp) + "</span>"
-              + intentTag
-              + "</div>"
-              + '<div class="adm-tx-bubble" style="white-space:pre-wrap;word-break:break-word;">' + admEsc(r.message) + "</div>"
-              + "</div>";
-          }).join("");
+              return (
+                '<div class="adm-tx-msg ' +
+                role +
+                '">' +
+                '<div class="adm-tx-meta">' +
+                '<strong style="color:#374151">' +
+                label +
+                "</strong>" +
+                "<span>" +
+                admFmtDT(r.timestamp) +
+                "</span>" +
+                intentTag +
+                "</div>" +
+                '<div class="adm-tx-bubble" style="white-space:pre-wrap;word-break:break-word;">' +
+                admEsc(r.message) +
+                "</div>" +
+                "</div>"
+              );
+            })
+            .join("");
 
-          footer.textContent = msgs.length + " message" + (msgs.length !== 1 ? "s" : "") + " in this session";
-
+          footer.textContent =
+            msgs.length +
+            " message" +
+            (msgs.length !== 1 ? "s" : "") +
+            " in this session";
         } catch (e) {
           console.error("Transcript load error:", e);
-          body.innerHTML = '<div class="adm-empty">Failed to load transcript</div>';
+          body.innerHTML =
+            '<div class="adm-empty">Failed to load transcript</div>';
         }
       }
 
       function admCloseTranscript(event) {
-        if (event && event.target !== document.getElementById("adm-transcript-modal")) return;
-        document.getElementById("adm-transcript-modal").classList.remove("open");
+        if (
+          event &&
+          event.target !== document.getElementById("adm-transcript-modal")
+        )
+          return;
+        document
+          .getElementById("adm-transcript-modal")
+          .classList.remove("open");
       }
 
       window.addEventListener("beforeunload", function () {
-          navigator.sendBeacon(
-              "http://localhost:5050/end-session",
-              new Blob(
-                  [JSON.stringify({ session_id: SESSION_ID })],
-                  { type: "application/json" }
-              )
-          );
+        navigator.sendBeacon(
+          "http://localhost:5050/end-session",
+          new Blob([JSON.stringify({ session_id: SESSION_ID })], {
+            type: "application/json",
+          }),
+        );
       });
     </script>
     <!-- ── ADMIN TRIGGER (subtle, bottom-left) ─────────────────────── -->
     <div id="admin-trigger" title="Admin Dashboard" onclick="adminOpen()">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+      <svg
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
       </svg>
     </div>
 
@@ -2911,227 +4364,490 @@
          ADMIN DASHBOARD OVERLAY  –  new design
          ══════════════════════════════════════════════════════════════════ -->
     <div id="admin-overlay">
-    <div class="adm-shell">
+      <div class="adm-shell">
+        <!-- SIDEBAR -->
+        <aside class="adm-sidebar">
+          <div class="adm-brand">
+            <div class="adm-brand-icon">🚚</div>
+            <span class="adm-brand-name">LogiBot</span>
+          </div>
+          <nav class="adm-nav">
+            <button
+              class="adm-nav-item active"
+              onclick="admNavTo('overview', this)"
+            >
+              <svg class="adm-nav-icon" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+              </svg>
+              Dashboard Overview
+            </button>
+            <button class="adm-nav-item" onclick="admNavTo('sessions', this)">
+              <svg class="adm-nav-icon" viewBox="0 0 24 24">
+                <path
+                  d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                />
+              </svg>
+              Sessions
+            </button>
 
-      <!-- SIDEBAR -->
-      <aside class="adm-sidebar">
-        <div class="adm-brand">
-          <div class="adm-brand-icon">🚚</div>
-          <span class="adm-brand-name">LogiBot</span>
+            <button class="adm-nav-item" onclick="admNavTo('bookings', this)">
+              <svg class="adm-nav-icon" viewBox="0 0 24 24">
+                <path
+                  d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"
+                />
+                <path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z" />
+              </svg>
+              Bookings
+            </button>
+            <button class="adm-nav-item" onclick="admNavTo('pickups', this)">
+              <svg class="adm-nav-icon" viewBox="0 0 24 24">
+                <rect x="1" y="3" width="15" height="13" rx="1" />
+                <path d="M16 8h4l3 3v5h-7V8z" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              Pickups
+            </button>
+            <button class="adm-nav-item" onclick="admNavTo('analytics', this)">
+              <svg class="adm-nav-icon" viewBox="0 0 24 24">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+              Analytics
+            </button>
+            <button class="adm-nav-item" onclick="admNavTo('settings', this)">
+              <svg class="adm-nav-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                />
+              </svg>
+              Settings
+            </button>
+          </nav>
+          <div class="adm-sidebar-footer">
+            <div class="adm-admin-avatar">A</div>
+            <div>
+              <div class="adm-admin-name">Admin User</div>
+              <!-- <div class="adm-admin-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0766636a6e69476b68606e6568732964686a"></a></div> -->
+            </div>
+          </div>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="adm-main">
+          <!-- Topbar -->
+          <header class="adm-topbar">
+            <div class="adm-search-wrap">
+              <!-- <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                class="adm-search-input"
+                type="text"
+                placeholder="Search…"
+              /> -->
+            </div>
+            <div class="adm-topbar-right">
+              <div class="adm-icon-btn">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"
+                  />
+                </svg>
+                <div class="adm-notif-dot"></div>
+              </div>
+              <div class="adm-topbar-avatar">A</div>
+              <div
+                class="adm-icon-btn"
+                onclick="adminClose()"
+                title="Close"
+                style="margin-left: 4px"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-width="2"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+            </div>
+          </header>
+
+          <!-- Content -->
+          <div class="adm-content">
+            <!-- OVERVIEW -->
+            <div class="adm-panel active" id="adm-panel-overview">
+              <div class="adm-page-hd">
+                <h1>Dashboard Overview</h1>
+                <p>Monitor your chatbot performance and logistics operations</p>
+              </div>
+              <div class="adm-kpi-grid" id="adm-kpi-grid">
+                <div style="grid-column: 1/-1">
+                  <div class="adm-loading">
+                    <div class="adm-spinner"></div>
+                    Loading stats…
+                  </div>
+                </div>
+              </div>
+              <div class="adm-two-col">
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Sessions (Last 7 Days)</h3>
+                    <p>Daily chatbot session activity</p>
+                  </div>
+                  <div class="adm-chart-body" id="adm-sessions-chart">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Top Chatbot Intents</h3>
+                    <p>Most requested bot actions</p>
+                  </div>
+                  <div class="adm-intent-body" id="adm-intent-list">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SESSIONS -->
+            <div class="adm-panel" id="adm-panel-sessions">
+              <div class="adm-page-hd"><h1>Sessions</h1></div>
+              <div class="adm-card">
+                <div class="adm-table-toolbar">
+                  <div class="adm-table-search-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input
+                      class="adm-table-search"
+                      type="text"
+                      placeholder="Search by session ID or date (e.g. 5 April)…"
+                      oninput="admFilterTable('sessions', this.value)"
+                    />
+                  </div>
+                  <!-- <button class="adm-filter-btn">
+                    <svg viewBox="0 0 24 24">
+                      <polygon
+                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                      />
+                    </svg>
+                    Filters
+                  </button> -->
+                </div>
+                <div class="adm-table-wrap">
+                  <table class="adm-table">
+                    <thead>
+                      <tr>
+                        <th>Session ID</th>
+                        <th>User Id</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Duration</th>
+                        <th>Messages</th>
+                        <th>Status</th>
+                        <th>Transcripts</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adm-sessions-tbody">
+                      <tr>
+                        <td colspan="6">
+                          <div class="adm-loading">
+                            <div class="adm-spinner"></div>
+                            Loading…
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="adm-table-footer">
+                  <span id="adm-sessions-count-label">–</span>
+                  <div class="adm-pagination" id="adm-sessions-pages"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BOOKINGS -->
+            <div class="adm-panel" id="adm-panel-bookings">
+              <div class="adm-page-hd">
+                <h1>Bookings</h1>
+                <p>Manage all shipment bookings and orders</p>
+              </div>
+              <div class="adm-card">
+                <div class="adm-table-toolbar">
+                  <div class="adm-table-search-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input
+                      class="adm-table-search"
+                      type="text"
+                      placeholder="Search by booking ID, sender, or receiver…"
+                      oninput="admFilterTable('bookings', this.value)"
+                    />
+                  </div>
+                  <!-- <button class="adm-filter-btn">
+                    <svg viewBox="0 0 24 24">
+                      <polygon
+                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                      />
+                    </svg>
+                    Filters
+                  </button> -->
+                  <button
+                    class="adm-export-btn"
+                    onclick="admExportCSV('bookings')"
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export
+                  </button>
+                </div>
+                <div class="adm-table-wrap">
+                  <table class="adm-table">
+                    <thead>
+                      <tr>
+                        <th>Booking ID</th>
+                        <th>Sender Name</th>
+                        <th>Sender Contact</th>
+                        <th>Receiver Name</th>
+                        <th>Receiver Contact</th>
+                        <th>Address</th>
+                        <th>Cost</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adm-bookings-tbody">
+                      <tr>
+                        <td colspan="8">
+                          <div class="adm-loading">
+                            <div class="adm-spinner"></div>
+                            Loading…
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="adm-table-footer">
+                  <span id="adm-bookings-count-label">–</span>
+                  <div class="adm-pagination" id="adm-bookings-pages"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PICKUPS -->
+            <div class="adm-panel" id="adm-panel-pickups">
+              <div class="adm-page-hd">
+                <h1>Pickups</h1>
+                <p>Manage scheduled and completed pickup requests</p>
+              </div>
+              <div class="adm-card">
+                <div class="adm-table-toolbar">
+                  <div class="adm-table-search-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input
+                      class="adm-table-search"
+                      type="text"
+                      placeholder="Search by pickup ID, name, or contact…"
+                      oninput="admFilterTable('pickups', this.value)"
+                    />
+                  </div>
+                  <!-- <button class="adm-filter-btn">
+                    <svg viewBox="0 0 24 24">
+                      <polygon
+                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                      />
+                    </svg>
+                    Filters
+                  </button> -->
+                  <button
+                    class="adm-export-btn"
+                    onclick="admExportCSV('pickups')"
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export
+                  </button>
+                </div>
+                <div class="adm-table-wrap">
+                  <table class="adm-table">
+                    <thead>
+                      <tr>
+                        <th>Pickup ID</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                        <th>Pickup Date</th>
+                        <th>Pickup Time</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adm-pickups-tbody">
+                      <tr>
+                        <td colspan="6">
+                          <div class="adm-loading">
+                            <div class="adm-spinner"></div>
+                            Loading…
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="adm-table-footer">
+                  <span id="adm-pickups-count-label">–</span>
+                  <div class="adm-pagination" id="adm-pickups-pages"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ANALYTICS -->
+            <div class="adm-panel" id="adm-panel-analytics">
+              <div class="adm-page-hd">
+                <h1>Chatbot Analytics</h1>
+                <p>
+                  Real-time performance insights from your LogiBot conversations
+                </p>
+              </div>
+
+              <!-- KPI Row -->
+              <div class="anl-kpi-row" id="anl-kpi-row">
+                <div class="adm-loading"><div class="adm-spinner"></div></div>
+              </div>
+
+              <!-- Row 1: Messages per Day + Intent Distribution -->
+              <div class="adm-two-col">
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Messages per Day</h3>
+                    <p>Daily chatbot message volume (last 14 days)</p>
+                  </div>
+                  <div class="adm-chart-body" id="anl-msgs-day">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Intent Distribution</h3>
+                    <p>Breakdown of what users ask LogiBot</p>
+                  </div>
+                  <div class="adm-chart-body anl-pie-wrap" id="anl-intent-pie">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 2: Top Intents Bar + User vs Bot ratio -->
+              <div class="adm-two-col">
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Top Intents</h3>
+                    <p>Most frequently triggered chatbot intents</p>
+                  </div>
+                  <div class="adm-chart-body" id="anl-top-intents">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Confidence Score Distribution</h3>
+                    <p>NLU model confidence across all user messages</p>
+                  </div>
+                  <div class="adm-chart-body" id="anl-confidence">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 3: Hourly Activity + Session Duration -->
+              <div class="adm-two-col">
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Hourly Activity</h3>
+                    <p>When users are most active throughout the day</p>
+                  </div>
+                  <div class="adm-chart-body" id="anl-hourly">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="adm-card">
+                  <div class="adm-card-hd">
+                    <h3>Session Duration Breakdown</h3>
+                    <p>How long users spend talking to LogiBot</p>
+                  </div>
+                  <div class="adm-chart-body" id="anl-duration">
+                    <div class="adm-loading">
+                      <div class="adm-spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SETTINGS -->
+            <div class="adm-panel" id="adm-panel-settings">
+              <div class="adm-page-hd">
+                <h1>Settings</h1>
+                <p>Configure your admin dashboard preferences</p>
+              </div>
+              <div
+                class="adm-card"
+                style="
+                  padding: 32px;
+                  text-align: center;
+                  color: #6b7280;
+                  font-size: 14px;
+                "
+              >
+                ⚙️ Settings panel coming soon
+              </div>
+            </div>
+          </div>
+          <!-- /.adm-content -->
         </div>
-        <nav class="adm-nav">
-          <button class="adm-nav-item active" onclick="admNavTo('overview',this)">
-            <svg class="adm-nav-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-            Dashboard Overview
-          </button>
-          <button class="adm-nav-item" onclick="admNavTo('sessions',this)">
-            <svg class="adm-nav-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            Sessions
-          </button>
-
-          <button class="adm-nav-item" onclick="admNavTo('bookings',this)">
-            <svg class="adm-nav-icon" viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg>
-            Bookings
-          </button>
-          <button class="adm-nav-item" onclick="admNavTo('pickups',this)">
-            <svg class="adm-nav-icon" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            Pickups
-          </button>
-          <button class="adm-nav-item" onclick="admNavTo('analytics',this)">
-            <svg class="adm-nav-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            Analytics
-          </button>
-          <button class="adm-nav-item" onclick="admNavTo('settings',this)">
-            <svg class="adm-nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-            Settings
-          </button>
-        </nav>
-        <div class="adm-sidebar-footer">
-          <div class="adm-admin-avatar">A</div>
-          <div>
-            <div class="adm-admin-name">Admin User</div>
-            <!-- <div class="adm-admin-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0766636a6e69476b68606e6568732964686a"></a></div> -->
-          </div>
-        </div>
-      </aside>
-
-      <!-- MAIN -->
-      <div class="adm-main">
-
-        <!-- Topbar -->
-        <header class="adm-topbar">
-          <div class="adm-search-wrap">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input class="adm-search-input" type="text" placeholder="Search…"/>
-          </div>
-          <div class="adm-topbar-right">
-            <div class="adm-icon-btn">
-              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
-              <div class="adm-notif-dot"></div>
-            </div>
-            <div class="adm-topbar-avatar">A</div>
-            <div class="adm-icon-btn" onclick="adminClose()" title="Close" style="margin-left:4px">
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </div>
-          </div>
-        </header>
-
-        <!-- Content -->
-        <div class="adm-content">
-
-          <!-- OVERVIEW -->
-          <div class="adm-panel active" id="adm-panel-overview">
-            <div class="adm-page-hd">
-              <h1>Dashboard Overview</h1>
-              <p>Monitor your chatbot performance and logistics operations</p>
-            </div>
-            <div class="adm-kpi-grid" id="adm-kpi-grid">
-              <div style="grid-column:1/-1"><div class="adm-loading"><div class="adm-spinner"></div> Loading stats…</div></div>
-            </div>
-            <div class="adm-two-col">
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Sessions (Last 7 Days)</h3><p>Daily chatbot session activity</p></div>
-                <div class="adm-chart-body" id="adm-sessions-chart"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Top Chatbot Intents</h3><p>Most requested bot actions</p></div>
-                <div class="adm-intent-body" id="adm-intent-list"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SESSIONS -->
-          <div class="adm-panel" id="adm-panel-sessions">
-            <div class="adm-page-hd"><h1>Sessions</h1></div>
-            <div class="adm-card">
-              <div class="adm-table-toolbar">
-                <div class="adm-table-search-wrap">
-                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  <input class="adm-table-search" type="text" placeholder="Search by session ID…" oninput="admFilterTable('sessions',this.value)"/>
-                </div>
-                <button class="adm-filter-btn"><svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filters</button>
-              </div>
-              <div class="adm-table-wrap">
-                <table class="adm-table">
-                  <thead><tr><th>Session ID</th><th>User Id</th><th>Start Time</th><th>End Time</th><th>Duration</th><th>Messages</th><th>Status</th><th>Transcripts</th></tr></thead>
-                  <tbody id="adm-sessions-tbody"><tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
-                </table>
-              </div>
-              <div class="adm-table-footer">
-                <span id="adm-sessions-count-label">–</span>
-                <div class="adm-pagination" id="adm-sessions-pages"></div>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- BOOKINGS -->
-          <div class="adm-panel" id="adm-panel-bookings">
-            <div class="adm-page-hd"><h1>Bookings</h1><p>Manage all shipment bookings and orders</p></div>
-            <div class="adm-card">
-              <div class="adm-table-toolbar">
-                <div class="adm-table-search-wrap">
-                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  <input class="adm-table-search" type="text" placeholder="Search by booking ID, sender, or receiver…" oninput="admFilterTable('bookings',this.value)"/>
-                </div>
-                <button class="adm-filter-btn"><svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filters</button>
-                <button class="adm-export-btn" onclick="admExportCSV('bookings')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</button>
-              </div>
-              <div class="adm-table-wrap">
-                <table class="adm-table">
-                  <thead><tr><th>Booking ID</th><th>Sender Name</th><th>Sender Contact</th><th>Receiver Name</th><th>Receiver Contact</th><th>Address</th><th>Cost</th><th>Date</th></tr></thead>
-                  <tbody id="adm-bookings-tbody"><tr><td colspan="8"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
-                </table>
-              </div>
-              <div class="adm-table-footer">
-                <span id="adm-bookings-count-label">–</span>
-                <div class="adm-pagination" id="adm-bookings-pages"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PICKUPS -->
-          <div class="adm-panel" id="adm-panel-pickups">
-            <div class="adm-page-hd"><h1>Pickups</h1><p>Manage scheduled and completed pickup requests</p></div>
-            <div class="adm-card">
-              <div class="adm-table-toolbar">
-                <div class="adm-table-search-wrap">
-                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  <input class="adm-table-search" type="text" placeholder="Search by pickup ID, name, or contact…" oninput="admFilterTable('pickups',this.value)"/>
-                </div>
-                <button class="adm-filter-btn"><svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filters</button>
-                <button class="adm-export-btn" onclick="admExportCSV('pickups')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</button>
-              </div>
-              <div class="adm-table-wrap">
-                <table class="adm-table">
-                  <thead><tr><th>Pickup ID</th><th>Name</th><th>Contact</th><th>Address</th><th>Pickup Date</th><th>Pickup Time</th></tr></thead>
-                  <tbody id="adm-pickups-tbody"><tr><td colspan="6"><div class="adm-loading"><div class="adm-spinner"></div> Loading…</div></td></tr></tbody>
-                </table>
-              </div>
-              <div class="adm-table-footer">
-                <span id="adm-pickups-count-label">–</span>
-                <div class="adm-pagination" id="adm-pickups-pages"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ANALYTICS -->
-          <div class="adm-panel" id="adm-panel-analytics">
-            <div class="adm-page-hd"><h1>Chatbot Analytics</h1><p>Real-time performance insights from your LogiBot conversations</p></div>
-
-            <!-- KPI Row -->
-            <div class="anl-kpi-row" id="anl-kpi-row">
-              <div class="adm-loading"><div class="adm-spinner"></div></div>
-            </div>
-
-            <!-- Row 1: Messages per Day + Intent Distribution -->
-            <div class="adm-two-col">
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Messages per Day</h3><p>Daily chatbot message volume (last 14 days)</p></div>
-                <div class="adm-chart-body" id="anl-msgs-day"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Intent Distribution</h3><p>Breakdown of what users ask LogiBot</p></div>
-                <div class="adm-chart-body anl-pie-wrap" id="anl-intent-pie"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-            </div>
-
-            <!-- Row 2: Top Intents Bar + User vs Bot ratio -->
-            <div class="adm-two-col">
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Top Intents</h3><p>Most frequently triggered chatbot intents</p></div>
-                <div class="adm-chart-body" id="anl-top-intents"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Confidence Score Distribution</h3><p>NLU model confidence across all user messages</p></div>
-                <div class="adm-chart-body" id="anl-confidence"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-            </div>
-
-            <!-- Row 3: Hourly Activity + Session Duration -->
-            <div class="adm-two-col">
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Hourly Activity Heatmap</h3><p>When users are most active throughout the day</p></div>
-                <div class="adm-chart-body" id="anl-hourly"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-              <div class="adm-card">
-                <div class="adm-card-hd"><h3>Session Duration Breakdown</h3><p>How long users spend talking to LogiBot</p></div>
-                <div class="adm-chart-body" id="anl-duration"><div class="adm-loading"><div class="adm-spinner"></div></div></div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- SETTINGS -->
-          <div class="adm-panel" id="adm-panel-settings">
-            <div class="adm-page-hd"><h1>Settings</h1><p>Configure your admin dashboard preferences</p></div>
-            <div class="adm-card" style="padding:32px;text-align:center;color:#6b7280;font-size:14px;">⚙️ Settings panel coming soon</div>
-          </div>
-
-        </div><!-- /.adm-content -->
-      </div><!-- /.adm-main -->
-    </div><!-- /.adm-shell -->
-    </div><!-- /#admin-overlay -->
+        <!-- /.adm-main -->
+      </div>
+      <!-- /.adm-shell -->
+    </div>
+    <!-- /#admin-overlay -->
 
     <!-- ── TRANSCRIPT MODAL ── -->
     <div id="adm-transcript-modal" onclick="admCloseTranscript(event)">
@@ -3141,10 +4857,19 @@
             <h2>Session Transcript</h2>
             <p id="adm-transcript-session-id"></p>
           </div>
-          <button class="adm-transcript-close" onclick="admCloseTranscript(null)" title="Close">✕</button>
+          <button
+            class="adm-transcript-close"
+            onclick="admCloseTranscript(null)"
+            title="Close"
+          >
+            ✕
+          </button>
         </div>
         <div class="adm-transcript-body" id="adm-transcript-body">
-          <div class="adm-tx-loading"><div class="adm-spinner"></div> Loading transcript…</div>
+          <div class="adm-tx-loading">
+            <div class="adm-spinner"></div>
+            Loading transcript…
+          </div>
         </div>
         <div class="adm-transcript-footer" id="adm-transcript-footer"></div>
       </div>

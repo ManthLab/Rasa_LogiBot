@@ -187,6 +187,10 @@ slots:
         conditions:
           - active_loop: rates_form
             requested_slot: destination_country
+        not_intent:
+          - stop
+          - deny
+          - cancel_shipment
 
   from_pincode:
     type: text
