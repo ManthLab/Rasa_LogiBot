@@ -4,16 +4,20 @@ Run alongside your Rasa server:  python admin_api.py
 Serves on  http://localhost:5050
 """
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
-from actions.db_helper import get_conn
+from actions.db_helper import get_conn, close_session, log_chat
 from datetime import datetime, timedelta
-from flask import Flask, request, jsonify
-from actions.db_helper import close_session
-from actions.db_helper import log_chat
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+
+# Allow both common dev origins; credentials not needed so omit that.
+CORS(app, resources={r"/*": {
+    "origins": ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:3000"],
+    "methods": ["GET", "POST", "OPTIONS"],
+    "allow_headers": ["Content-Type"],
+}})
+
 
 @app.route("/log_chat", methods=["POST", "OPTIONS"])
 def log_chat_api():
@@ -22,11 +26,10 @@ def log_chat_api():
 
     try:
         data = request.get_json(force=True)
-
         session_id = data.get("session_id")
-        message = data.get("message")
-        role = data.get("role")
-        intent = data.get("intent")
+        message    = data.get("message")
+        role       = data.get("role")
+        intent     = data.get("intent")
         confidence = data.get("confidence")
 
         if session_id and message:
@@ -37,6 +40,7 @@ def log_chat_api():
     except Exception as e:
         print("❌ LOG CHAT ERROR:", e)
         return jsonify({"error": str(e)}), 500
+
 
 def _q(sql, params=()):
     """Run a SELECT, return list-of-dicts."""
@@ -103,28 +107,34 @@ def sessions():
         LIMIT 50
     """)
     for r in rows:
-        r["start_time"] = r["start_time"].isoformat() if r["start_time"] else None
-        r["end_time"]   = r["end_time"].isoformat()   if r["end_time"]   else None
+        r["start_time"]   = r["start_time"].isoformat() if r["start_time"] else None
+        r["end_time"]     = r["end_time"].isoformat()   if r["end_time"]   else None
         r["duration_sec"] = int(r["duration_sec"] or 0)
         r["message_count"] = int(r["message_count"] or 0)
     return jsonify(rows)
 
-@app.route("/end-session", methods=["POST"])
+
+# ── /end-session  ────────────────────────────────────────────────────────────
+@app.route("/end-session", methods=["POST", "OPTIONS"])
 def end_session():
+    # flask-cors handles OPTIONS automatically, but being explicit is safe
+    if request.method == "OPTIONS":
+        return jsonify({"status": "ok"}), 200
+
     try:
-
         data = request.get_json(force=True)
-
         session_id = data.get("session_id")
 
         if session_id:
             close_session(session_id)
+            print(f"✅ Session closed: {session_id}")
 
-        return jsonify({"status": "closed"})
+        return jsonify({"status": "closed"}), 200
 
     except Exception as e:
         print("❌ END SESSION ERROR:", e)
         return jsonify({"error": str(e)}), 500
+
 
 # ── /api/bookings  ──────────────────────────────────────────────────────────
 @app.route("/api/bookings")
@@ -162,7 +172,7 @@ def pickups():
 # ── /api/chatlogs  ──────────────────────────────────────────────────────────
 @app.route("/api/chatlogs")
 def chatlogs():
-    session_id = request.args.get("session_id")  
+    session_id = request.args.get("session_id")
 
     if session_id:
         rows = _q("""
@@ -186,7 +196,7 @@ def chatlogs():
     return jsonify(rows)
 
 
-# ── /api/intents  ─────────────────────────────────────────────────────────
+# ── /api/intents  ───────────────────────────────────────────────────────────
 @app.route("/api/intents")
 def intents():
     rows = _q("""
@@ -213,7 +223,7 @@ def daily():
         ORDER BY day
     """)
     for r in rows:
-        r["day"] = str(r["day"])
+        r["day"]      = str(r["day"])
         r["sessions"] = int(r["sessions"])
     return jsonify(rows)
 
