@@ -2723,18 +2723,6 @@
           <div class="messages" id="messages">
             <div class="date-sep" id="dateSep">Today</div>
           </div>
-
-          <!-- <div class="chips-row" id="quickChips">
-            <div class="chip" onclick="sendMsg('Main Menu')">
-              <img
-                src="icons/menu.svg"
-                width="16"
-                height="16"
-                style="vertical-align: middle"
-              />Menu
-            </div>
-          </div> -->
-
           <div class="input-area">
             <div class="input-row">
               <textarea
@@ -3140,17 +3128,13 @@
       function clearChat() {
         if (!confirm("Clear all messages and start a new session?")) return;
 
-        // End the current session AFTER user confirms
         endSession(SESSION_ID);
 
-        // delete session
         localStorage.removeItem("logi_session");
 
-        // create new session
         SESSION_ID = crypto.randomUUID();
         localStorage.setItem("logi_session", SESSION_ID);
 
-        // reset UI
         messagesEl.innerHTML = '<div class="date-sep">Today</div>';
         injectWelcome();
       }
@@ -3306,25 +3290,6 @@
           color: "var(--accent)",
           icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M8 9h8M8 13h6M3 5a2 2 0 012-2h14a2 2 0 012 2v14l-4-4H5a2 2 0 01-2-2V5z"/></svg>',
         },
-        // {
-        //   key: "active_sessions",
-        //   label: "Active Sessions",
-        //   subHtml:
-        //     '<span style="display:inline-flex;align-items:center;gap:4px;color:#10b981;font-size:12px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 6px #10b981"></span> Live now</span>',
-        //   iconBg: "#fff7ed",
-        //   color: "var(--accent)",
-        //   icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
-        // },
-        // {
-        //   key: "avg_session_sec",
-        //   label: "Avg Session Duration",
-        //   fmt: (v) => admFmtDur(v),
-        //   subHtml:
-        //     '<span style="color:#ef4444;font-size:12px;font-weight:500">-1m 12s vs yesterday</span>',
-        //   iconBg: "#fff7ed",
-        //   color: "var(--accent)",
-        //   icon: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-        // },
       ];
 
       function admBuildKPI(def, stats) {
@@ -3736,76 +3701,6 @@
               "</div></div>",
           )
           .join("");
-
-        /* ── Messages per Day bar chart ── */
-        // const msgsDayEl = document.getElementById("anl-msgs-day");
-        // // build day→count from sessions (each has start_time + message_count)
-        // // sessions data is historical and already aggregated — no double counting
-        // const dayMap = {};
-        // SE.forEach((r) => {
-        //   if (!r.start_time) return;
-        //   const d = new Date(r.start_time);
-        //   const key =
-        //     d.getFullYear() +
-        //     "-" +
-        //     String(d.getMonth() + 1).padStart(2, "0") +
-        //     "-" +
-        //     String(d.getDate()).padStart(2, "0");
-        //   dayMap[key] = (dayMap[key] || 0) + (parseInt(r.message_count) || 0);
-        // });
-        // // last 14 days
-        // const days14 = [];
-        // for (let i = 13; i >= 0; i--) {
-        //   const dt = new Date();
-        //   dt.setDate(dt.getDate() - i);
-        //   const key =
-        //     dt.getFullYear() +
-        //     "-" +
-        //     String(dt.getMonth() + 1).padStart(2, "0") +
-        //     "-" +
-        //     String(dt.getDate()).padStart(2, "0");
-        //   days14.push({
-        //     label: dt.toLocaleDateString("en-IN", {
-        //       month: "short",
-        //       day: "numeric",
-        //     }),
-        //     key,
-        //     cnt: dayMap[key] || 0,
-        //   });
-        // }
-        // const dMax = Math.max(...days14.map((d) => d.cnt), 1);
-        // const yVals = [
-        //   dMax,
-        //   Math.round(dMax * 0.66),
-        //   Math.round(dMax * 0.33),
-        //   0,
-        // ];
-        // msgsDayEl.innerHTML =
-        //   '<div style="position:relative">' +
-        //   '<div class="anl-bar-ylbl">' +
-        //   yVals.map((v) => "<span>" + v + "</span>").join("") +
-        //   "</div>" +
-        //   '<div class="anl-bar-chart">' +
-        //   days14
-        //     .map(
-        //       (d) =>
-        //         '<div class="anl-bar-col">' +
-        //         '<div class="anl-bar-fill" style="height:' +
-        //         Math.max((d.cnt / dMax) * 100, d.cnt ? 2 : 0) +
-        //         '%;background:var(--accent);opacity:.85" title="' +
-        //         d.label +
-        //         ": " +
-        //         d.cnt +
-        //         ' msgs"></div>' +
-        //         '<div class="anl-bar-lbl">' +
-        //         d.label.split(" ")[0] +
-        //         "<br>" +
-        //         d.label.split(" ")[1] +
-        //         "</div>" +
-        //         "</div>",
-        //     )
-        //     .join("") +
-        //   "</div></div>";
 
         /* ── Intent Pie Chart (SVG) ── */
         const pieEl = document.getElementById("anl-intent-pie");
@@ -4450,15 +4345,6 @@
           <!-- Topbar -->
           <header class="adm-topbar">
             <div class="adm-search-wrap">
-              <!-- <svg viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input
-                class="adm-search-input"
-                type="text"
-                placeholder="Search…"
-              /> -->
             </div>
             <div class="adm-topbar-right">
               <div class="adm-icon-btn">
@@ -4612,14 +4498,6 @@
                       oninput="admFilterTable('bookings', this.value)"
                     />
                   </div>
-                  <!-- <button class="adm-filter-btn">
-                    <svg viewBox="0 0 24 24">
-                      <polygon
-                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
-                      />
-                    </svg>
-                    Filters
-                  </button> -->
                   <button
                     class="adm-export-btn"
                     onclick="admExportCSV('bookings')"
@@ -4685,14 +4563,6 @@
                       oninput="admFilterTable('pickups', this.value)"
                     />
                   </div>
-                  <!-- <button class="adm-filter-btn">
-                    <svg viewBox="0 0 24 24">
-                      <polygon
-                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
-                      />
-                    </svg>
-                    Filters
-                  </button> -->
                   <button
                     class="adm-export-btn"
                     onclick="admExportCSV('pickups')"
@@ -4750,19 +4620,6 @@
                 <div class="adm-loading"><div class="adm-spinner"></div></div>
               </div>
 
-              <!-- Row 1: Messages per Day + Intent Distribution -->
-              <!-- <div class="adm-two-col">
-                <div class="adm-card">
-                  <div class="adm-card-hd">
-                    <h3>Messages per Day</h3>
-                    <p>Daily chatbot message volume (last 14 days)</p>
-                  </div>
-                  <div class="adm-chart-body" id="anl-msgs-day">
-                    <div class="adm-loading">
-                      <div class="adm-spinner"></div>
-                    </div>
-                  </div>
-                </div> -->
                 <div class="adm-card">
                   <div class="adm-card-hd">
                     <h3>Intent Distribution</h3>
