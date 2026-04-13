@@ -21,6 +21,16 @@ nlu:
     - hii
     - hiii
     - hiiii
+    - menu
+    - Menu
+    - options
+    - what can you do
+    - show me what you can do
+    - what services do you offer
+    - what are your services
+    - what can you help me with
+    - what can you assist me with
+    - what can you do for me
 
 # ── Track Shipment ────────────────────────────────────────────────────────
 - intent: track_shipment
